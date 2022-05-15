@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import styled from "styled-components";
 import logo from "../../images/ClesetLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
