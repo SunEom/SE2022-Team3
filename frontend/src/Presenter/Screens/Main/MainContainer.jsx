@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import store from "../../store";
+import store from "../../../store";
 import MainPresenter from "./MainPresenter";
 
 const MainContainer = () => {

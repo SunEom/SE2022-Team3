@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import styled from "styled-components";
-import logo from "../../images/ClesetLogo.png";
+import logo from "../../../images/ClesetLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
@@ -69,7 +69,7 @@ const LoginPresenter = ({ onLoginButtonClick }) => {
             <Typography gutterBottom variant="h6" component="div">
               <LoginTitleDiv>
                 <div>나의 똑똑한 옷장</div>
-                <div>CLSET 이용을 위해</div>
+                <div>CLESET 이용을 위해</div>
                 <div>로그인을 해주세요!</div>
               </LoginTitleDiv>
             </Typography>
