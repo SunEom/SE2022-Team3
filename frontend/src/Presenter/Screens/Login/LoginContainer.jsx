@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import LoginPresenter from "./LoginPresenter";
-import { authService } from "../../firebase";
+import { authService } from "../../../firebase";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getIdToken } from "./LoginMethod";
 import { useNavigate } from "react-router-dom";
-import store from "../../store";
+import store from "../../../store";
 
 const LoginContainer = () => {
   let authProvider = new GoogleAuthProvider();
@@ -18,7 +18,9 @@ const LoginContainer = () => {
         let idToken = result._tokenResponse.idToken;
         // IdToken을 localStorage에 저장
         window.localStorage.setItem("idToken", idToken);
-        console.log(idToken);
+
+        // Google 닉네임 가져오기 (추후 삭제예정)
+        window.localStorage.setItem("nickname", result.user.displayName);
 
         /* 서버와 통신하는 부분을 우선 주석처리 해놓았습니다.
             
@@ -35,7 +37,7 @@ const LoginContainer = () => {
           */
 
         // 임시 사용자 정보로 로그인처리
-        store.dispatch({ type: "LOGIN", user: { nickname: "Clever" } });
+        store.dispatch({ type: "LOGIN", user: { nickname: result.user.displayName } });
 
         // 메인 화면으로 이동
         navigate("/", { replace: true });
@@ -66,7 +68,7 @@ const LoginContainer = () => {
       */
 
       // 임시 사용자 정보로 로그인처리
-      store.dispatch({ type: "LOGIN", user: { nickname: "Clever" } });
+      store.dispatch({ type: "LOGIN", user: { nickname: window.localStorage.getItem("nickname") } });
       // 메인 화면으로 이동
       navigate("/", { replace: true });
     }

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import store from "./store";
+import store from "../../../store";
+import MainPresenter from "./MainPresenter";
 
-function App() {
+const MainContainer = () => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState(store.getState().user);
@@ -14,7 +15,7 @@ function App() {
     }
   }, []);
 
-  return <div className="App">Hello {user?.nickname}</div>;
-}
+  return <MainPresenter user={user} />;
+};
 
-export default App;
+export default MainContainer;
