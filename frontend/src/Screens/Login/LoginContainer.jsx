@@ -11,21 +11,16 @@ const LoginContainer = () => {
   let navigate = useNavigate();
 
   const onLoginButtonClick = (e) => {
-    e.preventDefault();
+    signInWithPopup(authService, authProvider)
+      //로그인 성공
+      .then((result) => {
+        // Firebase로 부터 idToken을 전달 받음
+        let idToken = result._tokenResponse.idToken;
+        // IdToken을 localStorage에 저장
+        window.localStorage.setItem("idToken", idToken);
+        console.log(idToken);
 
-    const provider = e.target.id;
-
-    if (provider === "google") {
-      signInWithPopup(authService, authProvider)
-        //로그인 성공
-        .then((result) => {
-          // Firebase로 부터 idToken을 전달 받음
-          let idToken = result._tokenResponse.idToken;
-          // IdToken을 localStorage에 저장
-          window.localStorage.setItem("idToken", idToken);
-          console.log(idToken);
-
-          /* 서버와 통신하는 부분을 우선 주석처리 해놓았습니다.
+        /* 서버와 통신하는 부분을 우선 주석처리 해놓았습니다.
             
             // 로그인을 위해 IdToken을 서버에 전달
             axios
@@ -39,18 +34,17 @@ const LoginContainer = () => {
               .catch((error) => console.error(error));
           */
 
-          // 임시 사용자 정보로 로그인처리
-          store.dispatch({ type: "LOGIN", user: { nickname: "Clever" } });
+        // 임시 사용자 정보로 로그인처리
+        store.dispatch({ type: "LOGIN", user: { nickname: "Clever" } });
 
-          // 메인 화면으로 이동
-          navigate("/", { replace: true });
-        })
-        // 로그인 실패시 처리과정
-        .catch((error) => {
-          // Handle Errors here.
-          window.alert("Login에 실패하였습니다");
-        });
-    }
+        // 메인 화면으로 이동
+        navigate("/", { replace: true });
+      })
+      // 로그인 실패시 처리과정
+      .catch((error) => {
+        // Handle Errors here.
+        window.alert("Login에 실패하였습니다");
+      });
   };
 
   useEffect(() => {
