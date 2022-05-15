@@ -13,10 +13,6 @@ export default createStore((state, action) => {
     return { ...state, user: null };
   }
 
-  if (action.type === "USER_UPDATED") {
-    return { ...state, user: action.user };
-  }
-
   if (action.type === "USER_DELETE") {
     return { ...state, user: null };
   }
