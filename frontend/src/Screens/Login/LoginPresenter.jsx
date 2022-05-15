@@ -59,7 +59,7 @@ const LoginButtonContent = styled.div`
   align-items: center;
 `;
 
-const LoginPresenter = () => {
+const LoginPresenter = ({ onLoginButtonClick }) => {
   return (
     <LoginBox>
       <LoginCard>
@@ -76,7 +76,7 @@ const LoginPresenter = () => {
           </CardContent>
           <CardActions style={{ padding: 0 }}>
             <LoginButtonContainer>
-              <GoogleLoginButton variant="outlined">
+              <GoogleLoginButton variant="outlined" id="google" onClick={onLoginButtonClick}>
                 <LoginButtonContent>
                   <FontAwesomeIcon icon={faGoogle} />
                   구글로 로그인하기
