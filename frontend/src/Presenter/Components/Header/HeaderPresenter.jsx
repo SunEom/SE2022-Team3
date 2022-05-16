@@ -5,6 +5,7 @@ import headerLogoTitle from "../../../images/ClesetLogoTitle2.png";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import Drawer from "../Drawer";
 
 const HeaderTopContainer = styled.div`
   min-width: 1000px;
@@ -55,6 +56,7 @@ const HeaderPresenter = ({ user, onLogoutButtonClick }) => {
   return (
     <HeaderTopContainer>
       <LogoImageContainer>
+        <Drawer user={user} />
         <HeaderLogoImage src={headerLogo} />
         <HeaderLogoTitleImage src={headerLogoTitle} />
       </LogoImageContainer>

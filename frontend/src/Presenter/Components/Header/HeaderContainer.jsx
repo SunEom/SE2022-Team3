@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import HeaderPresenter from "./HeaderPresenter";
 import store from "../../../store";
 import { signOut } from "firebase/auth";
