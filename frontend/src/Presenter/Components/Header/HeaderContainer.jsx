@@ -22,7 +22,11 @@ const HeaderContainer = () => {
     navigate("/login", { replace: true });
   };
 
-  return <HeaderPresenter user={user} onLogoutButtonClick={onLogoutButtonClick} />;
+  const onLogoClick = () => {
+    navigate("/", { replace: false });
+  };
+
+  return <HeaderPresenter user={user} onLogoutButtonClick={onLogoutButtonClick} onLogoClick={onLogoClick} />;
 };
 
 export default HeaderContainer;
