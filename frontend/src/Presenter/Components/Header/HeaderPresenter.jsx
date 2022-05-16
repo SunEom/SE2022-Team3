@@ -17,6 +17,14 @@ const HeaderTopContainer = styled.div`
   justify-content: space-between;
 `;
 
+const DrawerButtonContainer = styled.div``;
+
+const HeaderLogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
 const LogoImageContainer = styled.div`
   display: flex;
   align-items: center;
@@ -52,13 +60,17 @@ const LogoutTitle = styled.div`
   margin-right: 5px;
 `;
 
-const HeaderPresenter = ({ user, onLogoutButtonClick }) => {
+const HeaderPresenter = ({ user, onLogoutButtonClick, onLogoClick }) => {
   return (
     <HeaderTopContainer>
       <LogoImageContainer>
-        <Drawer user={user} />
-        <HeaderLogoImage src={headerLogo} />
-        <HeaderLogoTitleImage src={headerLogoTitle} />
+        <DrawerButtonContainer>
+          <Drawer user={user} />
+        </DrawerButtonContainer>
+        <HeaderLogoContainer onClick={onLogoClick}>
+          <HeaderLogoImage src={headerLogo} />
+          <HeaderLogoTitleImage src={headerLogoTitle} />
+        </HeaderLogoContainer>
       </LogoImageContainer>
       {user && (
         <UserInfoContainer>
