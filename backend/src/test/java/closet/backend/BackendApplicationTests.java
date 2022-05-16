@@ -1,4 +1,4 @@
-package com.Respond_2017.backend;
+package closet.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
