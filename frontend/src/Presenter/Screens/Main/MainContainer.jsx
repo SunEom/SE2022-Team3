@@ -8,6 +8,10 @@ const MainContainer = () => {
 
   const [user, setUser] = useState(store.getState().user);
 
+  const onAddNewClothButtonClick = () => {
+    navigate("/newCloth", { replace: false });
+  };
+
   useEffect(() => {
     //로그인 되어있지 않은 사용자 접근 시 로그인페이지로 이동시킴
     if (user == null) {
@@ -15,7 +19,7 @@ const MainContainer = () => {
     }
   }, []);
 
-  return <MainPresenter user={user} />;
+  return <MainPresenter user={user} onAddNewClothButtonClick={onAddNewClothButtonClick} />;
 };
 
 export default MainContainer;
