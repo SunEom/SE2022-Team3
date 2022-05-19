@@ -1,8 +1,11 @@
 package closet.backend.controller;
 
+import closet.backend.dto.UserJoinDto;
 import closet.backend.entity.User;
 import closet.backend.service.UserService;
-import lombok.Data;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,30 +25,15 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/users")
-    public ResponseEntity<Object> getUsers(){
-        List<User> list = userService.getUsers();
-        return ResponseEntity.ok().body(list);
+    @PostMapping("/auth/login")
+    public User loginUser(@RequestBody String idToken) throws FirebaseAuthException{
+        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
+        String uid = decodedToken.getUid();
+        return null;
     }
 
     @PostMapping("/join")
-    public List<User> registerUser(@RequestBody@Validated JoinRequest req){
-        User user = new User(req.id,req.uid,req.nickname,Integer.parseInt(req.age),req.sex);
-        List<User> result_user = userService.saveUser(user);
-        return result_user;
+    public User registerUser(@RequestBody UserJoinDto userJoinReq){
+        return null;
     }
-
-
-    @Data
-    static class JoinRequest{
-        int id;
-        String uid;
-        @NotEmpty(message =  "닉네임은 비어 있을 수 없습니다.")
-        String nickname;
-        @NotEmpty(message = "나이는 비어있을 수 없습니다.")
-        String age;
-        @NotEmpty(message = "성별은 비어있을 수 없습니다.")
-        String sex;
-    }
-
 }

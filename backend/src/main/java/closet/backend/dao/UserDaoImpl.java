@@ -1,5 +1,6 @@
 package closet.backend.dao;
 
+import closet.backend.dto.UserJoinDto;
 import closet.backend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,18 +23,18 @@ public class UserDaoImpl implements UserDao {
                     .uid(rs.getString("uid"))
                     .nickname(rs.getString("nickname"))
                     .age(rs.getInt("age"))
-                    .sex(rs.getString("sex"))
+                    .gender(rs.getString("gender"))
             .build();
 
     @Override
-    public List<User> save(User user) {
-        jdbcTemplate.execute("INSERT INTO user(uid,nickname,age,sex) VALUES ('"+
-                user.getUid()+
-                "','"+user.getNickname()+
-                "',"+user.getAge()+
-                ",'"+user.getSex()+
+    public List<User> save(UserJoinDto userJoinDto) {
+        jdbcTemplate.execute("INSERT INTO user(uid,nickname,age,gender) VALUES ('"+
+                userJoinDto.getUid()+
+                "','"+userJoinDto.getNickname()+
+                "',"+userJoinDto.getAge()+
+                ",'"+userJoinDto.getGender()+
                 "')");
-        return jdbcTemplate.query("Select * FROM user WHERE uid = '"+user.getUid()+"'",userRowMapper);
+        return jdbcTemplate.query("Select * FROM user WHERE uid = '"+userJoinDto.getUid()+"'",userRowMapper);
     }
 
     @Override
