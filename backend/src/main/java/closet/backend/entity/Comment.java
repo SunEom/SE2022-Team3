@@ -2,6 +2,8 @@ package closet.backend.entity;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,21 +15,18 @@ import java.time.LocalDateTime;
 @Entity
 @Builder
 @Getter
-public class Cloth {
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Comment {
     @Id
-    private int cloth_id;
-
-    private String name;
-    private String season;
-    private String brand;
-    private String place;
-    private String size;
-    private String cloth_body;
-    private String file_name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
+    private int comment_id;
+    private String comment_body;
+    @NotNull
     private LocalDateTime created_date;
     private LocalDateTime updated_date;
-    private int favorite; //0이면 좋아요 안함, 1이면 좋아요.
+    @NotNull
     private int id;
+    @NotNull
+    private int post_id;
+
 }
