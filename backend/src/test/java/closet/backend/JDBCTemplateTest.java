@@ -1,6 +1,7 @@
 package closet.backend;
 
 import closet.backend.dao.UserDao;
+import closet.backend.dto.UserDto;
 import closet.backend.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,24 +19,6 @@ public class JDBCTemplateTest {
 
     @BeforeEach
     public void init() {
-        insertUser = User.builder()
-                .uid("first")
-                .nickname("first_name")
-                .age(20)
-                .sex("male")
-                .build();
-        insertUser2 = User.builder()
-                .uid("second")
-                .nickname("second_name")
-                .age(10)
-                .sex("female")
-                .build();
-        insertUser3 = User.builder()
-                .uid("third")
-                .nickname("third_name")
-                .age(10)
-                .sex("male")
-                .build();
     }
 
     @Test
@@ -45,7 +28,7 @@ public class JDBCTemplateTest {
 
     @Test
     public void findUserById() {
-        List<User> user = userDao.findById(1);
+        UserDto user = userDao.findById(1);
         System.out.println(user);
     }
 

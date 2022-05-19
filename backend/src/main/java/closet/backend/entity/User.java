@@ -1,17 +1,22 @@
 package closet.backend.entity;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
-import org.springframework.data.annotation.Id;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
-@NoArgsConstructor
-@ToString
+
+@Entity
+@Builder
+@Getter
 public class User extends BaseEntity{
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private int id;
     @NotNull
     private String uid;
@@ -20,14 +25,5 @@ public class User extends BaseEntity{
     @NotNull
     private int age;
     @NotNull
-    private String gender;
-
-    @Builder
-    public User(int id, String uid, String nickname, int age, String gender) {
-        this.id = id;
-        this.uid = uid;
-        this.nickname = nickname;
-        this.age = age;
-        this.gender = gender;
-    }
+    private String sex;
 }
