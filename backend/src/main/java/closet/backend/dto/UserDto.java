@@ -1,5 +1,6 @@
 package closet.backend.dto;
 
+import closet.backend.entity.User;
 import lombok.*;
 
 @ToString
@@ -9,13 +10,20 @@ public class UserDto {
 
     private int id;
     private String nickname;
-    private String sex;
+    private String gender;
     private int age;
+    private String uid;
 
-    public UserDto(int id, String nickname, String sex, int age) {
+    public UserDto(int id, String uid, String nickname, String gender, int age) {
         this.id = id;
+        this.uid = uid;
         this.nickname = nickname;
-        this.sex = sex;
+        this.gender = gender;
         this.age = age;
+    }
+
+    public User toEntity(){
+        User user = new User(this.id,this.uid,this.nickname,this.age,this.gender);
+        return user;
     }
 }

@@ -3,6 +3,7 @@ package closet.backend.service;
 
 import closet.backend.dao.UserDao;
 import closet.backend.dao.UserDaoImpl;
+import closet.backend.dto.UserJoinDto;
 import closet.backend.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,12 @@ public class UserService {
         return userdao.findAll();
     }
 
-    public List<User> saveUser(User user){
-        return userdao.save(user);
+    public List<User> saveUser(UserJoinDto userJoinDto){
+        return userdao.save(userJoinDto);
+    }
+
+    public User findByUid(String uid){
+        return null;
     }
 
 }

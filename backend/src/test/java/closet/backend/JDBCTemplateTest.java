@@ -40,7 +40,7 @@ public class JDBCTemplateTest {
 
     @Test
     public void userSave() {
-        System.out.println(userDao.save(insertUser));
+        System.out.println();
     }
 
     @Test
