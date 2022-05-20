@@ -10,20 +10,16 @@ public class UserDto {
 
     private int id;
     private String nickname;
-    private String gender;
+    private String sex;
     private int age;
     private String uid;
 
-    public UserDto(int id, String uid, String nickname, String gender, int age) {
+    public UserDto(int id, String uid, String nickname, String sex, int age) {
         this.id = id;
         this.uid = uid;
         this.nickname = nickname;
-        this.gender = gender;
+        this.sex = sex;
         this.age = age;
     }
 
-    public User toEntity(){
-        User user = new User(this.id,this.uid,this.nickname,this.age,this.gender);
-        return user;
-    }
 }
