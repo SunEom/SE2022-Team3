@@ -11,6 +11,8 @@ const MainContainer = () => {
   const [clothList, setClothList] = useState([]);
   const [filterIdx, setFilterIdx] = useState(0); // 현재 선택된 필터의 index : 전체(0) 계절별(1) 카테고리별(2)
   const [secondFilterIdx, setSecondFilterIdx] = useState(0);
+  const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(1);
 
   const onAddNewClothButtonClick = () => {
     navigate("/newCloth", { replace: false });
@@ -87,6 +89,138 @@ const MainContainer = () => {
         file_name: "https://image.msscdn.net/images/goods_img/20140620/102620/102620_8_500.jpg?t=20190227110752",
         favorite: false,
       },
+      {
+        name: "OORIGINAL BLACK - 조리 블랙",
+        season: "여름",
+        type: "신발",
+        brand: "우포스",
+        place: "신발장",
+        size: "270",
+        cloth_body: "여름에는 슬리퍼!",
+        file_name: "https://image.msscdn.net/images/goods_img/20190710/1092992/1092992_1_500.jpg?t=20210511143707",
+        favorite: true,
+      },
+      {
+        name: "10TH ANNIVERSARY 3PACK T-SHIRTS EDITION",
+        season: "여름",
+        type: "상의",
+        brand: "그루브라임",
+        place: "여름옷 상자",
+        size: "L",
+        cloth_body: "그루브라임 10주년 기념 반팔티셔츠 에디션",
+        file_name: "https://image.msscdn.net/images/prd_img/20210324/1860490/detail_1860490_1_500.jpg",
+        favorite: false,
+      },
+      {
+        name: " HUNTING HOOD JACKET_BLACK",
+        season: "겨울",
+        type: "아우터",
+        brand: "OUTSTANDING",
+        place: "겨울옷 상자",
+        size: "100",
+        cloth_body: "빈티지 아웃도어 자켓의 제품을 아웃스탠딩의 감성으로 재해석해낸 제품",
+        file_name: "https://image.msscdn.net/images/goods_img/20220209/2349864/2349864_1_500.png?t=20220323143623",
+        favorite: false,
+      },
+      {
+        name: "MEGAN CULOTTE - OFF WHITE",
+        season: "여름",
+        type: "하의",
+        brand: "포트메인",
+        place: "어디있는지 모르겠음..",
+        size: "S",
+        cloth_body: "미니멀한 래핑 실루엣이 돋보이는 큐롯팬츠",
+        file_name: "https://image.msscdn.net/images/goods_img/20220401/2463018/2463018_1_500.jpg",
+        favorite: false,
+      },
+      {
+        name: "2 TONE ARCH HOODIE BLACK",
+        season: "봄, 가을",
+        type: "상의",
+        brand: "예일",
+        place: "메인 옷장",
+        size: "100",
+        cloth_body: "자주 입는 후드티",
+        file_name: "https://image.msscdn.net/images/goods_img/20210111/1742661/1742661_5_500.jpg",
+        favorite: true,
+      },
+      {
+        name: "원턱 와이드 스웨트팬츠 그레이",
+        season: "봄, 여름, 가을, 겨울",
+        type: "하의",
+        brand: "가까이 유니언즈",
+        place: "옷장 2번째 칸",
+        size: "M",
+        cloth_body: "무조건 손세탁 필수!",
+        file_name: "https://image.msscdn.net/images/goods_img/20210906/2112059/2112059_1_500.jpg?t=20210909113606",
+        favorite: false,
+      },
+      {
+        name: " 메탈릭 버튼 부클레 트위드 자켓(WOMAN)_UTO-FB02 ",
+        season: "봄, 가을",
+        type: "아우터",
+        brand: "언티지",
+        place: "옷장",
+        size: "M",
+        cloth_body: "70년대 글램 무드의 아카이브에서 영감을 받아 현대적으로 재해석한 컬렉션",
+        file_name: "https://image.msscdn.net/images/prd_img/20210829/2096219/detail_2096219_4_500.jpg",
+        favorite: true,
+      },
+      {
+        name: "에어리 미니멀 니트 베스트 [BLACK] ",
+        season: "봄, 여름, 가을",
+        type: "상의",
+        brand: "드로우 핏",
+        place: "여름옷 상자",
+        size: "L",
+        cloth_body: "드로우핏의 썸머 시즌 베이직 니트 아이템",
+        file_name: "https://image.msscdn.net/images/goods_img/20210428/1925536/1925536_2_500.jpg?t=20220422144120",
+        favorite: false,
+      },
+      {
+        name: "여포켓장식벨티드원피스 MVOP322R",
+        season: "봄, 가을",
+        type: "상의",
+        brand: "마인드 브릿지",
+        place: "옷장",
+        size: "M",
+        cloth_body: "오피스룩으로 연출하기 좋은 사파리형 원피스",
+        file_name: "https://image.msscdn.net/images/goods_img/20210510/1943045/1943045_1_500.jpg?t=20210510145206",
+        favorite: false,
+      },
+      {
+        name: "Sky High - MOD7w",
+        season: "봄, 여름, 가을, 겨울",
+        type: "하의",
+        brand: "모드나인",
+        place: "행거",
+        size: "30",
+        cloth_body: "입을거 없을 때 손이가는 바지",
+        file_name: "https://image.msscdn.net/images/goods_img/20210521/1961498/1961498_1_500.jpg?t=20210521161608",
+        favorite: false,
+      },
+      {
+        name: "BW 아미 - 화이트 / BZ0579",
+        season: "가을, 겨울",
+        type: "신발",
+        brand: "아디다스",
+        place: "신발장",
+        size: "280",
+        cloth_body: "걷다보면 100번은 마주치게 되는 신발",
+        file_name: "https://image.msscdn.net/images/goods_img/20170615/577636/577636_4_500.jpg?t=20200224172901",
+        favorite: true,
+      },
+      {
+        name: "여성 XXS 빌 토트백 - 블랙 / 5506461IZ1M1090 ",
+        season: "봄, 여름",
+        type: "가방",
+        brand: "발렌시아가",
+        place: "옷장 가방칸",
+        size: "FREE",
+        cloth_body: "이게 제일 비싼 가방이었네...",
+        file_name: "https://image.msscdn.net/images/goods_img/20220331/2458213/2458213_1_500.jpg",
+        favorite: false,
+      },
     ];
 
     setClothList(tempClothList);
@@ -96,11 +230,19 @@ const MainContainer = () => {
     fetchClothes();
     setFilterIdx(idx);
     setSecondFilterIdx(0);
+    setPage(1);
+    setMaxPage(1);
   };
 
   const onSecondFilterChange = (e) => {
     setSecondFilterIdx(e.target.value);
     fetchClothes();
+    setPage(1);
+    setMaxPage(1);
+  };
+
+  const onPageChange = (e, page) => {
+    setPage(+page);
   };
 
   useEffect(() => {
@@ -121,6 +263,10 @@ const MainContainer = () => {
       onFilterButtonClick={onFilterButtonClick}
       onSecondFilterChange={onSecondFilterChange}
       secondFilterIdx={secondFilterIdx}
+      onPageChange={onPageChange}
+      page={page}
+      setMaxPage={setMaxPage}
+      maxPage={maxPage}
     />
   );
 };

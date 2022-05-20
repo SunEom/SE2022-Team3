@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, ButtonGroup, Fab, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Button, ButtonGroup, Fab, FormControl, InputLabel, MenuItem, Pagination, Select } from "@mui/material";
 import styled from "styled-components";
 import AddClothIcon from "../../../images/AddClothIcon.png";
 import TotalList from "./components/Total";
@@ -11,6 +11,7 @@ const MainTopContainer = styled.div`
   display: flex;
   justify-content: center;
   font-family: "Noto Sans KR", sans-serif;
+  margin-bottom: 50px;
 `;
 
 const AddNewClothButton = styled(Fab)`
@@ -46,7 +47,24 @@ const ClothItemContainer = styled.div`
   gap: 50px;
 `;
 
-const MainPresenter = ({ onAddNewClothButtonClick, clothList, filterIdx, onFilterButtonClick, onSecondFilterChange, secondFilterIdx }) => {
+const PagenationContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const MainPresenter = ({
+  onAddNewClothButtonClick,
+  clothList,
+  filterIdx,
+  onFilterButtonClick,
+  onSecondFilterChange,
+  secondFilterIdx,
+  onPageChange,
+  page,
+  setMaxPage,
+  maxPage,
+}) => {
   return (
     <MainTopContainer className="App">
       <AddNewClothButton color="success" aria-label="add" style={{ position: "fixed" }} onClick={onAddNewClothButtonClick}>
@@ -116,10 +134,13 @@ const MainPresenter = ({ onAddNewClothButtonClick, clothList, filterIdx, onFilte
           }
         </ContentHeader>
         <ClothItemContainer>
-          {filterIdx === 0 && <TotalList clothList={clothList} />}
-          {filterIdx === 1 && <SeasonList clothList={clothList} secondFilterIdx={secondFilterIdx} />}
-          {filterIdx === 2 && <CategoryList clothList={clothList} secondFilterIdx={secondFilterIdx} />}
+          {filterIdx === 0 && <TotalList clothList={clothList} page={page} setMaxPage={setMaxPage} />}
+          {filterIdx === 1 && <SeasonList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />}
+          {filterIdx === 2 && <CategoryList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />}
         </ClothItemContainer>
+        <PagenationContainer>
+          <Pagination count={maxPage} variant="outlined" onChange={onPageChange} />
+        </PagenationContainer>
       </MainPageContent>
     </MainTopContainer>
   );
