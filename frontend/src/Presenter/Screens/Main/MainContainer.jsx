@@ -10,9 +10,9 @@ const MainContainer = () => {
   const [user, setUser] = useState(store.getState().user);
   const [clothList, setClothList] = useState([]);
   const [filterIdx, setFilterIdx] = useState(0); // 현재 선택된 필터의 index : 전체(0) 계절별(1) 카테고리별(2)
-  const [secondFilterIdx, setSecondFilterIdx] = useState(0);
-  const [page, setPage] = useState(1);
-  const [maxPage, setMaxPage] = useState(1);
+  const [secondFilterIdx, setSecondFilterIdx] = useState(0); // 봄,여름,가을,겨울 또는 상의, 하의 ...
+  const [page, setPage] = useState(1); // 현재 보고있는 페이지
+  const [maxPage, setMaxPage] = useState(1); // 마지막 페이지가 몇번째 페이지인가.
 
   const onAddNewClothButtonClick = () => {
     navigate("/newCloth", { replace: false });
@@ -226,6 +226,7 @@ const MainContainer = () => {
     setClothList(tempClothList);
   };
 
+  //전체, 계절별, 카테고리별 버튼 선택시
   const onFilterButtonClick = (idx) => () => {
     fetchClothes();
     setFilterIdx(idx);
@@ -234,6 +235,7 @@ const MainContainer = () => {
     setMaxPage(1);
   };
 
+  // 본,여름,가을,겨울 또는 상의,하의... 선택시
   const onSecondFilterChange = (e) => {
     setSecondFilterIdx(e.target.value);
     fetchClothes();
@@ -241,6 +243,7 @@ const MainContainer = () => {
     setMaxPage(1);
   };
 
+  // 페이지 버튼 클릭시
   const onPageChange = (e, page) => {
     setPage(+page);
   };
