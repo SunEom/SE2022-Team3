@@ -101,7 +101,7 @@ const MainContainer = () => {
         favorite: true,
       },
       {
-        name: "10TH ANNIVERSARY 3PACK T-SHIRTS EDITION",
+        name: "10TH ANNIVERSARY T-SHIRTS EDITION",
         season: "여름",
         type: "상의",
         brand: "그루브라임",
@@ -156,7 +156,7 @@ const MainContainer = () => {
         favorite: false,
       },
       {
-        name: " 메탈릭 버튼 부클레 트위드 자켓(WOMAN)_UTO-FB02 ",
+        name: " 메탈릭 버튼 부클레 트위드 자켓 ",
         season: "봄, 가을",
         type: "아우터",
         brand: "언티지",
@@ -211,7 +211,7 @@ const MainContainer = () => {
         favorite: true,
       },
       {
-        name: "여성 XXS 빌 토트백 - 블랙 / 5506461IZ1M1090 ",
+        name: "여성 XXS 빌 토트백 - 블랙",
         season: "봄, 여름",
         type: "가방",
         brand: "발렌시아가",
