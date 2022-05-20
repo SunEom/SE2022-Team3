@@ -2,6 +2,7 @@ import React from "react";
 import { Add } from "@mui/icons-material";
 import { Fab } from "@mui/material";
 import styled from "styled-components";
+import AddClothIcon from "../../../images/AddClothIcon.png";
 
 const MainTopContainer = styled.div`
   min-width: 1000px;
@@ -15,8 +16,8 @@ const AddNewClothButton = styled(Fab)`
 const MainPresenter = ({ user, onAddNewClothButtonClick }) => {
   return (
     <MainTopContainer className="App">
-      <AddNewClothButton color="primary" aria-label="add" style={{ position: "absolute" }} onClick={onAddNewClothButtonClick}>
-        <Add />
+      <AddNewClothButton color="success" aria-label="add" style={{ position: "absolute" }} onClick={onAddNewClothButtonClick}>
+        <img src={AddClothIcon} width={70} />
       </AddNewClothButton>
     </MainTopContainer>
   );
