@@ -381,6 +381,18 @@ const DetailModalPresenter = ({
                     inputProps={{ maxLength: 15 }}
                     size="small"
                   />
+                  <FormControl sx={{ width: "100%" }} size="small">
+                    <InputLabel id="demo-select-small" color="success">
+                      카테고리
+                    </InputLabel>
+                    <Select label="카테고리" color="success" defaultValue={0} onChange={onCategoryChange}>
+                      <MenuItem value={0}>상의</MenuItem>
+                      <MenuItem value={1}>하의</MenuItem>
+                      <MenuItem value={2}>아우터</MenuItem>
+                      <MenuItem value={3}>모자</MenuItem>
+                      <MenuItem value={4}>가방</MenuItem>
+                    </Select>
+                  </FormControl>
 
                   <TextField
                     value={editedBrand}
@@ -411,19 +423,6 @@ const DetailModalPresenter = ({
                     onChange={onPlaceChange}
                     inputProps={{ maxLength: 15 }}
                   />
-
-                  <FormControl sx={{ width: "100%" }} size="small">
-                    <InputLabel id="demo-select-small" color="success">
-                      카테고리
-                    </InputLabel>
-                    <Select label="카테고리" color="success" defaultValue={0} onChange={onCategoryChange}>
-                      <MenuItem value={0}>상의</MenuItem>
-                      <MenuItem value={1}>하의</MenuItem>
-                      <MenuItem value={2}>아우터</MenuItem>
-                      <MenuItem value={3}>모자</MenuItem>
-                      <MenuItem value={4}>가방</MenuItem>
-                    </Select>
-                  </FormControl>
                 </RightContainer>
               </TopContainer>
               <SeasonContainer>
