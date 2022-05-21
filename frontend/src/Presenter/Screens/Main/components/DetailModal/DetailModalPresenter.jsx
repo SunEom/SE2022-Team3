@@ -1,5 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Backdrop, Box, Button, Checkbox, Fab, Fade, FormControl, InputLabel, MenuItem, Modal, Select, TextField } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  Button,
+  Checkbox,
+  Divider,
+  Fab,
+  Fade,
+  FormControl,
+  InputLabel,
+  Menu,
+  MenuItem,
+  Modal,
+  Select,
+  TextField,
+} from "@mui/material";
 import { faCanadianMapleLeaf } from "@fortawesome/free-brands-svg-icons";
 import { faEnvira } from "@fortawesome/free-brands-svg-icons";
 import { faSun, faSnowflake } from "@fortawesome/free-regular-svg-icons";
@@ -124,6 +139,13 @@ const BottomButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+`;
+
+const ClassificationMenuContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  gap: 3px;
 `;
 
 //Edit Screen
@@ -273,6 +295,14 @@ const DetailModalPresenter = ({
   onPlaceChange,
   onImageFileChange,
   onLikeButtonClick,
+  anchorEl,
+  openMenu,
+  handleClick,
+  handleMenuClose,
+  onClassificationAddButtonClick,
+  onNewClassificationInputChange,
+  newClassification,
+  classificationList,
 }) => {
   return (
     <Modal
@@ -318,9 +348,46 @@ const DetailModalPresenter = ({
                 <LikeButton aria-label="like" style={{ color: favorite ? "red" : "black" }} size="small" onClick={onLikeButtonClick}>
                   <FavoriteIcon />
                 </LikeButton>
-                <ClassificationButton aria-label="classification" size="small">
+                <ClassificationButton
+                  id="classification-button"
+                  aria-controls={openMenu ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={openMenu ? "true" : undefined}
+                  onClick={handleClick}
+                  aria-label="classification"
+                  size="small"
+                >
                   <CreateNewFolderIcon />
                 </ClassificationButton>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={openMenu}
+                  onClose={handleMenuClose}
+                  MenuListProps={{
+                    "aria-labelledby": "classification-button",
+                  }}
+                  sx={{ right: 100 }}
+                >
+                  {classificationList.map((c) => (
+                    <MenuItem onClick={handleMenuClose}>{c}</MenuItem>
+                  ))}
+                  <Divider />
+
+                  <ClassificationMenuContainer>
+                    <TextField
+                      size="small"
+                      sx={{ width: 200 }}
+                      label="새로운 분류 이름"
+                      value={newClassification}
+                      onChange={onNewClassificationInputChange}
+                      inputProps={{ maxLength: 10 }}
+                    />
+                    <Button variant="outlined" onClick={onClassificationAddButtonClick}>
+                      추가
+                    </Button>
+                  </ClassificationMenuContainer>
+                </Menu>
               </RightTopButtonContainer>
 
               <ImageContainer>
