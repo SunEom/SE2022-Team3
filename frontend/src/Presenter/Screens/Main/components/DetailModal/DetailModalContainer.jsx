@@ -48,7 +48,19 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
     setEditedPlace(e.target.value);
   };
   const onImageFileChange = (e) => {
-    setEditedFileName(e.target.value);
+    setEditedFileName(URL.createObjectURL(e.target.files[0]));
+    const formData = new FormData();
+    formData.append("img", e.target.files[0]);
+    // axios
+    //   .post(`${process.env.REACT_APP_SERVER_URL}/mypage/image`, formData, {
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //   })
+    //   .then((response) => {
+    //     store.dispatch({ type: "LOGIN", user: { ...user, img: response.data.result } });
+    //   });
+    console.log(e.target.files[0]);
+    console.log(formData);
+    console.log(typeof formData);
   };
 
   const onLikeButtonClick = () => {
