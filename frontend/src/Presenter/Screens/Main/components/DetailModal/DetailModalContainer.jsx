@@ -115,6 +115,7 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
     setEditedFavorite(cloth.favorite);
   };
 
+  // 수정하고자 하던 내용이 있는지 확인하는 함수
   const checkDifference = () => {
     return (
       name !== editedName ||
@@ -140,6 +141,7 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
   };
 
   useEffect(() => {
+    // 다음 페이지로 넘어갔을 때 Modal의 내용이 변경되지 않는 것을 방지하기 위한 코드
     resetDetailContents();
     resetEditContents();
   }, [cloth]);
