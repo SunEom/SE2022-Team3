@@ -128,6 +128,40 @@ const BottomButtonContainer = styled.div`
 
 //Edit Screen
 
+const TopContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+`;
+
+const LeftContainer = styled.div`
+  height: 250px;
+  display: flex;
+  width: 47%;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+`;
+
+const RightContainer = styled.div`
+  height: 250px;
+  display: flex;
+  width: 47%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ImagePreviewContainer = styled.div`
+  height: 220px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const EditContainer = styled.div`
   margin-top: 20px;
   width: 100%;
@@ -324,51 +358,30 @@ const DetailModalPresenter = ({
 
           {mode === "edit" && (
             <>
-              <EditContainer>
-                <NameTextField value={editedName} label="제품명" color="success" onChange={onNameChange} inputProps={{ maxLength: 15 }} />
-              </EditContainer>
+              <TopContainer>
+                <LeftContainer>
+                  <ImagePreviewContainer>
+                    <img style={{ maxHeight: "100%", maxWidth: "100%" }} src={editedFileName} />
+                  </ImagePreviewContainer>
 
-              <MultiEditItemContianer>
-                <FistEditItemContainer>
-                  <TextField
-                    value={editedBrand}
-                    label="브랜드"
-                    size="small"
-                    sx={{ width: "100%" }}
+                  <label htmlFor="contained-button-file" style={{ textAlign: "center" }}>
+                    <ImageInput accept="image/*" id="contained-button-file" multiple={false} type="file" onChange={onImageFileChange} />
+                    <Button variant="outlined" component="span" size="small">
+                      <CameraAltIcon fontSize="small" style={{ marginRight: 3 }} />
+                      사진 변경
+                    </Button>
+                  </label>
+                </LeftContainer>
+                <RightContainer>
+                  <NameTextField
+                    value={editedName}
+                    label="제품명"
                     color="success"
-                    onChange={onBrandChange}
+                    onChange={onNameChange}
                     inputProps={{ maxLength: 15 }}
-                  />
-                </FistEditItemContainer>
-
-                <SecondEditItemContainer>
-                  <TextField
-                    value={editedSize}
-                    label="사이즈"
                     size="small"
-                    sx={{ width: "100%" }}
-                    color="success"
-                    onChange={onSizeChange}
-                    inputProps={{ maxLength: 10 }}
                   />
-                </SecondEditItemContainer>
-              </MultiEditItemContianer>
-
-              <MultiEditItemContianer>
-                <FistEditItemContainer>
-                  <TextField
-                    value={editedPlace}
-                    label="보관위치"
-                    size="small"
-                    sx={{ width: "100%" }}
-                    color="success"
-                    onChange={onPlaceChange}
-                    inputProps={{ maxLength: 15 }}
-                  />
-                </FistEditItemContainer>
-
-                <SecondEditItemContainer>
-                  <FormControl sx={{ mr: 1, width: "100%" }} size="small">
+                  <FormControl sx={{ width: "100%" }} size="small">
                     <InputLabel id="demo-select-small" color="success">
                       카테고리
                     </InputLabel>
@@ -380,9 +393,38 @@ const DetailModalPresenter = ({
                       <MenuItem value={4}>가방</MenuItem>
                     </Select>
                   </FormControl>
-                </SecondEditItemContainer>
-              </MultiEditItemContianer>
 
+                  <TextField
+                    value={editedBrand}
+                    label="브랜드"
+                    size="small"
+                    sx={{ width: "100%" }}
+                    color="success"
+                    onChange={onBrandChange}
+                    inputProps={{ maxLength: 15 }}
+                  />
+
+                  <TextField
+                    value={editedSize}
+                    label="사이즈"
+                    size="small"
+                    sx={{ width: "100%" }}
+                    color="success"
+                    onChange={onSizeChange}
+                    inputProps={{ maxLength: 10 }}
+                  />
+
+                  <TextField
+                    value={editedPlace}
+                    label="보관위치"
+                    size="small"
+                    sx={{ width: "100%" }}
+                    color="success"
+                    onChange={onPlaceChange}
+                    inputProps={{ maxLength: 15 }}
+                  />
+                </RightContainer>
+              </TopContainer>
               <SeasonContainer>
                 <SeasonTitle>계절</SeasonTitle>
                 <SeasonCheckboxContainer>
@@ -419,15 +461,7 @@ const DetailModalPresenter = ({
               </EditContainer>
 
               <ButtonContainer>
-                <LeftButtonContainer>
-                  <label htmlFor="contained-button-file">
-                    <ImageInput accept="image/*" id="contained-button-file" multiple type="file" onChange={onImageFileChange} />
-                    <Button variant="outlined" component="span" size="small">
-                      <CameraAltIcon fontSize="small" style={{ marginRight: 3 }} />
-                      사진 변경
-                    </Button>
-                  </label>
-                </LeftButtonContainer>
+                <LeftButtonContainer></LeftButtonContainer>
                 <RightButtonContainer>
                   <Button variant="outlined" color="success" style={{ width: 80 }} size="small">
                     <SaveIcon fontSize="small" style={{ marginRight: 3 }} />

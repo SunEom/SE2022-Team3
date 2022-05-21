@@ -23,6 +23,7 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
   const [editedPlace, setEditedPlace] = useState(cloth.place);
   const [editedClothBody, setEditedClothBody] = useState(cloth.cloth_body);
   const [editedFavorite, setEditedFavorite] = useState(cloth.favorite);
+  const [newImgFile, setNewImgFile] = useState(null);
 
   //onChangeFunction
   const onNameChange = (e) => {
@@ -48,7 +49,19 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
     setEditedPlace(e.target.value);
   };
   const onImageFileChange = (e) => {
-    setEditedFileName(e.target.value);
+    // 업로드한 파일 미리보기 설정
+    setEditedFileName(URL.createObjectURL(e.target.files[0]));
+
+    // 서버로 전송하기 위한 이미지 파일 저장
+    setNewImgFile(e.target.files[0]);
+
+    // axios
+    //   .post(`${process.env.REACT_APP_SERVER_URL}/mypage/image`, formData, {
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //   })
+    //   .then((response) => {
+    //     store.dispatch({ type: "LOGIN", user: { ...user, img: response.data.result } });
+    //   });
   };
 
   const onLikeButtonClick = () => {
