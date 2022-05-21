@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DetailModalPresenter from "./DetailModalPresenter";
 
 const DetailModalContainer = ({ open, handleClose, cloth }) => {
@@ -51,6 +51,7 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
     setEditedFileName(e.target.value);
   };
 
+  // 상세보기-수정 화면 토글 버튼
   const onModeToggleButtonClick = () => {
     if (mode === "detail") {
       setMode("edit");
@@ -68,6 +69,7 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
     }
   };
 
+  //Modal이 종료될때 작동될 함수
   const closeHandler = () => {
     // 변경한 내용 있는지 확인
     const isSomethingEdited = checkDifference();
@@ -79,11 +81,23 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
       }
     }
     setMode("detail");
-    resetEditSpace();
+    resetEditContents();
     handleClose();
   };
 
-  const resetEditSpace = () => {
+  const resetDetailContents = () => {
+    setName(cloth.name);
+    setSeason(cloth.season);
+    setSize(cloth.size);
+    setBrand(cloth.brand);
+    setFileName(cloth.file_name);
+    setType(cloth.type);
+    setPlace(cloth.place);
+    setClothBody(cloth.cloth_body);
+    setFavorite(cloth.favorite);
+  };
+
+  const resetEditContents = () => {
     setEditedName(cloth.name);
     setEditedSeason(cloth.season);
     setEditedSize(cloth.size);
@@ -112,12 +126,17 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
     const doubleCheck = window.confirm("정말로 삭제하시겠습니까?");
 
     if (doubleCheck) {
-      //서버에 의상 삭제 요청 보낼 부분
+      //서버에 의상 삭제 요청 보낼 부분 (구현예정)
 
       window.alert("삭제되었습니다!");
       handleClose();
     }
   };
+
+  useEffect(() => {
+    resetDetailContents();
+    resetEditContents();
+  }, [cloth]);
 
   return (
     <DetailModalPresenter

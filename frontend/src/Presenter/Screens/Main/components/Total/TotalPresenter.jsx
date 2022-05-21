@@ -3,12 +3,6 @@ import React from "react";
 import styled from "styled-components";
 import ClothItem from "../ClothItem";
 
-const ClothItemCard = styled(Card)`
-  width: 450px;
-  height: 200px;
-  display: flex;
-`;
-
 const TotalPresenter = ({ clothList }) => {
   return (
     <>
