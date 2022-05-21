@@ -238,6 +238,7 @@ const DetailModalPresenter = ({
   onClothBodyChange,
   onPlaceChange,
   onImageFileChange,
+  onLikeButtonClick,
 }) => {
   return (
     <Modal
@@ -280,7 +281,7 @@ const DetailModalPresenter = ({
               </SeasonBadgeContainer>
 
               <RightTopButtonContainer>
-                <LikeButton aria-label="like" style={{ color: favorite ? "red" : "default" }} size="small">
+                <LikeButton aria-label="like" style={{ color: favorite ? "red" : "black" }} size="small" onClick={onLikeButtonClick}>
                   <FavoriteIcon />
                 </LikeButton>
                 <ClassificationButton aria-label="classification" size="small">

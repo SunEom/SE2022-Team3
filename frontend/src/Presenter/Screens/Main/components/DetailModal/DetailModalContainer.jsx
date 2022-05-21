@@ -51,6 +51,12 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
     setEditedFileName(e.target.value);
   };
 
+  const onLikeButtonClick = () => {
+    //서버에 요청하는 코드가 들어갈 부분 (구현예정)
+
+    setFavorite((current) => !current);
+  };
+
   // 상세보기-수정 화면 토글 버튼
   const onModeToggleButtonClick = () => {
     if (mode === "detail") {
@@ -172,6 +178,7 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
       onClothBodyChange={onClothBodyChange}
       onPlaceChange={onPlaceChange}
       onImageFileChange={onImageFileChange}
+      onLikeButtonClick={onLikeButtonClick}
     />
   );
 };
