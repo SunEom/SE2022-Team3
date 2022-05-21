@@ -29,7 +29,7 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 const StyledBox = styled(Box)`
   font-family: "Noto Sans KR", sans-serif;
-  height: 600px;
+  height: 650px;
   position: absolute;
   top: 50%;
   left: 50%;
