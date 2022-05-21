@@ -5,6 +5,7 @@ import headerLogoTitle from "../../../images/ClesetLogoTitle2.png";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import Drawer from "../Drawer";
 
 const HeaderTopContainer = styled.div`
   min-width: 1000px;
@@ -14,6 +15,14 @@ const HeaderTopContainer = styled.div`
   border: 1px solid rgba(20, 20, 20, 0.1);
   align-items: center;
   justify-content: space-between;
+`;
+
+const DrawerButtonContainer = styled.div``;
+
+const HeaderLogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 `;
 
 const LogoImageContainer = styled.div`
@@ -51,12 +60,17 @@ const LogoutTitle = styled.div`
   margin-right: 5px;
 `;
 
-const HeaderPresenter = ({ user, onLogoutButtonClick }) => {
+const HeaderPresenter = ({ user, onLogoutButtonClick, onLogoClick }) => {
   return (
     <HeaderTopContainer>
       <LogoImageContainer>
-        <HeaderLogoImage src={headerLogo} />
-        <HeaderLogoTitleImage src={headerLogoTitle} />
+        <DrawerButtonContainer>
+          <Drawer user={user} />
+        </DrawerButtonContainer>
+        <HeaderLogoContainer onClick={onLogoClick}>
+          <HeaderLogoImage src={headerLogo} />
+          <HeaderLogoTitleImage src={headerLogoTitle} />
+        </HeaderLogoContainer>
       </LogoImageContainer>
       {user && (
         <UserInfoContainer>

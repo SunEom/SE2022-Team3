@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import HeaderPresenter from "./HeaderPresenter";
 import store from "../../../store";
 import { signOut } from "firebase/auth";
@@ -22,7 +22,11 @@ const HeaderContainer = () => {
     navigate("/login", { replace: true });
   };
 
-  return <HeaderPresenter user={user} onLogoutButtonClick={onLogoutButtonClick} />;
+  const onLogoClick = () => {
+    navigate("/", { replace: false });
+  };
+
+  return <HeaderPresenter user={user} onLogoutButtonClick={onLogoutButtonClick} onLogoClick={onLogoClick} />;
 };
 
 export default HeaderContainer;
