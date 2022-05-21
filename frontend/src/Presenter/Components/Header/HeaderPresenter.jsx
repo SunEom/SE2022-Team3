@@ -8,7 +8,7 @@ import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import Drawer from "../Drawer";
 
 const HeaderTopContainer = styled.div`
-  min-width: 1000px;
+  min-width: 1200px;
   display: flex;
   height: 50px;
   background-color: #fffefa;

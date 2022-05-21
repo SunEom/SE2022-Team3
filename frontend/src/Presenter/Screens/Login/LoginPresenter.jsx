@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 const LoginBox = styled.div`
-  min-widht: 1200px;
+  min-width: 1200px;
   height: 800px;
   display: flex;
   align-items: center;
