@@ -8,7 +8,7 @@ import CategoryList from "./components/Category";
 import ClassificationList from "./components/Classification";
 
 const MainTopContainer = styled.div`
-  min-width: 1000px;
+  min-width: 1200px;
   display: flex;
   justify-content: center;
   font-family: "Noto Sans KR", sans-serif;
