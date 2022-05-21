@@ -327,7 +327,7 @@ const DetailModalPresenter = ({
 
                 {season.includes("여름") && (
                   <SeasonBadge style={{ borderColor: "red" }}>
-                    <FontAwesomeIcon icon={faSun} color="red" size="m" />
+                    <FontAwesomeIcon icon={faSun} color="red" />
                   </SeasonBadge>
                 )}
 
