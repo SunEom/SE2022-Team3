@@ -5,6 +5,7 @@ import AddClothIcon from "../../../images/AddClothIcon.png";
 import TotalList from "./components/Total";
 import SeasonList from "./components/Season";
 import CategoryList from "./components/Category";
+import ClassificationList from "./components/Classification";
 
 const MainTopContainer = styled.div`
   min-width: 1000px;
@@ -83,6 +84,9 @@ const MainPresenter = ({
             <Button onClick={onFilterButtonClick(2)} disabled={filterIdx === 2}>
               카테고리별
             </Button>
+            <Button onClick={onFilterButtonClick(3)} disabled={filterIdx === 3}>
+              분류별
+            </Button>
           </ButtonGroup>
           {
             // 계절 선택 Drop down
@@ -132,11 +136,36 @@ const MainPresenter = ({
               </FormControl>
             )
           }
+
+          {
+            // 분류 선택 Drop down
+            filterIdx == 3 && (
+              <FormControl sx={{ mr: 1, minWidth: 120 }} size="small">
+                <InputLabel id="demo-select-small" color="success">
+                  분류
+                </InputLabel>
+                <Select
+                  labelId="demo-select-small"
+                  id="demo-select-small"
+                  label="분류"
+                  color="success"
+                  onChange={onSecondFilterChange}
+                  defaultValue={0}
+                >
+                  <MenuItem value={0}>상의</MenuItem>
+                  <MenuItem value={1}>하의</MenuItem>
+                </Select>
+              </FormControl>
+            )
+          }
         </ContentHeader>
         <ClothItemContainer>
           {filterIdx === 0 && <TotalList clothList={clothList} page={page} setMaxPage={setMaxPage} />}
           {filterIdx === 1 && <SeasonList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />}
           {filterIdx === 2 && <CategoryList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />}
+          {filterIdx === 3 && (
+            <ClassificationList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />
+          )}
         </ClothItemContainer>
         <PagenationContainer>
           <Pagination count={maxPage} variant="outlined" onChange={onPageChange} />

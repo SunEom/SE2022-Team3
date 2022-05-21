@@ -25,6 +25,36 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
   const [editedFavorite, setEditedFavorite] = useState(cloth.favorite);
   const [newImgFile, setNewImgFile] = useState(null);
 
+  //분류 버튼을 위한 Property
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const openMenu = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const [classificationList, setClassificationList] = useState(["제주도 여행", "여름 휴가", "미국 여행"]);
+  const [newClassification, setNewClassification] = useState("");
+  const onClassificationAddButtonClick = () => {
+    if (newClassification === "") {
+      window.alert("분류 이름을 입력해주세요");
+      return;
+    }
+
+    if (classificationList.includes(newClassification)) {
+      window.alert("이미 존재하는 분류 이름입니다!");
+      return;
+    }
+
+    //서버에 분류 추가 요청 (구현 예정)
+    setClassificationList((current) => [...current, newClassification]);
+    setNewClassification("");
+  };
+  const onNewClassificationInputChange = (e) => {
+    setNewClassification(e.target.value);
+  };
+
   //onChangeFunction
   const onNameChange = (e) => {
     setEditedName(e.target.value);
@@ -194,6 +224,14 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
       onPlaceChange={onPlaceChange}
       onImageFileChange={onImageFileChange}
       onLikeButtonClick={onLikeButtonClick}
+      anchorEl={anchorEl}
+      openMenu={openMenu}
+      handleClick={handleClick}
+      handleMenuClose={handleMenuClose}
+      onClassificationAddButtonClick={onClassificationAddButtonClick}
+      onNewClassificationInputChange={onNewClassificationInputChange}
+      newClassification={newClassification}
+      classificationList={classificationList}
     />
   );
 };
