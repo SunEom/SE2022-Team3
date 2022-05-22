@@ -7,12 +7,14 @@ import {
   CardContent,
   TextField,
   Button,
+  Box,
+  IconButton,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CommentIcon from "@mui/icons-material/Comment";
-import { style } from "@mui/system";
+import EditIcon from "@mui/icons-material/Edit";
 
 const PostDetailBox = styled.div`
   min-width: 1000px;
@@ -69,26 +71,41 @@ const ImageBox = styled.img`
   max-width: 100%;
 `;
 
-const TextArea = styled.div``;
+const TextArea = styled.div`
+  margin: 70px 0px 70px 0px;
+`;
 
 const ButtonContainer = styled.div`
   margin-top: 25px;
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 10px;
 `;
 
 const PostIconArea = styled.div`
   display: flex;
-  margin-top: 25px;
 `;
 const LikeIconArea = styled.div`
   display: flex;
 `;
 const CommentIconArea = styled.div`
-  margin-left: 15px;
+  margin: 6px 0px 0px 15px;
   display: flex;
+`;
+
+const CommentText = styled.div`
+  margin: 6px 5px 0px 5px;
+  font-size: 13px;
+  color: #2e73ab;
+`;
+
+const EditDeletebtns = styled.div`
+  display: flex;
+`;
+
+const PostDeleteBtn = styled.div`
+  margin-left: 10px;
 `;
 const NewCommentArea = styled.div`
   margin-top: 20px;
@@ -127,13 +144,26 @@ const CommentDate = styled.div`
   color: #b6b6b6;
 `;
 
+const CommentDetailIconBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const CommentTime = styled.div`
   margin: 20px 0px 0px 10px;
   color: #b6b6b6;
 `;
 
-const ReplyBtn = styled.div`
-  margin: 15px 0px 0px 10px;
+const CommentIcons = styled.div`
+  display: flex;
+`;
+
+const CommentEditBtn = styled.div`
+  color: #b6b6b6;
+`;
+
+const CommentDeleteBtn = styled.div`
+  margin: 0px 0px 0px 3px;
   color: #b6b6b6;
 `;
 
@@ -142,7 +172,7 @@ const PostDetailPresenter = () => {
     <PostDetailBox>
       <PostDetailCard variant="outlined">
         <PostDetailContainer>
-          <Typography gutterBottom variant="h3" component="div">
+          <Typography gutterBottom variant="h4" component="div">
             <PostDetailTitle>TITLE</PostDetailTitle>
           </Typography>
           <PostDetailInfo>
@@ -154,72 +184,64 @@ const PostDetailPresenter = () => {
             <ImageBox src="https://image.msscdn.net/images/goods_img/20220415/2493201/2493201_1_500.jpg" />
           </ImageBoxArea>
           <TextArea>
-            <TextField
-              fullWidth
-              id="outlined-multiline-static"
-              label="본문"
-              multiline
-              rows={7}
-              InputProps={{
-                readOnly: true,
-              }}
-              defaultValue="이번 아식스 신상들 다 예쁘게 뽑은거 같아요ㅠㅠ 특히 이거 앤트러사이트 앤티크 골드 색상이 개인적으로 마음에 듭니다! 젤 카야노중에서 이게 착화감도 베스트라는 소문이 있네요ㅎ"
-            />
+            이번 아식스 신상들 다 예쁘게 뽑은거 같아요ㅠㅠ 특히 이거
+            앤트러사이트 앤티크 골드 색상이 개인적으로 마음에 듭니다! 젤
+            카야노중에서 이게 착화감도 베스트라는 소문이 있네요ㅎ
           </TextArea>
           <ButtonContainer>
-            <Button
-              variant="outlined"
-              startIcon={<EditIcon />}
-              size="small"
-              color="primary"
-            >
-              Edit
-            </Button>
-            <Button
-              variant="outlined"
-              startIcon={<DeleteIcon />}
-              size="small"
-              color="error"
-            >
-              Delete
-            </Button>
-          </ButtonContainer>
-          <PostIconArea>
-            <LikeIconArea>
+            <PostIconArea>
+              <LikeIconArea>
+                <Button
+                  variant="text"
+                  startIcon={<FavoriteBorderIcon />}
+                  size="small"
+                  color="error"
+                >
+                  좋아요
+                </Button>
+                <div>20</div>
+              </LikeIconArea>
+              <CommentIconArea>
+                <CommentIcon fontsize="small" color="primary" />
+                <CommentText>댓글</CommentText>
+              </CommentIconArea>
+              <div>1</div>
+            </PostIconArea>
+            <EditDeletebtns>
               <Button
-                variant="text"
-                startIcon={<FavoriteBorderIcon />}
-                size="small"
-                color="error"
-              >
-                좋아요
-              </Button>
-              <div>20</div>
-            </LikeIconArea>
-            <CommentIconArea>
-              <Button
-                variant="text"
-                startIcon={<CommentIcon />}
+                variant="outlined"
+                startIcon={<EditIcon />}
                 size="small"
                 color="primary"
               >
-                댓글
+                수정
               </Button>
-              <div>1</div>
-            </CommentIconArea>
-          </PostIconArea>
+              <PostDeleteBtn>
+                <Button
+                  variant="outlined"
+                  startIcon={<DeleteIcon />}
+                  size="small"
+                  color="error"
+                >
+                  삭제
+                </Button>
+              </PostDeleteBtn>
+            </EditDeletebtns>
+          </ButtonContainer>
+
           <NewCommentArea>
             <TextField
               fullWidth
               id="outlined-multiline-static"
               label="댓글"
+              inputProps={{ maxLength: 400 }}
               multiline
               rows={7}
               defaultValue=""
             />
           </NewCommentArea>
           <CommentSubmitIcon>
-            <Button variant="text" size="small">
+            <Button variant="contained" size="small">
               등록
             </Button>
           </CommentSubmitIcon>
@@ -230,15 +252,32 @@ const PostDetailPresenter = () => {
                 <UserCommentArea>
                   저 이거 구매했는데 착화감 정말 좋습니다. 앤티크골드 색상으로
                   가세요!
-                  <CommentDetail>
-                    <CommentDate>2022.05.21</CommentDate>
-                    <CommentTime>13:11</CommentTime>
-                    <ReplyBtn>
-                      <Button variant="text" size="small" color="primary">
-                        답글쓰기
-                      </Button>
-                    </ReplyBtn>
-                  </CommentDetail>
+                  <CommentDetailIconBox>
+                    <CommentDetail>
+                      <CommentDate>2022.05.21</CommentDate>
+                      <CommentTime>13:11</CommentTime>
+                    </CommentDetail>
+                    <CommentIcons>
+                      <CommentEditBtn>
+                        <IconButton
+                          aria-label="edit"
+                          size="large"
+                          color="primary"
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      </CommentEditBtn>
+                      <CommentDeleteBtn>
+                        <IconButton
+                          aria-label="delete"
+                          size="large"
+                          color="error"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </CommentDeleteBtn>
+                    </CommentIcons>
+                  </CommentDetailIconBox>
                 </UserCommentArea>
               </CommentBoxArea>
             </CommentBox>
