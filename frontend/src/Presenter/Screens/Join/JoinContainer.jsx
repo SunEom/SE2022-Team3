@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import JoinPresenter from "./JoinPresenter";
 import store from "../../../store";
-import axios from 'axios';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 //import { useHistory } from 'react-router-dom';
 
 const JoinContainer = () => {
-  //const history = useHistory();
+  const navigate = useNavigate();
+
   const [nickname, setNickname] = useState();
   const [isNicknamePassed, setIsNicknamePassed] = useState(false);
   const [age, setAge] = useState();
-  const [gender, setGender] = React.useState('NONE');
+  const [gender, setGender] = React.useState("NONE");
 
   const props = { nickname, age, gender };
 
-  useEffect(()=> {
-    if(store.getState("user").user !== null){
+  useEffect(() => {
+    if (store.getState("user").user !== null) {
       //history.push({pathname: "/"});
     }
   }, []);
@@ -42,7 +44,7 @@ const JoinContainer = () => {
     if (nickname === "") {
       return window.alert("닉네임을 입력해주세요");
     }
-/*     axios
+    /*     axios
       .post(
         `${process.env.REACT_APP_SERVER_URL}`,
         { nickname },
@@ -53,7 +55,7 @@ const JoinContainer = () => {
       }); */
   };
 
-/*   const checkNicknameAvailable = (already) => {
+  /*   const checkNicknameAvailable = (already) => {
     if (already) {
       window.alert("이미 사용중인 닉네임입니다.");
     } else {
@@ -63,14 +65,16 @@ const JoinContainer = () => {
   }; */
 
   const onSubmitJoinButton = () => {
-    if (nickname === "") {
-      return window.alert("닉네임을 입력해주세요");
-    }
+    navigate("/", { replace: true });
 
-    if (age === "") {
-      return window.alert("나이를 입력해주세요");
-    }
-/*     if (isNicknamePassed === false) {
+    // 입력 값 검증
+    // if (nickname === "") {
+    //   return window.alert("닉네임을 입력해주세요");
+    // }
+    // if (age === "") {
+    //   return window.alert("나이를 입력해주세요");
+    // }
+    /*     if (isNicknamePassed === false) {
       return window.alert("닉네임 중복 확인을 해주세요.");
     }
 
@@ -89,12 +93,9 @@ const JoinContainer = () => {
     } */
   };
 
-  return <JoinPresenter 
-    onChange={onChange} 
-    onSubmitJoinButton={onSubmitJoinButton} 
-    onSubmitNicknameCheck={onSubmitNicknameCheck}
-    {...props}
-  />;
+  return (
+    <JoinPresenter onChange={onChange} onSubmitJoinButton={onSubmitJoinButton} onSubmitNicknameCheck={onSubmitNicknameCheck} {...props} />
+  );
 };
 
 export default JoinContainer;
