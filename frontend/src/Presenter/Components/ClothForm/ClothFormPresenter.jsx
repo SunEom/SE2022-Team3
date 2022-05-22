@@ -131,7 +131,6 @@ const ClothFormPresenter = ({
   editedClothBody,
   editedFavorite,
   newImgFile,
-  onModeToggleButtonClick,
   onNameChange,
   onBrandChange,
   onSizeChange,
@@ -262,7 +261,7 @@ const ClothFormPresenter = ({
                 <SaveIcon fontSize="small" style={{ marginRight: 3 }} />
                 저장
               </Button>
-              <Button variant="outlined" color="inherit" onClick={onModeToggleButtonClick} size="small">
+              <Button variant="outlined" color="inherit" onClick={handleClose} size="small">
                 취소
               </Button>
             </RightButtonContainer>
