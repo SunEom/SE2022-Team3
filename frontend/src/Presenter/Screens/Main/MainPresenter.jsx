@@ -1,5 +1,14 @@
 import React from "react";
-import { Button, ButtonGroup, Fab, FormControl, InputLabel, MenuItem, Pagination, Select } from "@mui/material";
+import {
+  Button,
+  ButtonGroup,
+  Fab,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Pagination,
+  Select,
+} from "@mui/material";
 import styled from "styled-components";
 import AddClothIcon from "../../../images/AddClothIcon.png";
 import TotalList from "./components/Total";
@@ -68,7 +77,12 @@ const MainPresenter = ({
       <MainPageContent>
         <ContentTitle>나의 옷장</ContentTitle>
         <ContentHeader>
-          <ButtonGroup style={{ height: 40 }} variant="outlined" color="success" aria-label="outlined primary button group">
+          <ButtonGroup
+            style={{ height: 40 }}
+            variant="outlined"
+            color="success"
+            aria-label="outlined primary button group"
+          >
             <Button onClick={onFilterButtonClick(0)} disabled={filterIdx === 0}>
               전체
             </Button>
@@ -154,15 +168,44 @@ const MainPresenter = ({
           }
         </ContentHeader>
         <ClothItemContainer>
-          {filterIdx === 0 && <TotalList clothList={clothList} page={page} setMaxPage={setMaxPage} />}
-          {filterIdx === 1 && <SeasonList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />}
-          {filterIdx === 2 && <CategoryList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />}
+          {filterIdx === 0 && (
+            <TotalList
+              clothList={clothList}
+              page={page}
+              setMaxPage={setMaxPage}
+            />
+          )}
+          {filterIdx === 1 && (
+            <SeasonList
+              clothList={clothList}
+              secondFilterIdx={secondFilterIdx}
+              page={page}
+              setMaxPage={setMaxPage}
+            />
+          )}
+          {filterIdx === 2 && (
+            <CategoryList
+              clothList={clothList}
+              secondFilterIdx={secondFilterIdx}
+              page={page}
+              setMaxPage={setMaxPage}
+            />
+          )}
           {filterIdx === 3 && (
-            <ClassificationList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />
+            <ClassificationList
+              clothList={clothList}
+              secondFilterIdx={secondFilterIdx}
+              page={page}
+              setMaxPage={setMaxPage}
+            />
           )}
         </ClothItemContainer>
         <PagenationContainer>
-          <Pagination count={maxPage} variant="outlined" onChange={onPageChange} />
+          <Pagination
+            count={maxPage}
+            variant="outlined"
+            onChange={onPageChange}
+          />
         </PagenationContainer>
       </MainPageContent>
     </MainTopContainer>
