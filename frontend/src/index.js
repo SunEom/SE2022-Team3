@@ -20,7 +20,7 @@ root.render(
         <Route path="/login" element={<Login />}></Route>
         <Route path="/join" element={<Join />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
-        <Route path="/board" element={<Board />}></Route>
+        <Route path="/board/:category" element={<Board />}></Route>
         <Route path="/newCloth" element={<NewCloth />}></Route>
       </Routes>
     </BrowserRouter>
