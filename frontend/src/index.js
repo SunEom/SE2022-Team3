@@ -21,7 +21,7 @@ root.render(
         <Route path="/join" element={<Join />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/board/:category" element={<Board />}></Route>
-        <Route path="/PostDetail" element={<PostDetail />}></Route>
+        <Route path="/postdetail/:post_id" element={<PostDetail />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

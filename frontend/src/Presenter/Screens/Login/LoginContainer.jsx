@@ -39,8 +39,11 @@ const LoginContainer = () => {
         // 임시 사용자 정보로 로그인처리
         store.dispatch({ type: "LOGIN", user: { nickname: result.user.displayName } });
 
-        // 메인 화면으로 이동
-        navigate("/", { replace: true });
+        // 회원가입이 필요한지에 따라 분기해야함 우선은 무조건 회원가입페이지로 이동시키도록 구현함
+        navigate("/join", { replace: true });
+
+        // // 메인 화면으로 이동
+        // navigate("/", { replace: true });
       })
       // 로그인 실패시 처리과정
       .catch((error) => {
@@ -69,6 +72,7 @@ const LoginContainer = () => {
 
       // 임시 사용자 정보로 로그인처리
       store.dispatch({ type: "LOGIN", user: { nickname: window.localStorage.getItem("nickname") } });
+
       // 메인 화면으로 이동
       navigate("/", { replace: true });
     }
