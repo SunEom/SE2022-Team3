@@ -26,9 +26,7 @@ const ClothFormContainer = ({ cloth = null, setMode = null, open, handleClose })
   const onCategoryChange = (e) => {
     setEditedType(e.target.value);
   };
-  const onSeasonChange = (e) => {
-    setEditedName(e.target.value);
-  };
+  const onSeasonChange = (e) => {};
   const onClothBodyChange = (e) => {
     setEditedClothBody(e.target.value);
   };
