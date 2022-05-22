@@ -1,6 +1,7 @@
 package closet.backend.service;
 
 
+import closet.backend.Util.FileUtil;
 import closet.backend.dao.UserDao;
 import closet.backend.dao.UserDaoImpl;
 import closet.backend.dto.UserDto;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
