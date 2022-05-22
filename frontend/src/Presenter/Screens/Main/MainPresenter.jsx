@@ -6,6 +6,7 @@ import TotalList from "./components/Total";
 import SeasonList from "./components/Season";
 import CategoryList from "./components/Category";
 import ClassificationList from "./components/Classification";
+import AddNewClothButton from "./components/AddNewClothButton";
 
 const MainTopContainer = styled.div`
   min-width: 1200px;
@@ -13,11 +14,6 @@ const MainTopContainer = styled.div`
   justify-content: center;
   font-family: "Noto Sans KR", sans-serif;
   margin-bottom: 50px;
-`;
-
-const AddNewClothButton = styled(Fab)`
-  right: 25px;
-  bottom: 25px;
 `;
 
 const MainPageContent = styled.div`
@@ -68,9 +64,7 @@ const MainPresenter = ({
 }) => {
   return (
     <MainTopContainer className="App">
-      <AddNewClothButton color="success" aria-label="add" style={{ position: "fixed" }} onClick={onAddNewClothButtonClick}>
-        <img src={AddClothIcon} width={70} alt="AddClothIcon" />
-      </AddNewClothButton>
+      <AddNewClothButton />
       <MainPageContent>
         <ContentTitle>나의 옷장</ContentTitle>
         <ContentHeader>
