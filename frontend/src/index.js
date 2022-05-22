@@ -8,7 +8,6 @@ import Header from "./Presenter/Components/Header";
 import Join from "./Presenter/Screens/Join";
 import MyPage from "./Presenter/Screens/MyPage";
 import Board from "./Presenter/Screens/Board";
-import NewCloth from "./Presenter/Screens/NewCloth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -21,7 +20,6 @@ root.render(
         <Route path="/join" element={<Join />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/board/:category" element={<Board />}></Route>
-        <Route path="/newCloth" element={<NewCloth />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
