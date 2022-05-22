@@ -118,7 +118,7 @@ const LikeButton = styled(Fab)``;
 const ClassificationButton = styled(Fab)``;
 
 const BottomButtonContainer = styled.div`
-  margin-top: 25px;
+  margin-top: 50px;
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -269,10 +269,10 @@ const DetailModalPresenter = ({
 
               <BottomButtonContainer>
                 <Button variant="outlined" startIcon={<EditIcon />} size="small" color="primary" onClick={onModeToggleButtonClick}>
-                  Edit
+                  수정
                 </Button>
                 <Button variant="outlined" startIcon={<DeleteIcon />} size="small" color="error" onClick={onDeleteButtonClick}>
-                  Delete
+                  삭제
                 </Button>
               </BottomButtonContainer>
             </>
