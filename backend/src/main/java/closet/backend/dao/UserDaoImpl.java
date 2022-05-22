@@ -1,5 +1,6 @@
 package closet.backend.dao;
 
+import closet.backend.Util.FileUtil;
 import closet.backend.dto.UserDto;
 import closet.backend.dto.UserJoinDto;
 import closet.backend.entity.User;
