@@ -1,20 +1,12 @@
 import React from "react";
-import {
-  Button,
-  ButtonGroup,
-  Fab,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Pagination,
-  Select,
-} from "@mui/material";
+import { Button, ButtonGroup, Fab, FormControl, InputLabel, MenuItem, Pagination, Select } from "@mui/material";
 import styled from "styled-components";
 import AddClothIcon from "../../../images/AddClothIcon.png";
 import TotalList from "./components/Total";
 import SeasonList from "./components/Season";
 import CategoryList from "./components/Category";
 import ClassificationList from "./components/Classification";
+import LikeList from "./components/Like";
 import AddNewClothButton from "./components/AddNewClothButton";
 
 const MainTopContainer = styled.div`
@@ -60,7 +52,6 @@ const PagenationContainer = styled.div`
 `;
 
 const MainPresenter = ({
-  onAddNewClothButtonClick,
   clothList,
   filterIdx,
   onFilterButtonClick,
@@ -77,12 +68,7 @@ const MainPresenter = ({
       <MainPageContent>
         <ContentTitle>나의 옷장</ContentTitle>
         <ContentHeader>
-          <ButtonGroup
-            style={{ height: 40 }}
-            variant="outlined"
-            color="success"
-            aria-label="outlined primary button group"
-          >
+          <ButtonGroup style={{ height: 40 }} variant="outlined" color="success" aria-label="outlined primary button group">
             <Button onClick={onFilterButtonClick(0)} disabled={filterIdx === 0}>
               전체
             </Button>
@@ -94,6 +80,9 @@ const MainPresenter = ({
             </Button>
             <Button onClick={onFilterButtonClick(3)} disabled={filterIdx === 3}>
               분류별
+            </Button>
+            <Button onClick={onFilterButtonClick(4)} disabled={filterIdx === 4}>
+              좋아요
             </Button>
           </ButtonGroup>
           {
@@ -168,44 +157,16 @@ const MainPresenter = ({
           }
         </ContentHeader>
         <ClothItemContainer>
-          {filterIdx === 0 && (
-            <TotalList
-              clothList={clothList}
-              page={page}
-              setMaxPage={setMaxPage}
-            />
-          )}
-          {filterIdx === 1 && (
-            <SeasonList
-              clothList={clothList}
-              secondFilterIdx={secondFilterIdx}
-              page={page}
-              setMaxPage={setMaxPage}
-            />
-          )}
-          {filterIdx === 2 && (
-            <CategoryList
-              clothList={clothList}
-              secondFilterIdx={secondFilterIdx}
-              page={page}
-              setMaxPage={setMaxPage}
-            />
-          )}
+          {filterIdx === 0 && <TotalList clothList={clothList} page={page} setMaxPage={setMaxPage} />}
+          {filterIdx === 1 && <SeasonList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />}
+          {filterIdx === 2 && <CategoryList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />}
           {filterIdx === 3 && (
-            <ClassificationList
-              clothList={clothList}
-              secondFilterIdx={secondFilterIdx}
-              page={page}
-              setMaxPage={setMaxPage}
-            />
+            <ClassificationList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />
           )}
+          {filterIdx === 4 && <LikeList clothList={clothList} page={page} setMaxPage={setMaxPage} />}
         </ClothItemContainer>
         <PagenationContainer>
-          <Pagination
-            count={maxPage}
-            variant="outlined"
-            onChange={onPageChange}
-          />
+          <Pagination count={maxPage} variant="outlined" onChange={onPageChange} />
         </PagenationContainer>
       </MainPageContent>
     </MainTopContainer>

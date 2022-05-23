@@ -14,10 +14,6 @@ const MainContainer = () => {
   const [page, setPage] = useState(1); // 현재 보고있는 페이지
   const [maxPage, setMaxPage] = useState(1); // 마지막 페이지가 몇번째 페이지인가.
 
-  const onAddNewClothButtonClick = () => {
-    navigate("/newCloth", { replace: false });
-  };
-
   const fetchClothes = async () => {
     // await axios.post(`${process.env.SERVER_URL}/clothes`, {});
 
@@ -260,7 +256,6 @@ const MainContainer = () => {
   return (
     <MainPresenter
       user={user}
-      onAddNewClothButtonClick={onAddNewClothButtonClick}
       clothList={clothList}
       filterIdx={filterIdx}
       onFilterButtonClick={onFilterButtonClick}
