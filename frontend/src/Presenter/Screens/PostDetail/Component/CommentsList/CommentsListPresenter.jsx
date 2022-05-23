@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import CommentIcon from "@mui/icons-material/Comment";
-
 import { TextField, Button, Pagination } from "@mui/material";
-import CommentItemPresenter from "../CommentItem/CommentItemPresenter";
+import CommentItem from "../CommentItem";
 
 const NewCommentArea = styled.div`
   margin-top: 50px;
@@ -48,7 +47,7 @@ const CommentsListPresenter = () => {
           <CommentText>댓글</CommentText>
           <CommentNumCount>1</CommentNumCount>
         </CommentIconArea>
-        <CommentItemPresenter />
+        <CommentItem />
         <PiginationArea>
           <Pagination count={1} color="primary" />
         </PiginationArea>

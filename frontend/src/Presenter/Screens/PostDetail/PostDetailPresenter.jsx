@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { Card, Typography, Button } from "@mui/material";
-
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import EditIcon from "@mui/icons-material/Edit";
-import CommentsListPresenter from "./Component/CommentsList/CommentsListPresenter";
+import CommentsList from "./Component/CommentsList";
 
 const PostDetailBox = styled.div`
   min-width: 1000px;
@@ -153,7 +152,7 @@ const PostDetailPresenter = () => {
             </EditDeletebtns>
           </ButtonContainer>
 
-          <CommentsListPresenter />
+          <CommentsList />
         </PostDetailContainer>
       </PostDetailCard>
     </PostDetailBox>
