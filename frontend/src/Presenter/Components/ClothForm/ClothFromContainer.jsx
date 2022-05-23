@@ -49,24 +49,6 @@ const ClothFormContainer = ({ cloth = null, setMode = null, open, handleClose })
     //   });
   };
 
-  const onModeToggleButtonClick = () => {
-    // 변경한 내용 있는지 확인
-    const isSomethingChanged = checkDifference();
-
-    if (isSomethingChanged) {
-      const doubleCheck = window.confirm("저장되지 않은 내용이 있습니다.\n저장하지 않고 나가시겠습니까?");
-      if (!doubleCheck) {
-        return;
-      }
-    }
-    if (setMode) {
-      setMode("detail");
-    } else {
-      handleClose();
-    }
-    resetEditContents();
-  };
-
   const resetEditContents = () => {
     setEditedName(cloth ? cloth.name : null);
     setEditedSeason(cloth ? cloth.season : null);
@@ -112,10 +94,10 @@ const ClothFormContainer = ({ cloth = null, setMode = null, open, handleClose })
     }
     if (setMode) {
       setMode("detail");
+    } else {
+      resetEditContents();
+      handleClose();
     }
-
-    handleClose();
-    resetEditContents();
   };
 
   return (
@@ -140,7 +122,6 @@ const ClothFormContainer = ({ cloth = null, setMode = null, open, handleClose })
       onClothBodyChange={onClothBodyChange}
       onPlaceChange={onPlaceChange}
       onImageFileChange={onImageFileChange}
-      onModeToggleButtonClick={onModeToggleButtonClick}
       cloth={cloth}
     />
   );

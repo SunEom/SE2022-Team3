@@ -1,15 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  Card,
-  CardMedia,
-  Typography,
-  CardContent,
-  TextField,
-  Button,
-  Box,
-  IconButton,
-} from "@mui/material";
+import { Card, CardMedia, Typography, CardContent, TextField, Button, Box, IconButton } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -184,19 +175,13 @@ const PostDetailPresenter = () => {
             <ImageBox src="https://image.msscdn.net/images/goods_img/20220415/2493201/2493201_1_500.jpg" />
           </ImageBoxArea>
           <TextArea>
-            이번 아식스 신상들 다 예쁘게 뽑은거 같아요ㅠㅠ 특히 이거
-            앤트러사이트 앤티크 골드 색상이 개인적으로 마음에 듭니다! 젤
+            이번 아식스 신상들 다 예쁘게 뽑은거 같아요ㅠㅠ 특히 이거 앤트러사이트 앤티크 골드 색상이 개인적으로 마음에 듭니다! 젤
             카야노중에서 이게 착화감도 베스트라는 소문이 있네요ㅎ
           </TextArea>
           <ButtonContainer>
             <PostIconArea>
               <LikeIconArea>
-                <Button
-                  variant="text"
-                  startIcon={<FavoriteBorderIcon />}
-                  size="small"
-                  color="error"
-                >
+                <Button variant="text" startIcon={<FavoriteBorderIcon />} size="small" color="error">
                   좋아요
                 </Button>
                 <div>20</div>
@@ -208,21 +193,11 @@ const PostDetailPresenter = () => {
               <div>1</div>
             </PostIconArea>
             <EditDeletebtns>
-              <Button
-                variant="outlined"
-                startIcon={<EditIcon />}
-                size="small"
-                color="primary"
-              >
+              <Button variant="outlined" startIcon={<EditIcon />} size="small" color="primary">
                 수정
               </Button>
               <PostDeleteBtn>
-                <Button
-                  variant="outlined"
-                  startIcon={<DeleteIcon />}
-                  size="small"
-                  color="error"
-                >
+                <Button variant="outlined" startIcon={<DeleteIcon />} size="small" color="error">
                   삭제
                 </Button>
               </PostDeleteBtn>
@@ -250,8 +225,7 @@ const PostDetailPresenter = () => {
               <CommentBoxArea>
                 <CommentUser>User2</CommentUser>
                 <UserCommentArea>
-                  저 이거 구매했는데 착화감 정말 좋습니다. 앤티크골드 색상으로
-                  가세요!
+                  저 이거 구매했는데 착화감 정말 좋습니다. 앤티크골드 색상으로 가세요!
                   <CommentDetailIconBox>
                     <CommentDetail>
                       <CommentDate>2022.05.21</CommentDate>
@@ -259,20 +233,12 @@ const PostDetailPresenter = () => {
                     </CommentDetail>
                     <CommentIcons>
                       <CommentEditBtn>
-                        <IconButton
-                          aria-label="edit"
-                          size="large"
-                          color="primary"
-                        >
+                        <IconButton aria-label="edit" size="large" color="primary">
                           <EditIcon />
                         </IconButton>
                       </CommentEditBtn>
                       <CommentDeleteBtn>
-                        <IconButton
-                          aria-label="delete"
-                          size="large"
-                          color="error"
-                        >
+                        <IconButton aria-label="delete" size="large" color="error">
                           <DeleteIcon />
                         </IconButton>
                       </CommentDeleteBtn>

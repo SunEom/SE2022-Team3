@@ -1,7 +1,7 @@
 import React from "react";
 import ClothItem from "../ClothItem";
 
-const TotalPresenter = ({ clothList }) => {
+const LikePresenter = ({ clothList }) => {
   return (
     <>
       {clothList.map((cloth, index) => (
@@ -11,4 +11,4 @@ const TotalPresenter = ({ clothList }) => {
   );
 };
 
-export default TotalPresenter;
+export default LikePresenter;
