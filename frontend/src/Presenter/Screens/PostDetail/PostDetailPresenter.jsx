@@ -1,20 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  Card,
-  CardMedia,
-  Typography,
-  CardContent,
-  TextField,
-  Button,
-  Box,
-  IconButton,
-} from "@mui/material";
+import { Card, Typography, Button } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import CommentIcon from "@mui/icons-material/Comment";
 import EditIcon from "@mui/icons-material/Edit";
+import CommentsListPresenter from "./Component/CommentsList/CommentsListPresenter";
 
 const PostDetailBox = styled.div`
   min-width: 1000px;
@@ -94,19 +85,6 @@ const LikeIconArea = styled.div`
 const LikeNumCount = styled.div`
   margin-top: 8px;
 `;
-const CommentIconArea = styled.div`
-  margin: 0px 0px 15px 0px;
-  display: flex;
-`;
-
-const CommentText = styled.div`
-  margin: 4px 5px 0px 5px;
-  font-size: 15px;
-  color: #2e73ab;
-`;
-const CommentNumCount = styled.div`
-  margin-top: 2px;
-`;
 
 const EditDeletebtns = styled.div`
   display: flex;
@@ -114,66 +92,6 @@ const EditDeletebtns = styled.div`
 const PostEditBtn = styled.div``;
 const PostDeleteBtn = styled.div`
   margin-left: 10px;
-`;
-const NewCommentArea = styled.div`
-  margin-top: 50px;
-`;
-
-const CommentSubmitIcon = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-`;
-
-const CommentsListArea = styled.div`
-  margin-top: 25px;
-`;
-
-const CommentBox = styled.div`
-  border: solid #e9e9e9 2px;
-`;
-
-const CommentBoxArea = styled.div`
-  margin: 20px;
-`;
-
-const CommentUser = styled.div`
-  margin: 10px;
-`;
-
-const UserCommentArea = styled.div`
-  margin: 15px 0px 0px 15px;
-`;
-
-const CommentDetail = styled.div`
-  display: flex;
-`;
-const CommentDate = styled.div`
-  margin-top: 20px;
-  color: #b6b6b6;
-`;
-
-const CommentDetailIconBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const CommentTime = styled.div`
-  margin: 20px 0px 0px 10px;
-  color: #b6b6b6;
-`;
-
-const CommentIcons = styled.div`
-  display: flex;
-`;
-
-const CommentEditBtn = styled.div`
-  color: #b6b6b6;
-`;
-
-const CommentDeleteBtn = styled.div`
-  margin: 0px 0px 0px 3px;
-  color: #b6b6b6;
 `;
 
 const PostDetailPresenter = () => {
@@ -235,64 +153,7 @@ const PostDetailPresenter = () => {
             </EditDeletebtns>
           </ButtonContainer>
 
-          <CommentsListArea>
-            <CommentIconArea>
-              <CommentIcon fontsize="small" color="primary" />
-              <CommentText>댓글</CommentText>
-              <CommentNumCount>1</CommentNumCount>
-            </CommentIconArea>
-            <CommentBox>
-              <CommentBoxArea>
-                <CommentUser>User2</CommentUser>
-                <UserCommentArea>
-                  저 이거 구매했는데 착화감 정말 좋습니다. 앤티크골드 색상으로
-                  가세요!
-                  <CommentDetailIconBox>
-                    <CommentDetail>
-                      <CommentDate>2022.05.21</CommentDate>
-                      <CommentTime>13:11</CommentTime>
-                    </CommentDetail>
-                    <CommentIcons>
-                      <CommentEditBtn>
-                        <IconButton
-                          aria-label="edit"
-                          size="large"
-                          color="primary"
-                        >
-                          <EditIcon />
-                        </IconButton>
-                      </CommentEditBtn>
-                      <CommentDeleteBtn>
-                        <IconButton
-                          aria-label="delete"
-                          size="large"
-                          color="error"
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </CommentDeleteBtn>
-                    </CommentIcons>
-                  </CommentDetailIconBox>
-                </UserCommentArea>
-              </CommentBoxArea>
-            </CommentBox>
-          </CommentsListArea>
-          <NewCommentArea>
-            <TextField
-              fullWidth
-              id="outlined-multiline-static"
-              label="댓글"
-              inputProps={{ maxLength: 400 }}
-              multiline
-              rows={7}
-              defaultValue=""
-            />
-          </NewCommentArea>
-          <CommentSubmitIcon>
-            <Button variant="contained" size="small">
-              등록
-            </Button>
-          </CommentSubmitIcon>
+          <CommentsListPresenter />
         </PostDetailContainer>
       </PostDetailCard>
     </PostDetailBox>
