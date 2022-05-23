@@ -1,6 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { Card, CardMedia, Typography, CardContent, TextField, Button, Box, IconButton } from "@mui/material";
+import {
+  Card,
+  CardMedia,
+  Typography,
+  CardContent,
+  TextField,
+  Button,
+  Box,
+  IconButton,
+} from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -63,7 +72,7 @@ const ImageBox = styled.img`
 `;
 
 const TextArea = styled.div`
-  margin: 70px 0px 70px 0px;
+  margin: 70px 0px 50px 0px;
 `;
 
 const ButtonContainer = styled.div`
@@ -76,31 +85,40 @@ const ButtonContainer = styled.div`
 
 const PostIconArea = styled.div`
   display: flex;
+  margin-bottom: 100px;
 `;
 const LikeIconArea = styled.div`
   display: flex;
 `;
+
+const LikeNumCount = styled.div`
+  margin-top: 8px;
+`;
 const CommentIconArea = styled.div`
-  margin: 6px 0px 0px 15px;
+  margin: 0px 0px 15px 0px;
   display: flex;
 `;
 
 const CommentText = styled.div`
-  margin: 6px 5px 0px 5px;
-  font-size: 13px;
+  margin: 4px 5px 0px 5px;
+  font-size: 15px;
   color: #2e73ab;
+`;
+const CommentNumCount = styled.div`
+  margin-top: 2px;
 `;
 
 const EditDeletebtns = styled.div`
   display: flex;
 `;
-
+const PostEditBtn = styled.div``;
 const PostDeleteBtn = styled.div`
   margin-left: 10px;
 `;
 const NewCommentArea = styled.div`
-  margin-top: 20px;
+  margin-top: 50px;
 `;
+
 const CommentSubmitIcon = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -175,35 +193,90 @@ const PostDetailPresenter = () => {
             <ImageBox src="https://image.msscdn.net/images/goods_img/20220415/2493201/2493201_1_500.jpg" />
           </ImageBoxArea>
           <TextArea>
-            이번 아식스 신상들 다 예쁘게 뽑은거 같아요ㅠㅠ 특히 이거 앤트러사이트 앤티크 골드 색상이 개인적으로 마음에 듭니다! 젤
+            이번 아식스 신상들 다 예쁘게 뽑은거 같아요ㅠㅠ 특히 이거
+            앤트러사이트 앤티크 골드 색상이 개인적으로 마음에 듭니다! 젤
             카야노중에서 이게 착화감도 베스트라는 소문이 있네요ㅎ
           </TextArea>
           <ButtonContainer>
             <PostIconArea>
               <LikeIconArea>
-                <Button variant="text" startIcon={<FavoriteBorderIcon />} size="small" color="error">
+                <Button
+                  variant="text"
+                  startIcon={<FavoriteBorderIcon />}
+                  size="big"
+                  color="error"
+                >
                   좋아요
                 </Button>
-                <div>20</div>
+                <LikeNumCount>20</LikeNumCount>
               </LikeIconArea>
-              <CommentIconArea>
-                <CommentIcon fontsize="small" color="primary" />
-                <CommentText>댓글</CommentText>
-              </CommentIconArea>
-              <div>1</div>
             </PostIconArea>
             <EditDeletebtns>
-              <Button variant="outlined" startIcon={<EditIcon />} size="small" color="primary">
-                수정
-              </Button>
+              <PostEditBtn>
+                <Button
+                  variant="outlined"
+                  startIcon={<EditIcon />}
+                  size="small"
+                  color="primary"
+                >
+                  수정
+                </Button>
+              </PostEditBtn>
               <PostDeleteBtn>
-                <Button variant="outlined" startIcon={<DeleteIcon />} size="small" color="error">
+                <Button
+                  variant="outlined"
+                  startIcon={<DeleteIcon />}
+                  size="small"
+                  color="error"
+                >
                   삭제
                 </Button>
               </PostDeleteBtn>
             </EditDeletebtns>
           </ButtonContainer>
 
+          <CommentsListArea>
+            <CommentIconArea>
+              <CommentIcon fontsize="small" color="primary" />
+              <CommentText>댓글</CommentText>
+              <CommentNumCount>1</CommentNumCount>
+            </CommentIconArea>
+            <CommentBox>
+              <CommentBoxArea>
+                <CommentUser>User2</CommentUser>
+                <UserCommentArea>
+                  저 이거 구매했는데 착화감 정말 좋습니다. 앤티크골드 색상으로
+                  가세요!
+                  <CommentDetailIconBox>
+                    <CommentDetail>
+                      <CommentDate>2022.05.21</CommentDate>
+                      <CommentTime>13:11</CommentTime>
+                    </CommentDetail>
+                    <CommentIcons>
+                      <CommentEditBtn>
+                        <IconButton
+                          aria-label="edit"
+                          size="large"
+                          color="primary"
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      </CommentEditBtn>
+                      <CommentDeleteBtn>
+                        <IconButton
+                          aria-label="delete"
+                          size="large"
+                          color="error"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </CommentDeleteBtn>
+                    </CommentIcons>
+                  </CommentDetailIconBox>
+                </UserCommentArea>
+              </CommentBoxArea>
+            </CommentBox>
+          </CommentsListArea>
           <NewCommentArea>
             <TextField
               fullWidth
@@ -220,34 +293,6 @@ const PostDetailPresenter = () => {
               등록
             </Button>
           </CommentSubmitIcon>
-          <CommentsListArea>
-            <CommentBox>
-              <CommentBoxArea>
-                <CommentUser>User2</CommentUser>
-                <UserCommentArea>
-                  저 이거 구매했는데 착화감 정말 좋습니다. 앤티크골드 색상으로 가세요!
-                  <CommentDetailIconBox>
-                    <CommentDetail>
-                      <CommentDate>2022.05.21</CommentDate>
-                      <CommentTime>13:11</CommentTime>
-                    </CommentDetail>
-                    <CommentIcons>
-                      <CommentEditBtn>
-                        <IconButton aria-label="edit" size="large" color="primary">
-                          <EditIcon />
-                        </IconButton>
-                      </CommentEditBtn>
-                      <CommentDeleteBtn>
-                        <IconButton aria-label="delete" size="large" color="error">
-                          <DeleteIcon />
-                        </IconButton>
-                      </CommentDeleteBtn>
-                    </CommentIcons>
-                  </CommentDetailIconBox>
-                </UserCommentArea>
-              </CommentBoxArea>
-            </CommentBox>
-          </CommentsListArea>
         </PostDetailContainer>
       </PostDetailCard>
     </PostDetailBox>
