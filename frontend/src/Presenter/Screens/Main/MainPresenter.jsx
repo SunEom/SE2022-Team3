@@ -8,6 +8,7 @@ import CategoryList from "./components/Category";
 import ClassificationList from "./components/Classification";
 import LikeList from "./components/Like";
 import AddNewClothButton from "./components/AddNewClothButton";
+import Suggestion from "./components/Suggestion";
 
 const MainTopContainer = styled.div`
   min-width: 1200px;
@@ -49,6 +50,13 @@ const PagenationContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+`;
+
+const SuggestionContainer = styled.div`
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  gap: 20px;
 `;
 
 const MainPresenter = ({
@@ -168,6 +176,10 @@ const MainPresenter = ({
         <PagenationContainer>
           <Pagination count={maxPage} variant="outlined" onChange={onPageChange} />
         </PagenationContainer>
+        <SuggestionContainer>
+          <Suggestion />
+          <Suggestion />
+        </SuggestionContainer>
       </MainPageContent>
     </MainTopContainer>
   );
