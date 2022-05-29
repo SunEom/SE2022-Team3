@@ -1,3 +1,17 @@
+import { getIdToken } from "./localStorageAccess";
+
+//Router
+export const fetchUserData = async () => {
+  const idToken = getIdToken();
+
+  if (idToken) {
+    return { nickname: window.localStorage.getItem("nickname") };
+  } else {
+    return null;
+  }
+};
+
+//Main Page (의상 조회)
 export const fetchSeasonList = async (season) => {
   let springClothList = [
     {

@@ -8,19 +8,23 @@ import MyPage from "../Screens/MyPage";
 import Board from "../Screens/Board";
 import PostDetail from "../Screens/PostDetail";
 
-const RouterPresenter = () => {
+const RouterPresenter = ({ loading }) => {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Main />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/join" element={<Join />}></Route>
-        <Route path="/mypage" element={<MyPage />}></Route>
-        <Route path="/board/:category" element={<Board />}></Route>
-        <Route path="/postdetail/:post_id" element={<PostDetail />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      {!loading && (
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Main />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/join" element={<Join />}></Route>
+            <Route path="/mypage" element={<MyPage />}></Route>
+            <Route path="/board/:category" element={<Board />}></Route>
+            <Route path="/postdetail/:post_id" element={<PostDetail />}></Route>
+          </Routes>
+        </BrowserRouter>
+      )}
+    </>
   );
 };
 

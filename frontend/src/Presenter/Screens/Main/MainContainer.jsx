@@ -1,12 +1,11 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import store from "../../../store";
 import MainPresenter from "./MainPresenter";
+import { accessControl, isLogin } from "../../../util";
 
 const MainContainer = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(store.getState().user);
+  const [loading, setLoading] = useState(true);
   const [filterIdx, setFilterIdx] = useState(0); // 현재 선택된 필터의 index : 전체(0) 계절별(1) 카테고리별(2)
   const [secondFilter, setSecondFilter] = useState(); // 봄,여름,가을,겨울 또는 상의, 하의 ...
   const [page, setPage] = useState(1); // 현재 보고있는 페이지
@@ -39,15 +38,12 @@ const MainContainer = () => {
   };
 
   useEffect(() => {
-    //로그인 되어있지 않은 사용자 접근 시 로그인페이지로 이동시킴
-    if (user == null) {
-      navigate("/login", { replace: true });
-    }
+    accessControl(true);
+    setLoading(false);
   }, []);
 
   return (
     <MainPresenter
-      user={user}
       filterIdx={filterIdx}
       onFilterButtonClick={onFilterButtonClick}
       onSecondFilterChange={onSecondFilterChange}
@@ -56,6 +52,7 @@ const MainContainer = () => {
       page={page}
       setMaxPage={setMaxPage}
       maxPage={maxPage}
+      loading={loading}
     />
   );
 };

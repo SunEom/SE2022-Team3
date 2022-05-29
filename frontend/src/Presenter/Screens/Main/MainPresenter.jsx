@@ -1,7 +1,6 @@
 import React from "react";
-import { Button, ButtonGroup, Fab, FormControl, InputLabel, MenuItem, Pagination, Select } from "@mui/material";
+import { Button, ButtonGroup, FormControl, InputLabel, MenuItem, Pagination, Select } from "@mui/material";
 import styled from "styled-components";
-import AddClothIcon from "../../../images/AddClothIcon.png";
 import TotalList from "./components/Total";
 import SeasonList from "./components/Season";
 import CategoryList from "./components/Category";
@@ -59,117 +58,131 @@ const SuggestionContainer = styled.div`
   gap: 20px;
 `;
 
-const MainPresenter = ({ filterIdx, onFilterButtonClick, onSecondFilterChange, secondFilter, onPageChange, page, setMaxPage, maxPage }) => {
+const MainPresenter = ({
+  loading,
+  filterIdx,
+  onFilterButtonClick,
+  onSecondFilterChange,
+  secondFilter,
+  onPageChange,
+  page,
+  setMaxPage,
+  maxPage,
+}) => {
   return (
-    <MainTopContainer className="App">
-      <AddNewClothButton />
-      <MainPageContent>
-        <ContentTitle>나의 옷장</ContentTitle>
-        <ContentHeader>
-          <ButtonGroup style={{ height: 40 }} variant="outlined" color="success" aria-label="outlined primary button group">
-            <Button onClick={onFilterButtonClick(0)} disabled={filterIdx === 0}>
-              전체
-            </Button>
-            <Button onClick={onFilterButtonClick(1)} disabled={filterIdx === 1}>
-              계절별
-            </Button>
-            <Button onClick={onFilterButtonClick(2)} disabled={filterIdx === 2}>
-              카테고리별
-            </Button>
-            <Button onClick={onFilterButtonClick(3)} disabled={filterIdx === 3}>
-              분류별
-            </Button>
-            <Button onClick={onFilterButtonClick(4)} disabled={filterIdx === 4}>
-              좋아요
-            </Button>
-          </ButtonGroup>
-          {
-            // 계절 선택 Drop down
-            filterIdx == 1 && (
-              <FormControl sx={{ mr: 1, minWidth: 120 }} size="small">
-                <InputLabel id="demo-select-small" color="success">
-                  계절
-                </InputLabel>
-                <Select
-                  labelId="demo-select-small"
-                  id="demo-select-small"
-                  label="계절"
-                  color="success"
-                  onChange={onSecondFilterChange}
-                  defaultValue={"봄"}
-                >
-                  <MenuItem value={"봄"}>봄</MenuItem>
-                  <MenuItem value={"여름"}>여름</MenuItem>
-                  <MenuItem value={"가을"}>가을</MenuItem>
-                  <MenuItem value={"겨울"}>겨울</MenuItem>
-                </Select>
-              </FormControl>
-            )
-          }
-          {
-            // 카테고리 선택 Drop down
-            filterIdx == 2 && (
-              <FormControl sx={{ mr: 1, minWidth: 120 }} size="small">
-                <InputLabel id="demo-select-small" color="success">
-                  카테고리
-                </InputLabel>
-                <Select
-                  labelId="demo-select-small"
-                  id="demo-select-small"
-                  label="카테고리"
-                  color="success"
-                  onChange={onSecondFilterChange}
-                  defaultValue={"상의"}
-                >
-                  <MenuItem value={"상의"}>상의</MenuItem>
-                  <MenuItem value={"하의"}>하의</MenuItem>
-                  <MenuItem value={"아우터"}>아우터</MenuItem>
-                  <MenuItem value={"모자"}>모자</MenuItem>
-                  <MenuItem value={"신발"}>신발</MenuItem>
-                  <MenuItem value={"가방"}>가방</MenuItem>
-                </Select>
-              </FormControl>
-            )
-          }
+    <>
+      {!loading && (
+        <MainTopContainer className="App">
+          <AddNewClothButton />
+          <MainPageContent>
+            <ContentTitle>나의 옷장</ContentTitle>
+            <ContentHeader>
+              <ButtonGroup style={{ height: 40 }} variant="outlined" color="success" aria-label="outlined primary button group">
+                <Button onClick={onFilterButtonClick(0)} disabled={filterIdx === 0}>
+                  전체
+                </Button>
+                <Button onClick={onFilterButtonClick(1)} disabled={filterIdx === 1}>
+                  계절별
+                </Button>
+                <Button onClick={onFilterButtonClick(2)} disabled={filterIdx === 2}>
+                  카테고리별
+                </Button>
+                <Button onClick={onFilterButtonClick(3)} disabled={filterIdx === 3}>
+                  분류별
+                </Button>
+                <Button onClick={onFilterButtonClick(4)} disabled={filterIdx === 4}>
+                  좋아요
+                </Button>
+              </ButtonGroup>
+              {
+                // 계절 선택 Drop down
+                filterIdx === 1 && (
+                  <FormControl sx={{ mr: 1, minWidth: 120 }} size="small">
+                    <InputLabel id="demo-select-small" color="success">
+                      계절
+                    </InputLabel>
+                    <Select
+                      labelId="demo-select-small"
+                      id="demo-select-small"
+                      label="계절"
+                      color="success"
+                      onChange={onSecondFilterChange}
+                      defaultValue={"봄"}
+                    >
+                      <MenuItem value={"봄"}>봄</MenuItem>
+                      <MenuItem value={"여름"}>여름</MenuItem>
+                      <MenuItem value={"가을"}>가을</MenuItem>
+                      <MenuItem value={"겨울"}>겨울</MenuItem>
+                    </Select>
+                  </FormControl>
+                )
+              }
+              {
+                // 카테고리 선택 Drop down
+                filterIdx === 2 && (
+                  <FormControl sx={{ mr: 1, minWidth: 120 }} size="small">
+                    <InputLabel id="demo-select-small" color="success">
+                      카테고리
+                    </InputLabel>
+                    <Select
+                      labelId="demo-select-small"
+                      id="demo-select-small"
+                      label="카테고리"
+                      color="success"
+                      onChange={onSecondFilterChange}
+                      defaultValue={"상의"}
+                    >
+                      <MenuItem value={"상의"}>상의</MenuItem>
+                      <MenuItem value={"하의"}>하의</MenuItem>
+                      <MenuItem value={"아우터"}>아우터</MenuItem>
+                      <MenuItem value={"모자"}>모자</MenuItem>
+                      <MenuItem value={"신발"}>신발</MenuItem>
+                      <MenuItem value={"가방"}>가방</MenuItem>
+                    </Select>
+                  </FormControl>
+                )
+              }
 
-          {
-            // 분류 선택 Drop down
-            filterIdx == 3 && (
-              <FormControl sx={{ mr: 1, minWidth: 120 }} size="small">
-                <InputLabel id="demo-select-small" color="success">
-                  분류
-                </InputLabel>
-                <Select
-                  labelId="demo-select-small"
-                  id="demo-select-small"
-                  label="분류"
-                  color="success"
-                  onChange={onSecondFilterChange}
-                  defaultValue={0}
-                >
-                  <MenuItem value={0}>상의</MenuItem>
-                  <MenuItem value={1}>하의</MenuItem>
-                </Select>
-              </FormControl>
-            )
-          }
-        </ContentHeader>
-        <ClothItemContainer>
-          {filterIdx === 0 && <TotalList page={page} setMaxPage={setMaxPage} />}
-          {filterIdx === 1 && <SeasonList secondFilter={secondFilter} page={page} setMaxPage={setMaxPage} />}
-          {filterIdx === 2 && <CategoryList secondFilter={secondFilter} page={page} setMaxPage={setMaxPage} />}
-          {filterIdx === 3 && <ClassificationList secondFilter={secondFilter} page={page} setMaxPage={setMaxPage} />}
-          {filterIdx === 4 && <LikeList page={page} setMaxPage={setMaxPage} />}
-        </ClothItemContainer>
-        <PagenationContainer>
-          <Pagination count={maxPage} variant="outlined" onChange={onPageChange} />
-        </PagenationContainer>
-        <SuggestionContainer>
-          <Suggestion />
-          <Suggestion />
-        </SuggestionContainer>
-      </MainPageContent>
-    </MainTopContainer>
+              {
+                // 분류 선택 Drop down
+                filterIdx === 3 && (
+                  <FormControl sx={{ mr: 1, minWidth: 120 }} size="small">
+                    <InputLabel id="demo-select-small" color="success">
+                      분류
+                    </InputLabel>
+                    <Select
+                      labelId="demo-select-small"
+                      id="demo-select-small"
+                      label="분류"
+                      color="success"
+                      onChange={onSecondFilterChange}
+                      defaultValue={0}
+                    >
+                      <MenuItem value={0}>상의</MenuItem>
+                      <MenuItem value={1}>하의</MenuItem>
+                    </Select>
+                  </FormControl>
+                )
+              }
+            </ContentHeader>
+            <ClothItemContainer>
+              {filterIdx === 0 && <TotalList page={page} setMaxPage={setMaxPage} />}
+              {filterIdx === 1 && <SeasonList secondFilter={secondFilter} page={page} setMaxPage={setMaxPage} />}
+              {filterIdx === 2 && <CategoryList secondFilter={secondFilter} page={page} setMaxPage={setMaxPage} />}
+              {filterIdx === 3 && <ClassificationList secondFilter={secondFilter} page={page} setMaxPage={setMaxPage} />}
+              {filterIdx === 4 && <LikeList page={page} setMaxPage={setMaxPage} />}
+            </ClothItemContainer>
+            <PagenationContainer>
+              <Pagination count={maxPage} variant="outlined" onChange={onPageChange} />
+            </PagenationContainer>
+            <SuggestionContainer>
+              <Suggestion />
+              <Suggestion />
+            </SuggestionContainer>
+          </MainPageContent>
+        </MainTopContainer>
+      )}
+    </>
   );
 };
 

@@ -1,35 +1,19 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import store from "../../store";
+import React, { useEffect, useState } from "react";
+import { fetchUserData } from "../../httpRequest";
+import { loginDispatch } from "../../reduxAccess";
 import RouterPresenter from "./RouterPresenter";
 
 const RouterContainer = () => {
-  const FetchUserData = () => {
-    const idToken = window.localStorage.getItem("idToken");
-
-    // 로그인 요청코드
-    // axios...
-
-    if (idToken) {
-      // 사용자 정보 요청 코드
-      //axios...
-      // 사용자 정보가 있는 경우
-      // 사용자 정보가 없는 경우
-    } else {
-      window.location.replace("/login");
-    }
-
-    //로그인 설정코드
-    store.dispatch({ type: "LOGIN", user: { nickname: window.localStorage.getItem("nickname") } });
-  };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (window.location.href.split("/").pop() !== "login") {
-      FetchUserData();
-    }
+    fetchUserData().then((r) => {
+      loginDispatch(r);
+      setLoading(false);
+    });
   }, []);
 
-  return <RouterPresenter />;
+  return <RouterPresenter loading={loading} />;
 };
 
 export default RouterContainer;
