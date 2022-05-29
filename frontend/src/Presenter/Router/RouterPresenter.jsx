@@ -7,6 +7,7 @@ import Join from "../Screens/Join";
 import MyPage from "../Screens/MyPage";
 import Board from "../Screens/Board";
 import PostDetail from "../Screens/PostDetail";
+import Posting from "../Screens/Posting";
 
 const RouterPresenter = ({ loading }) => {
   return (
@@ -21,6 +22,7 @@ const RouterPresenter = ({ loading }) => {
             <Route path="/mypage" element={<MyPage />}></Route>
             <Route path="/board/:category" element={<Board />}></Route>
             <Route path="/postdetail/:post_id" element={<PostDetail />}></Route>
+            <Route path="/posting" element={<Posting />}></Route>
           </Routes>
         </BrowserRouter>
       )}
