@@ -1,23 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderPresenter from "./HeaderPresenter";
-import store from "../../../store";
 import { signOut } from "firebase/auth";
 import { authService } from "../../../firebase";
 import { useNavigate } from "react-router-dom";
+import { getUserState, logoutDispatch, userStateSubscribe } from "../../../reduxAccess";
+import { removeIdToken } from "../../../localStorageAccess";
 
 const HeaderContainer = () => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState(null);
 
-  store.subscribe(() => {
-    let userData = store.getState().user;
-    setUser(userData);
-  });
-
   const onLogoutButtonClick = () => {
-    window.localStorage.removeItem("idToken");
-    store.dispatch({ type: "LOGOUT" });
+    removeIdToken();
+    logoutDispatch();
     signOut(authService);
     navigate("/login", { replace: true });
   };
@@ -25,6 +21,12 @@ const HeaderContainer = () => {
   const onLogoClick = () => {
     navigate("/", { replace: false });
   };
+
+  useEffect(() => {
+    let userData = getUserState();
+    setUser(userData);
+    userStateSubscribe(setUser);
+  }, []);
 
   return <HeaderPresenter user={user} onLogoutButtonClick={onLogoutButtonClick} onLogoClick={onLogoClick} />;
 };
