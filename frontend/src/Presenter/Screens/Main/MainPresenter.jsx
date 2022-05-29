@@ -59,17 +59,7 @@ const SuggestionContainer = styled.div`
   gap: 20px;
 `;
 
-const MainPresenter = ({
-  clothList,
-  filterIdx,
-  onFilterButtonClick,
-  onSecondFilterChange,
-  secondFilterIdx,
-  onPageChange,
-  page,
-  setMaxPage,
-  maxPage,
-}) => {
+const MainPresenter = ({ filterIdx, onFilterButtonClick, onSecondFilterChange, secondFilter, onPageChange, page, setMaxPage, maxPage }) => {
   return (
     <MainTopContainer className="App">
       <AddNewClothButton />
@@ -106,12 +96,12 @@ const MainPresenter = ({
                   label="계절"
                   color="success"
                   onChange={onSecondFilterChange}
-                  defaultValue={0}
+                  defaultValue={"봄"}
                 >
-                  <MenuItem value={0}>봄</MenuItem>
-                  <MenuItem value={1}>여름</MenuItem>
-                  <MenuItem value={2}>가을</MenuItem>
-                  <MenuItem value={3}>겨울</MenuItem>
+                  <MenuItem value={"봄"}>봄</MenuItem>
+                  <MenuItem value={"여름"}>여름</MenuItem>
+                  <MenuItem value={"가을"}>가을</MenuItem>
+                  <MenuItem value={"겨울"}>겨울</MenuItem>
                 </Select>
               </FormControl>
             )
@@ -129,14 +119,14 @@ const MainPresenter = ({
                   label="카테고리"
                   color="success"
                   onChange={onSecondFilterChange}
-                  defaultValue={0}
+                  defaultValue={"상의"}
                 >
-                  <MenuItem value={0}>상의</MenuItem>
-                  <MenuItem value={1}>하의</MenuItem>
-                  <MenuItem value={2}>아우터</MenuItem>
-                  <MenuItem value={3}>모자</MenuItem>
-                  <MenuItem value={4}>신발</MenuItem>
-                  <MenuItem value={5}>가방</MenuItem>
+                  <MenuItem value={"상의"}>상의</MenuItem>
+                  <MenuItem value={"하의"}>하의</MenuItem>
+                  <MenuItem value={"아우터"}>아우터</MenuItem>
+                  <MenuItem value={"모자"}>모자</MenuItem>
+                  <MenuItem value={"신발"}>신발</MenuItem>
+                  <MenuItem value={"가방"}>가방</MenuItem>
                 </Select>
               </FormControl>
             )
@@ -165,13 +155,11 @@ const MainPresenter = ({
           }
         </ContentHeader>
         <ClothItemContainer>
-          {filterIdx === 0 && <TotalList clothList={clothList} page={page} setMaxPage={setMaxPage} />}
-          {filterIdx === 1 && <SeasonList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />}
-          {filterIdx === 2 && <CategoryList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />}
-          {filterIdx === 3 && (
-            <ClassificationList clothList={clothList} secondFilterIdx={secondFilterIdx} page={page} setMaxPage={setMaxPage} />
-          )}
-          {filterIdx === 4 && <LikeList clothList={clothList} page={page} setMaxPage={setMaxPage} />}
+          {filterIdx === 0 && <TotalList page={page} setMaxPage={setMaxPage} />}
+          {filterIdx === 1 && <SeasonList secondFilter={secondFilter} page={page} setMaxPage={setMaxPage} />}
+          {filterIdx === 2 && <CategoryList secondFilter={secondFilter} page={page} setMaxPage={setMaxPage} />}
+          {filterIdx === 3 && <ClassificationList secondFilter={secondFilter} page={page} setMaxPage={setMaxPage} />}
+          {filterIdx === 4 && <LikeList page={page} setMaxPage={setMaxPage} />}
         </ClothItemContainer>
         <PagenationContainer>
           <Pagination count={maxPage} variant="outlined" onChange={onPageChange} />

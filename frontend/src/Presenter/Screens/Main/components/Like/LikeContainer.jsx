@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchFavList } from "../../../../../httpRequest";
 import LikePresenter from "./LikePresenter";
 
-const LikeContainer = ({ clothList, page, setMaxPage }) => {
-  // 좋아요를 누른 의상 리스트
-  const filteredClothList = clothList.filter((c) => c.favorite);
+const LikeContainer = ({ page, setMaxPage }) => {
+  const [favClothList, setFavClothList] = useState([]);
+  const [nowPageList, setNowPageList] = useState([]);
 
-  // 좋아요를 누른 의상 중 현재 페이지에서 보여지고 있는 의상 리스트
-  const nowPageClothList = filteredClothList.slice((page - 1) * 10, page * 10);
+  useEffect(() => {
+    fetchFavList().then((r) => {
+      setFavClothList(r);
+      setNowPageList(r.slice((page - 1) * 10, page * 10));
 
-  // 마지막 페이지 번호 설정
-  setMaxPage(Math.ceil(filteredClothList.length / 10));
+      // 마지막 페이지 번호 설정
+      setMaxPage(Math.ceil(r.length / 10));
+    });
+  }, [page]);
 
-  return <LikePresenter clothList={nowPageClothList} />;
+  return <LikePresenter clothList={nowPageList} />;
 };
 
 export default LikeContainer;
