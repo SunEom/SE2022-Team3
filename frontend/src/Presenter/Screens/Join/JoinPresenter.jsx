@@ -65,15 +65,15 @@ const LoginButtonContent = styled.div`
 const Gender = [
   {
     value: 'M',
-    label: '남',
+    label: '남자',
   },
   {
     value: 'W',
-    label: '여',
+    label: '여자',
   },
   {
     value: 'NONE',
-    label: '선택안함',
+    label: '비공개',
   },
 ];
 
@@ -92,7 +92,7 @@ const JoinPresenter = ({onSubmitJoinButton, onSubmitNicknameCheck, onChange, gen
                     label="닉네임"
                     variant="standard"
                     inputProps={{ maxLength: 12 }}
-                    sx={{ width: '18ch' }}
+                    sx={{ width: '12.5ch', marginBottom: '1.8ch' }}
                     color="success"
                     onChange={onChange}
                     value={nickname}
@@ -101,7 +101,7 @@ const JoinPresenter = ({onSubmitJoinButton, onSubmitNicknameCheck, onChange, gen
                     variant="contained" 
                     color="success" 
                     size="small" 
-                    sx={{ left: '26ch' }}
+                    sx={{ top: '0.8ch', left:'1.5ch' }}
                     onClick={onSubmitNicknameCheck}>
                     확인
                   </Button>
