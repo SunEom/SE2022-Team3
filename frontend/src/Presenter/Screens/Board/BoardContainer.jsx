@@ -6,18 +6,7 @@ const BoardContainer = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [category, setCategory] = useState(params.category);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [postings, setPostings] = useState();
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
 
   const columns = [
     { id: "id", label: "번호", width: 50, align: "center" },
@@ -116,16 +105,16 @@ const BoardContainer = () => {
     { id: 39, title: "이렇게 입어보면 어떨까요39", comments: 20, nickname: "ashrain" },
     { id: 40, title: "이렇게 입어보면 어떨까요40", comments: 11, nickname: "kimcw" },
   ];
-  const onPostItemClick = (post) => (e) => {
-    navigate(`/postDetail/${post.id}`);
-  };
-
   const fetchPostings = async () => {
     if (params.category === "tip") {
       setPostings(rows);
     } else {
       setPostings(rows2);
     }
+  };
+
+  const onAddNewPostingButtonClick = () => {
+    navigate("/posting", { replace: false });
   };
 
   useEffect(() => {
@@ -136,18 +125,7 @@ const BoardContainer = () => {
     fetchPostings();
   }, []);
 
-  return (
-    <BoardPresenter
-      page={page}
-      rowsPerPage={rowsPerPage}
-      handleChangePage={handleChangePage}
-      handleChangeRowsPerPage={handleChangeRowsPerPage}
-      columns={columns}
-      rows={postings}
-      onPostItemClick={onPostItemClick}
-      category={category}
-    />
-  );
+  return <BoardPresenter rows={postings} category={category} onAddNewPostingButtonClick={onAddNewPostingButtonClick} />;
 };
 
 export default BoardContainer;
