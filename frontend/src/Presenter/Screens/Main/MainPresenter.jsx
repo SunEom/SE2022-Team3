@@ -134,10 +134,12 @@ const MainPresenter = ({
                     >
                       <MenuItem value={"상의"}>상의</MenuItem>
                       <MenuItem value={"하의"}>하의</MenuItem>
+                      <MenuItem value={"한벌옷"}>한벌옷</MenuItem>
                       <MenuItem value={"아우터"}>아우터</MenuItem>
                       <MenuItem value={"모자"}>모자</MenuItem>
                       <MenuItem value={"신발"}>신발</MenuItem>
                       <MenuItem value={"가방"}>가방</MenuItem>
+                      <MenuItem value={"기타"}>기타</MenuItem>
                     </Select>
                   </FormControl>
                 )
@@ -173,7 +175,7 @@ const MainPresenter = ({
               {filterIdx === 4 && <LikeList page={page} setMaxPage={setMaxPage} />}
             </ClothItemContainer>
             <PagenationContainer>
-              <Pagination count={maxPage} variant="outlined" onChange={onPageChange} />
+              <Pagination page={page} count={maxPage} variant="outlined" onChange={onPageChange} />
             </PagenationContainer>
             <SuggestionContainer>
               <Suggestion />
