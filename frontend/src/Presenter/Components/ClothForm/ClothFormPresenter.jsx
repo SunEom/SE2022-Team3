@@ -155,7 +155,7 @@ const ClothFormPresenter = ({
           <TopContainer>
             <LeftContainer>
               <ImagePreviewContainer>
-                <img style={{ maxHeight: "100%", maxWidth: "100%" }} src={editedFileName ? editedFileName : DefaultImage} />
+                <img style={{ maxHeight: "100%", maxWidth: "100%" }} src={editedFileName ? editedFileName : DefaultImage} alt="" />
               </ImagePreviewContainer>
 
               <label htmlFor="contained-button-file" style={{ textAlign: "center" }}>
