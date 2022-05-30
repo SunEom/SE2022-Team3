@@ -31,17 +31,21 @@ const AddNewPostingButton = styled(Fab)`
   bottom: 30px;
 `;
 
-const BoardPresenter = ({ rows, category, onAddNewPostingButtonClick }) => {
+const BoardPresenter = ({ loading, rows, category, onAddNewPostingButtonClick }) => {
   return (
-    <BoardTopContainer>
-      <BoardContentContainer>
-        <BoardTitle>{category === "fashion" ? "나만의 패션 코디" : "의상 관리 꿀팁"}</BoardTitle>
-        <AddNewPostingButton color="success" sx={{ position: "fixed" }} onClick={onAddNewPostingButtonClick}>
-          <FontAwesomeIcon icon={faPenToSquare} size="xl" />
-        </AddNewPostingButton>
-        <BoardTable postings={rows} />
-      </BoardContentContainer>
-    </BoardTopContainer>
+    <>
+      {!loading && (
+        <BoardTopContainer>
+          <BoardContentContainer>
+            <BoardTitle>{category === "fashion" ? "나만의 패션 코디" : "의상 관리 꿀팁"}</BoardTitle>
+            <AddNewPostingButton color="success" sx={{ position: "fixed" }} onClick={onAddNewPostingButtonClick}>
+              <FontAwesomeIcon icon={faPenToSquare} size="xl" />
+            </AddNewPostingButton>
+            <BoardTable postings={rows} />
+          </BoardContentContainer>
+        </BoardTopContainer>
+      )}
+    </>
   );
 };
 
