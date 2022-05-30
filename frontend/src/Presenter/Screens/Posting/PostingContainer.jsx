@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PostingPresenter from "./PostingPresenter";
-import store from "../../../store";
-import { useNavigate } from "react-router-dom";
 
 const PostingContainer = () => {
-
-    return (
-      <PostingPresenter />
-    );
+  return <PostingPresenter />;
 };
 
 export default PostingContainer;

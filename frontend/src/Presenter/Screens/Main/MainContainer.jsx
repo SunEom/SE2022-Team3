@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import MainPresenter from "./MainPresenter";
-import { accessControl, isLogin } from "../../../util";
+import { accessControl } from "../../../util";
 
 const MainContainer = () => {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [filterIdx, setFilterIdx] = useState(0); // 현재 선택된 필터의 index : 전체(0) 계절별(1) 카테고리별(2)
   const [secondFilter, setSecondFilter] = useState(); // 봄,여름,가을,겨울 또는 상의, 하의 ...

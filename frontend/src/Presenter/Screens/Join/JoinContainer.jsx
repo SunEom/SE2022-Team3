@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import JoinPresenter from "./JoinPresenter";
 import store from "../../../store";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 //import { useHistory } from 'react-router-dom';
 

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { authService } from "../../../firebase";
 import { removeIdToken } from "../../../localStorageAccess";
 import { logoutDispatch } from "../../../reduxAccess";
-import store from "../../../store";
 import DrawerPresenter from "./DrawerPresenter";
 
 const DrawerContainer = ({ user }) => {
