@@ -20,7 +20,7 @@ const TitleBox = styled.div`
 `;
 
 const Contents = styled.textarea`
-  width: 80ch;
+  width: 79.5ch;
   height: 50ch;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;

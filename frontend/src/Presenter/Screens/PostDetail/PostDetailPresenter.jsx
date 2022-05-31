@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Card, Typography, Button } from "@mui/material";
+import { Card, Typography, Button, TextField, MenuItem } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import EditIcon from "@mui/icons-material/Edit";
@@ -93,11 +93,41 @@ const PostDeleteBtn = styled.div`
   margin-left: 10px;
 `;
 
-const PostDetailPresenter = () => {
+const TitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Contents = styled.textarea`
+  width: 79.5ch;
+  height: 50ch;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  border-color: lightgrey;
+`;
+
+const Category = [
+  {
+    value: "tip",
+    label: "의상 관리 꿀팁",
+  },
+  {
+    value: "fashion",
+    label: "나만의 패션 코디",
+  },
+];
+
+const Input = styled("input")({
+  display: "none",
+});
+
+const PostDetailPresenter = ({onChange, onEditClick, isread}) => {
   return (
     <PostDetailBox>
       <PostDetailCard variant="outlined">
         <PostDetailContainer>
+      {isread ? (
+        <>
           <Typography gutterBottom variant="h4" component="div">
             <PostDetailTitle>TITLE</PostDetailTitle>
           </Typography>
@@ -135,6 +165,7 @@ const PostDetailPresenter = () => {
                   startIcon={<EditIcon />}
                   size="small"
                   color="primary"
+                  onClick={onEditClick}
                 >
                   수정
                 </Button>
@@ -153,8 +184,41 @@ const PostDetailPresenter = () => {
           </ButtonContainer>
 
           <CommentsList />
-        </PostDetailContainer>
-      </PostDetailCard>
+      </>
+      ):(
+      <div style={{margin:"50px"}}>
+        <div style={{ fontSize: "32px", margin: "10px 0 60px 0", fontWeight: "600" }}>게시글 수정</div>
+        <TitleBox>
+          <div style={{ fontSize: "21px" }}>제목</div>
+          <TextField hiddenLabel sx={{ width: "80ch", margin: "1.2ch 0 1.5ch 0" }} color="success" size="small"></TextField>
+          <div style={{ fontSize: "20px" }}>게시판 선택</div>
+          <TextField select hiddenLabel sx={{ width: "80ch", margin: "1.2ch 0 1ch 0" }} color="success" size="small">
+            {Category.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          <div style={{ fontSize: "20px", margin: "1.2ch 0" }}>내용</div>
+          <label htmlFor="contained-button-file">
+            <Input accept="image/*" id="contained-button-file" multiple type="file" />
+            <Button variant="contained" component="span" color="success" size="small">
+              이미지 업로드
+            </Button>
+          </label>
+          <Contents style={{ margin: "1ch 0" }}></Contents>
+        </TitleBox>
+        <Button
+          variant="contained"
+          color="success"
+          size="small"
+          sx={{ width: "1ch", left: "90ch", margin: "1.5ch 0" }}
+        >
+          작성
+        </Button>
+      </div>)}
+      </PostDetailContainer>
+     </PostDetailCard>
     </PostDetailBox>
   );
 };
