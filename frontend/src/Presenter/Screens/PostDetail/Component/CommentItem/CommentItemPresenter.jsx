@@ -6,6 +6,7 @@ import { IconButton } from "@mui/material";
 
 const CommentBox = styled.div`
   border: solid #e9e9e9 2px;
+  margin-bottom: 10px;
 `;
 
 const CommentBoxArea = styled.div`
@@ -51,17 +52,17 @@ const CommentDeleteBtn = styled.div`
   color: #b6b6b6;
 `;
 
-const CommentItemPresenter = () => {
+const CommentItemPresenter = ({ comment }) => {
   return (
     <CommentBox>
       <CommentBoxArea>
-        <CommentUser>User2</CommentUser>
+        <CommentUser>{comment?.user}</CommentUser>
         <UserCommentArea>
-          저 이거 구매했는데 착화감 정말 좋습니다. 앤티크골드 색상으로 가세요!
+          {comment?.body}
           <CommentDetailIconBox>
             <CommentDetail>
-              <CommentDate>2022.05.21</CommentDate>
-              <CommentTime>13:11</CommentTime>
+              <CommentDate>{comment?.uploadDate}</CommentDate>
+              <CommentTime>{comment?.uploadTime}</CommentTime>
             </CommentDetail>
             <CommentIcons>
               <CommentEditBtn>
