@@ -5,6 +5,8 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getIdToken } from "./LoginMethod";
 import { useNavigate } from "react-router-dom";
 import store from "../../../store";
+import { setIdToken } from "../../../localStorageAccess";
+import { loginDispatch } from "../../../reduxAccess";
 
 const LoginContainer = () => {
   let authProvider = new GoogleAuthProvider();
@@ -17,7 +19,7 @@ const LoginContainer = () => {
         // Firebase로 부터 idToken을 전달 받음
         let idToken = result._tokenResponse.idToken;
         // IdToken을 localStorage에 저장
-        window.localStorage.setItem("idToken", idToken);
+        setIdToken(idToken);
 
         // Google 닉네임 가져오기 (추후 삭제예정)
         window.localStorage.setItem("nickname", result.user.displayName);
@@ -37,7 +39,7 @@ const LoginContainer = () => {
           */
 
         // 임시 사용자 정보로 로그인처리
-        store.dispatch({ type: "LOGIN", user: { nickname: result.user.displayName } });
+        loginDispatch({ nickname: result.user.displayName });
 
         // 회원가입이 필요한지에 따라 분기해야함 우선은 무조건 회원가입페이지로 이동시키도록 구현함
         navigate("/join", { replace: true });

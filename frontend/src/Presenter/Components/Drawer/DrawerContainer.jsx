@@ -2,7 +2,8 @@ import { signOut } from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../../../firebase";
-import store from "../../../store";
+import { removeIdToken } from "../../../localStorageAccess";
+import { logoutDispatch } from "../../../reduxAccess";
 import DrawerPresenter from "./DrawerPresenter";
 
 const DrawerContainer = ({ user }) => {
@@ -27,8 +28,8 @@ const DrawerContainer = ({ user }) => {
         break;
 
       case "로그아웃":
-        window.localStorage.removeItem("idToken");
-        store.dispatch({ type: "LOGOUT" });
+        removeIdToken();
+        logoutDispatch();
         signOut(authService);
         navigate("/login", { replace: true });
         break;
