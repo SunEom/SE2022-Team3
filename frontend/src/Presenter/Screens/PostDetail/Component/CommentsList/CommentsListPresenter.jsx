@@ -38,7 +38,7 @@ const CommentNumCount = styled.div`
   margin-top: 2px;
 `;
 
-const CommentsListPresenter = () => {
+const CommentsListPresenter = ({ commentList }) => {
   return (
     <div>
       <CommentsListArea>
@@ -47,7 +47,9 @@ const CommentsListPresenter = () => {
           <CommentText>댓글</CommentText>
           <CommentNumCount>1</CommentNumCount>
         </CommentIconArea>
-        <CommentItem />
+        {commentList.map((comment, index) => (
+          <CommentItem comment={comment} key={index} />
+        ))}
         <PiginationArea>
           <Pagination count={1} color="primary" />
         </PiginationArea>
