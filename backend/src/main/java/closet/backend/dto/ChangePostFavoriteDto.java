@@ -5,13 +5,12 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
-@ToString
 @Data
+@ToString
 @Getter
 @AllArgsConstructor
-public class UserJoinDto {
-    private String uid;
-    private String nickname;
-    private int age;
-    private String gender;
+public class ChangePostFavoriteDto {
+    private int id;
+    private int post_id;
+    private int favorite;
 }
