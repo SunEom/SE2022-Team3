@@ -1,7 +1,19 @@
 import { getIdToken } from "./localStorageAccess";
 import axios from "axios";
 
+const axiosPostRequest = async (url, data = {}) => {
+  let idToken = getIdToken();
+
+  await axios.post(`${process.env.REACT_APP_SERVER_URL}${url}`, { ...data, idToken });
+};
+
+const axiosGetRequest = async (url) => {
+  await axios.get(`${process.env.REACT_APP_SERVER_URL}${url}`);
+};
+
 //Router
+
+//특정 idToken에 해당하는 사용자 정보 요청
 export const fetchUserData = async () => {
   const idToken = getIdToken();
 
@@ -10,15 +22,20 @@ export const fetchUserData = async () => {
   } else {
     return null;
   }
+
+  // axiosPostRequest("/user/login");
 };
 
 //Join
 
-export const requestJoin = async (userData) => {
-  await axios
-    .post({ ...userData, idToken: getIdToken() })
-    .then((response) => response.data)
-    .catch((err) => console.error(err));
+//새로운 사용자 회원가입 요청
+export const requestJoin = (userData) => {
+  axiosPostRequest("/user/register", userData);
+};
+
+//새로운 사용자 회원가입 요청
+export const checkNickname = (nickname) => {
+  axiosPostRequest("/user/register", nickname);
 };
 
 //Main Page (의상 조회)
@@ -279,6 +296,14 @@ let tempClothList = [
   },
 ];
 
+// 전체 의상 목록 요청
+export const fetchClothList = async () => {
+  return tempClothList;
+
+  // axiosPostRequest("/cloth");
+};
+
+// 특정 계절의 의상 목록 요청
 export const fetchSeasonList = async (season) => {
   if (season === "봄") {
     return tempClothList.filter((c) => c.season.includes("봄"));
@@ -289,22 +314,96 @@ export const fetchSeasonList = async (season) => {
   } else if (season === "겨울") {
     return tempClothList.filter((c) => c.season.includes("겨울"));
   }
+  // axiosPostRequest("/cloth/category", season);
 };
 
+// 좋아요 누른 의상 목록 요청
 export const fetchFavList = async () => {
   return tempClothList.filter((c) => c.favorite);
+
+  // axiosPostRequest("/cloth/favorite");
 };
 
+// 특정 카테고리 의상 목록 요청
 export const fetchCategoryList = async (category) => {
   return tempClothList.filter((c) => c.type === category);
+
+  // axiosPostRequest("/cloth/category", category);
 };
 
-export const fetchClothList = async () => {
-  return tempClothList;
+//새로운 의상 추가 요청
+export const requestNewCloth = (clothData) => {
+  axiosPostRequest("/cloth/crate", clothData);
+};
+
+//의상 정보 수정 요청
+export const requestUpdateCloth = (clothData) => {
+  axiosPostRequest("/cloth/update", clothData);
+};
+
+//의상 정보 삭제 요청
+export const requestDeleteCloth = (clothData) => {
+  axiosPostRequest("/cloth/delete", clothData);
+};
+
+// 특정 의상 상세정보 요청
+export const requestPostDetail = (clothData) => {
+  axiosGetRequest(`/cloth/${clothData.cloth_id}`);
+};
+
+//의상 좋아요 설정 및 해제 요청
+export const requestChangeClothFavState = (clothData) => {
+  axiosPostRequest("/cloth/change_favorite", clothData);
+};
+
+//의상 분류 폴더 생성
+export const requestNewClothFolder = (folderData) => {
+  axiosPostRequest("/cloth/folder/create", folderData);
+};
+
+//의상 분류 폴더 조회
+export const fetchClothFolderList = () => {
+  axiosPostRequest("/cloth/folder");
+};
+
+//의상 분류 폴더 수정
+export const requesUpdateClothFolder = (folderData) => {
+  axiosPostRequest("/cloth/folder/update", folderData);
+};
+
+//의상 분류 폴더 삭제
+export const requestDeleteClothFolder = (folderData) => {
+  axiosPostRequest("/cloth/folder/delete", folderData);
+};
+
+// 특정 분류 폴더에 의상 추가
+export const requesAddClothToFolder = (clothFolderData) => {
+  axiosPostRequest("/cloth/folder/insert", clothFolderData);
+};
+
+// 특정 의상 분류 폴더의 의상 조회
+export const fetchFolderClothList = (folderData) => {
+  axiosPostRequest("/cloth/folder/Detail", folderData);
+};
+
+// 특정 분류 폴더에 의상 t삭제
+export const requesRemoveClothToFolder = (clothFolderData) => {
+  axiosPostRequest("/cloth/folder/remove", clothFolderData);
+};
+
+// 계절별 의상 추천 요청
+export const fetchSeasonalRecommnend = (season) => {
+  axiosPostRequest("/recommend/season", season);
+};
+
+// 카테고리별 의상 추천 요청
+export const fetchCategoricalRecommnend = (category) => {
+  axiosPostRequest("/recommend/category", category);
 };
 
 //Board
 
+// 특정 카테고리의 게시글 목록 요청
 export const fetchPostings = async (category) => {
   const rows1 = [
     { id: 1, title: "나만 알고 있는 옷 보관 꿀팁1", comments: 10, nickname: "suneom" },
@@ -397,4 +496,73 @@ export const fetchPostings = async (category) => {
   } else if (category === "fashion") {
     return rows2;
   }
+
+  // axiosGetRequest(`/post/{category.genre}`);
+};
+
+// 새로운 게시글 생성 요청
+export const requestNewPosting = async (postData) => {
+  axiosPostRequest("/post/create", postData);
+};
+
+// 게시글 수정 요청
+export const requestUpdatePosting = async (postData) => {
+  axiosPostRequest("/post/update", postData);
+};
+
+// 게시글 삭제 요청
+export const requestDeletePosting = async (postData) => {
+  axiosPostRequest("/post/delete", postData);
+};
+
+// 게시글 상세 내용 조회
+export const fetchPostDetail = async (postData) => {
+  axiosGetRequest(`/post/${postData.post_id}}`);
+};
+
+// 게시글 좋아요 상태 변경 요청
+export const requestChangePostFavState = async (postData) => {
+  axiosPostRequest("/post/change_favorite", postData);
+};
+
+// 새로운 댓글 추가 요청
+export const requestNewComment = async (commentData) => {
+  axiosPostRequest("/comment/create", commentData);
+};
+
+// 댓글 수정 요청
+export const requestUpdateComment = async (commentData) => {
+  axiosPostRequest("/comment/update", commentData);
+};
+
+// 댓글 삭제 요청
+export const requestDeleteComment = async (commentData) => {
+  axiosPostRequest("/comment/delete", commentData);
+};
+
+// 댓글 목록 요청
+export const fetchComments = async (postData) => {
+  axiosGetRequest(`/comment/${postData.post_id}`);
+};
+
+//MyPage
+
+//사용자의 정보를 수정하도록 요청
+export const requestUpdateUserData = async (userData) => {
+  axiosPostRequest("/user/update", userData);
+};
+
+//사용자의 정보를 삭제하도록 요청
+export const requestDeleteUserData = async () => {
+  axiosPostRequest("/user/signout");
+};
+
+// 본인이 작성한 글 목록 조회
+export const fetchMyPosting = async () => {
+  axiosPostRequest("/mypage/post");
+};
+
+// 본인이 좋아요를 누른 글 목록 조회
+export const fetchMyFavPosting = async () => {
+  axiosPostRequest("/mypage/favorite_post");
 };
