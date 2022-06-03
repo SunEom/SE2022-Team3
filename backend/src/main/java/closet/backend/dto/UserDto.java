@@ -10,7 +10,7 @@ import lombok.*;
 public class UserDto {
     private int id;
     private String nickname;
-    private String sex;
+    private String gender;
     private int age;
     private String uid;
 }

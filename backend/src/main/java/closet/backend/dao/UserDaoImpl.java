@@ -1,6 +1,5 @@
 package closet.backend.dao;
 
-import closet.backend.Util.FileUtil;
 import closet.backend.dto.UserDto;
 import closet.backend.dto.UserJoinDto;
 import closet.backend.entity.User;
@@ -27,7 +26,7 @@ public class UserDaoImpl implements UserDao {
                     .uid(rs.getString("uid"))
                     .nickname(rs.getString("nickname"))
                     .age(rs.getInt("age"))
-                    .sex(rs.getString("sex"))
+                    .gender(rs.getString("gender"))
             .build();
 
     @Override
@@ -39,21 +38,21 @@ public class UserDaoImpl implements UserDao {
                 ",'"+userJoinDto.getGender()+
                 "')");
         User user = jdbcTemplate.queryForObject("Select * FROM user WHERE uid = '"+userJoinDto.getUid()+"'",userRowMapper);
-        UserDto userDto = new UserDto(user.getId(),user.getUid(),user.getNickname(),user.getSex(),user.getAge());
+        UserDto userDto = new UserDto(user.getId(),user.getNickname(),user.getGender(),user.getAge(),user.getUid());
         return userDto;
     }
 
     @Override
     public UserDto findByUserNickname(String nickname) {
         User user = jdbcTemplate.queryForObject("SELECT * FROM user WHERE nickname = " + nickname, userRowMapper);
-        UserDto userDto = new UserDto(user.getId(),user.getUid(),user.getNickname(),user.getSex(),user.getAge());
+        UserDto userDto = new UserDto(user.getId(),user.getNickname(),user.getGender(),user.getAge(),user.getUid());
         return userDto;
     }
 
     @Override
     public UserDto findById(int id) {
         User user = jdbcTemplate.queryForObject("Select * FROM user WHERE id = " + id ,userRowMapper);
-        UserDto userDto = new UserDto(user.getId(),user.getUid(),user.getNickname(),user.getSex(),user.getAge());
+        UserDto userDto = new UserDto(user.getId(),user.getNickname(),user.getGender(),user.getAge(),user.getUid());
         return userDto;
     }
 
