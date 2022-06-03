@@ -12480,17 +12480,18 @@
 											"model": {
 												"$ref": "AAAAAAGBJ4/UcV3NEoc="
 											},
-											"visible": false,
 											"font": "Arial;13;0",
-											"left": 2795,
+											"left": 2771,
 											"top": 1815,
+											"width": 48.591796875,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 15,
 											"hostEdge": {
 												"$ref": "AAAAAAGBJ4/UcV3PM0k="
 											},
-											"edgePosition": 1
+											"edgePosition": 1,
+											"text": "계정 관리"
 										}
 									],
 									"font": "Arial;13;0",
@@ -13411,6 +13412,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGAvPOaUzQRXFU="
 									},
+									"name": "계정 관리",
 									"source": {
 										"$ref": "AAAAAAGAvPOaUzQRXFU="
 									},
