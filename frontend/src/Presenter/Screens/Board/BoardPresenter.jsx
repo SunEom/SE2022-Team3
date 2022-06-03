@@ -41,7 +41,7 @@ const BoardPresenter = ({ loading, rows, category, onAddNewPostingButtonClick })
             <AddNewPostingButton color="success" sx={{ position: "fixed" }} onClick={onAddNewPostingButtonClick}>
               <FontAwesomeIcon icon={faPenToSquare} size="xl" />
             </AddNewPostingButton>
-            <BoardTable postings={rows} />
+            <BoardTable postings={rows} category={category} />
           </BoardContentContainer>
         </BoardTopContainer>
       )}
