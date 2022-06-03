@@ -33,9 +33,9 @@ export const requestJoin = (userData) => {
   axiosPostRequest("/user/register", userData);
 };
 
-//새로운 사용자 회원가입 요청
-export const checkNickname = (nickname) => {
-  axiosPostRequest("/user/register", nickname);
+//닉네임 중복확인 요청
+export const requestCheckNickname = (nickname) => {
+  axiosPostRequest("/user/check_nickname", nickname);
 };
 
 //Main Page (의상 조회)
@@ -546,6 +546,15 @@ export const fetchComments = async (postData) => {
 };
 
 //MyPage
+
+// 사용자 정보 요청
+export const fetchMyData = async () => {
+  return {
+    nickname: window.localStorage.getItem("nickname"),
+    age: 25,
+    gender: "비공개",
+  };
+};
 
 //사용자의 정보를 수정하도록 요청
 export const requestUpdateUserData = async (userData) => {
