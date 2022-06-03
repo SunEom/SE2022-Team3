@@ -8,6 +8,7 @@ import { Divider } from "@mui/material";
 import MyInfo from "./components/MyInfo";
 import InfoEdit from "./components/InfoEdit";
 import Posting from "./components/Posting";
+import Account from "./components/Account";
 
 const MyPageTopContainer = styled.div`
   min-width: 1200px;
@@ -66,6 +67,7 @@ const MyPagePresenter = ({ value, handleChange, a11yProps }) => {
               <Tab label="내 정보" {...a11yProps(0)} />
               <Tab label="정보 수정" {...a11yProps(1)} />
               <Tab label="게시글 관리" {...a11yProps(2)} />
+              <Tab label="계정 관리" {...a11yProps(3)} />
             </Tabs>
             <TabPanel value={value} index={0}>
               <MyInfo />
@@ -75,6 +77,9 @@ const MyPagePresenter = ({ value, handleChange, a11yProps }) => {
             </TabPanel>
             <TabPanel value={value} index={2}>
               <Posting />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <Account />
             </TabPanel>
           </Box>
         </MyPageMainContent>
