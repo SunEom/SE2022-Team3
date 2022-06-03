@@ -157,7 +157,6 @@ const DetailModalPresenter = ({
   newClassification,
   classificationList,
   cloth,
-  setMode,
 }) => {
   return (
     <Modal
@@ -278,7 +277,9 @@ const DetailModalPresenter = ({
             </>
           )}
 
-          {mode === "edit" && <ClothForm cloth={cloth} setMode={setMode} open={open} handleClose={handleClose} />}
+          {mode === "edit" && (
+            <ClothForm cloth={cloth} onModeToggleButtonClick={onModeToggleButtonClick} open={open} handleClose={handleClose} />
+          )}
         </StyledBox>
       </Fade>
     </Modal>
