@@ -44,7 +44,7 @@ let tempClothList = [
   {
     name: "로고 프린팅 맨투맨 티셔츠",
     season: "가을",
-    type: "상의",
+    category: "상의",
     brand: "마크 곤잘레스",
     place: "옷장 3번째 칸",
     size: "L",
@@ -55,7 +55,7 @@ let tempClothList = [
   {
     name: "와이드 핏 데님 펜츠",
     season: "봄, 여름, 가을, 겨울",
-    type: "하의",
+    category: "하의",
     brand: "페이탈리즘",
     place: "행거",
     size: "30",
@@ -66,7 +66,7 @@ let tempClothList = [
   {
     name: "아르더 토트백_블랙",
     season: "겨울",
-    type: "가방",
+    category: "가방",
     brand: "MADGOAT",
     place: "옷장 가방 전용 수납 공간",
     size: "FREE",
@@ -77,7 +77,7 @@ let tempClothList = [
   {
     name: "루키 언스트럭쳐 볼캡 NY (Black)",
     season: "여름",
-    type: "모자",
+    category: "모자",
     brand: "MLB",
     place: "모자 걸이",
     size: "FREE",
@@ -88,7 +88,7 @@ let tempClothList = [
   {
     name: "릴렉스드 베이식 블레이저 [블랙] ",
     season: "봄, 가을",
-    type: "아우터",
+    category: "아우터",
     brand: "무신사 스탠다드",
     place: "메인 옷장",
     size: "100",
@@ -99,7 +99,7 @@ let tempClothList = [
   {
     name: "어센틱 - 레드 / VN000EE3RED1",
     season: "봄, 여름, 가을, 겨울",
-    type: "신발",
+    category: "신발",
     brand: "반스",
     place: "신발장",
     size: "270",
@@ -110,7 +110,7 @@ let tempClothList = [
   {
     name: "OORIGINAL BLACK - 조리 블랙",
     season: "여름",
-    type: "신발",
+    category: "신발",
     brand: "우포스",
     place: "신발장",
     size: "270",
@@ -121,7 +121,7 @@ let tempClothList = [
   {
     name: "10TH ANNIVERSARY T-SHIRTS EDITION",
     season: "여름",
-    type: "상의",
+    category: "상의",
     brand: "그루브라임",
     place: "여름옷 상자",
     size: "L",
@@ -132,7 +132,7 @@ let tempClothList = [
   {
     name: " HUNTING HOOD JACKET_BLACK",
     season: "겨울",
-    type: "아우터",
+    category: "아우터",
     brand: "OUTSTANDING",
     place: "겨울옷 상자",
     size: "100",
@@ -143,7 +143,7 @@ let tempClothList = [
   {
     name: "MEGAN CULOTTE - OFF WHITE",
     season: "여름",
-    type: "하의",
+    category: "하의",
     brand: "포트메인",
     place: "어디있는지 모르겠음..",
     size: "S",
@@ -154,7 +154,7 @@ let tempClothList = [
   {
     name: "2 TONE ARCH HOODIE BLACK",
     season: "봄, 가을",
-    type: "상의",
+    category: "상의",
     brand: "예일",
     place: "메인 옷장",
     size: "100",
@@ -165,7 +165,7 @@ let tempClothList = [
   {
     name: "원턱 와이드 스웨트팬츠 그레이",
     season: "봄, 여름, 가을, 겨울",
-    type: "하의",
+    category: "하의",
     brand: "가까이 유니언즈",
     place: "옷장 2번째 칸",
     size: "M",
@@ -176,7 +176,7 @@ let tempClothList = [
   {
     name: " 메탈릭 버튼 부클레 트위드 자켓 ",
     season: "봄, 가을",
-    type: "아우터",
+    category: "아우터",
     brand: "언티지",
     place: "옷장",
     size: "M",
@@ -187,7 +187,7 @@ let tempClothList = [
   {
     name: "에어리 미니멀 니트 베스트 [BLACK] ",
     season: "봄, 여름, 가을",
-    type: "상의",
+    category: "상의",
     brand: "드로우 핏",
     place: "여름옷 상자",
     size: "L",
@@ -198,7 +198,7 @@ let tempClothList = [
   {
     name: "여포켓장식벨티드원피스 MVOP322R",
     season: "봄, 가을",
-    type: "한벌옷",
+    category: "한벌옷",
     brand: "마인드 브릿지",
     place: "옷장",
     size: "M",
@@ -209,7 +209,7 @@ let tempClothList = [
   {
     name: "Sky High - MOD7w",
     season: "봄, 여름, 가을, 겨울",
-    type: "하의",
+    category: "하의",
     brand: "모드나인",
     place: "행거",
     size: "30",
@@ -220,7 +220,7 @@ let tempClothList = [
   {
     name: "BW 아미 - 화이트 / BZ0579",
     season: "가을, 겨울",
-    type: "신발",
+    category: "신발",
     brand: "아디다스",
     place: "신발장",
     size: "280",
@@ -231,7 +231,7 @@ let tempClothList = [
   {
     name: "여성 XXS 빌 토트백 - 블랙",
     season: "봄, 여름",
-    type: "가방",
+    category: "가방",
     brand: "발렌시아가",
     place: "옷장 가방칸",
     size: "FREE",
@@ -242,7 +242,7 @@ let tempClothList = [
   {
     name: "Side Shirring Dress Black",
     season: "봄, 여름, 가을",
-    type: "한벌옷",
+    category: "한벌옷",
     brand: "에트몽",
     place: "헹거",
     size: "M",
@@ -253,7 +253,7 @@ let tempClothList = [
   {
     name: "가드닝 셔츠원피스 우먼 IVORY",
     season: "봄, 가을",
-    type: "한벌옷",
+    category: "한벌옷",
     brand: "코닥",
     place: "옷장",
     size: "M",
@@ -264,7 +264,7 @@ let tempClothList = [
   {
     name: "어썸스퀘어 클래식 블랙 남성 가죽시계",
     season: "봄, 여름, 가을, 겨울",
-    type: "기타",
+    category: "기타",
     brand: "로이드",
     place: "시계 보관함",
     size: "FREE",
@@ -275,7 +275,7 @@ let tempClothList = [
   {
     name: "LAYERED LEATHER (BLACK)",
     season: "여름",
-    type: "기타",
+    category: "기타",
     brand: "마크4",
     place: "팔찌 보관함",
     size: "FREE",
@@ -286,7 +286,7 @@ let tempClothList = [
   {
     name: " 써지컬 스틸 스퀘어 넥크리스",
     season: "봄, 여름, 가을, 겨울",
-    type: "기타",
+    category: "기타",
     brand: "크럼프",
     place: "목걸이 보관함",
     size: "FREE",
@@ -326,7 +326,7 @@ export const fetchFavList = async () => {
 
 // 특정 카테고리 의상 목록 요청
 export const fetchCategoryList = async (category) => {
-  return tempClothList.filter((c) => c.type === category);
+  return tempClothList.filter((c) => c.category === category);
 
   // axiosPostRequest("/cloth/category", category);
 };
