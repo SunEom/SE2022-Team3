@@ -14,7 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class UpdateClothReq {
 
-	private Stirng idToken;
+	private String idToken;
 	private int cloth_id;
 	private String name;
 	private String season;
