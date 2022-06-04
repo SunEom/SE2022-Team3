@@ -37,7 +37,7 @@ public class PostController {
 
     @PostMapping("/post/update")
     public ResponseEntity updatePost(@RequestBody UpdatePostReq updatePostReq){
-        
+
         return null;
     }
 
