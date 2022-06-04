@@ -1,9 +1,13 @@
 package closet.backend.controller;
 
+import closet.backend.Util.AuthUtil;
 import closet.backend.dto.UserDto;
 import closet.backend.dto.UserJoinDto;
+import closet.backend.dto.UserUpdateDto;
 import closet.backend.entity.User;
 import closet.backend.exception.LoginException;
+import closet.backend.req.UserJoinReq;
+import closet.backend.req.UserUpdateReq;
 import closet.backend.service.UserService;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,25 +30,50 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final AuthUtil authUtil;
 
     @PostMapping("/auth/login")
-    public UserDto loginUser(@RequestBody String idToken, HttpServletRequest req) throws FirebaseAuthException{
-        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
+    public ResponseEntity loginUser(@RequestBody String idToken) throws FirebaseAuthException{
+        int id = authUtil.getUserid(idToken);
+        UserDto userDto = userService.getUserInfo(id);
+        return ResponseEntity.ok().body(userDto);
+    }
+
+
+    @PostMapping("/user/register") //넘겨주는 정보가 token -> uid, 닉네임, 성별 , 나이
+    public ResponseEntity registerUser(@RequestBody UserJoinReq userJoinReq) throws FirebaseAuthException{
+        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(userJoinReq.getIdToken());
         String uid = decodedToken.getUid();
-        UserDto loginUser = userService.findByUid(uid);
-        HttpSession session = req.getSession();
-        session.setAttribute("loginUser",loginUser);
-        return loginUser;
+        UserJoinDto userJoinDto = new UserJoinDto(uid,userJoinReq.getNickname(),userJoinReq.getAge(),userJoinReq.getGender());
+        UserDto userDto = userService.register(userJoinDto);
+        return ResponseEntity.ok().body(userDto);
     }
 
-
-    @PostMapping("/join") //넘겨주는 정보가 token -> uid, 닉네임, 성별 , 나이
-    public UserDto registerUser(@RequestBody UserJoinDto userJoinReq){
-        return null;
+    @PostMapping("/user/check_nickname")
+    public ResponseEntity checkNickname(@RequestBody String nickname){
+        boolean result = userService.checkNickname(nickname);
+        return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("users")
-    public UserDto showUsers(){
-        return userService.findById(1);
+    @PostMapping("/user/userinfo")
+    public ResponseEntity getUserInfo(@RequestBody String idToken) throws FirebaseAuthException{
+        int id = authUtil.getUserid(idToken);
+        UserDto userDto = userService.getUserInfo(id);
+        return ResponseEntity.ok().body(userDto);
+    }
+
+    @PostMapping("/user/update")
+    public ResponseEntity updateUser(@RequestBody UserUpdateReq userUpdateReq) throws  FirebaseAuthException{
+        int id = authUtil.getUserid(userUpdateReq.getIdToken());
+        UserUpdateDto userUpdateDto = new UserUpdateDto(id,userUpdateReq.getNickname(),userUpdateReq.getAge(), userUpdateReq.getGender());
+        UserDto userDto = userService.updateUser(userUpdateDto);
+        return ResponseEntity.ok().body(userDto);
+    }
+
+    @PostMapping("/user/signout")
+    public ResponseEntity deleteUser(@RequestBody String idToken) throws FirebaseAuthException{
+        int id = authUtil.getUserid(idToken);
+        String result = userService.deleteUser(id);
+        return ResponseEntity.ok().body(result);
     }
 }

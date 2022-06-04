@@ -3,7 +3,6 @@ import DetailModalPresenter from "./DetailModalPresenter";
 
 const DetailModalContainer = ({ open, handleClose, cloth }) => {
   const [mode, setMode] = useState("detail");
-
   const [name, setName] = useState(cloth.name);
   const [season, setSeason] = useState(cloth.season);
   const [size, setSize] = useState(cloth.size);
@@ -52,7 +51,11 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
 
   // 상세보기-수정 화면 토글 버튼
   const onModeToggleButtonClick = () => {
-    setMode("edit");
+    if (mode === "detail") {
+      setMode("edit");
+    } else if (mode === "edit") {
+      setMode("detail");
+    }
   };
 
   const resetDetailContents = () => {
@@ -88,7 +91,6 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
       open={open}
       handleClose={handleClose}
       cloth={cloth}
-      setMode={setMode}
       name={name}
       season={season}
       brand={brand}

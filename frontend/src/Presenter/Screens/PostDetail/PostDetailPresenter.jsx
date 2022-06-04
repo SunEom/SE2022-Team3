@@ -5,6 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import EditIcon from "@mui/icons-material/Edit";
 import CommentsList from "./Component/CommentsList";
+import EditPosting from "../Posting";
 
 const PostDetailBox = styled.div`
   min-width: 1000px;
@@ -93,69 +94,85 @@ const PostDeleteBtn = styled.div`
   margin-left: 10px;
 `;
 
-const PostDetailPresenter = () => {
+const PostDetailPresenter = ({
+  loading,
+  postId,
+  title,
+  genre,
+  postBody,
+  fileName,
+  id,
+  createdDate,
+  updatedDate,
+  nickname,
+  cloth,
+  mode,
+  onModeToggleButtonClick,
+}) => {
   return (
-    <PostDetailBox>
-      <PostDetailCard variant="outlined">
-        <PostDetailContainer>
-          <Typography gutterBottom variant="h4" component="div">
-            <PostDetailTitle>TITLE</PostDetailTitle>
-          </Typography>
-          <PostDetailInfo>
-            <WriterName>작성자 : USER1</WriterName>
-            <WrittenDate>작성 날짜 : 2022.05.20</WrittenDate>
-            <BoardType>나만의 패션 코디</BoardType>
-          </PostDetailInfo>
-          <ImageBoxArea>
-            <ImageBox src="https://image.msscdn.net/images/goods_img/20220415/2493201/2493201_1_500.jpg" />
-          </ImageBoxArea>
-          <TextArea>
-            이번 아식스 신상들 다 예쁘게 뽑은거 같아요ㅠㅠ 특히 이거
-            앤트러사이트 앤티크 골드 색상이 개인적으로 마음에 듭니다! 젤
-            카야노중에서 이게 착화감도 베스트라는 소문이 있네요ㅎ
-          </TextArea>
-          <ButtonContainer>
-            <PostIconArea>
-              <LikeIconArea>
-                <Button
-                  variant="text"
-                  startIcon={<FavoriteBorderIcon />}
-                  size="big"
-                  color="error"
-                >
-                  좋아요
-                </Button>
-                <LikeNumCount>20</LikeNumCount>
-              </LikeIconArea>
-            </PostIconArea>
-            <EditDeletebtns>
-              <PostEditBtn>
-                <Button
-                  variant="outlined"
-                  startIcon={<EditIcon />}
-                  size="small"
-                  color="primary"
-                >
-                  수정
-                </Button>
-              </PostEditBtn>
-              <PostDeleteBtn>
-                <Button
-                  variant="outlined"
-                  startIcon={<DeleteIcon />}
-                  size="small"
-                  color="error"
-                >
-                  삭제
-                </Button>
-              </PostDeleteBtn>
-            </EditDeletebtns>
-          </ButtonContainer>
+    <>
+      {!loading && (
+        <>
+          {
+            // 조회 화면
+            mode === "show" && (
+              <PostDetailBox>
+                <PostDetailCard variant="outlined">
+                  <PostDetailContainer>
+                    <Typography gutterBottom variant="h4" component="div">
+                      <PostDetailTitle>{title}</PostDetailTitle>
+                    </Typography>
+                    <PostDetailInfo>
+                      <WriterName>작성자 : {nickname}</WriterName>
+                      <WrittenDate>작성 날짜 : {createdDate}</WrittenDate>
+                      <BoardType>{genre}</BoardType>
+                    </PostDetailInfo>
+                    <ImageBoxArea>
+                      <ImageBox src={fileName} />
+                    </ImageBoxArea>
+                    <TextArea>{postBody}</TextArea>
+                    <ButtonContainer>
+                      <PostIconArea>
+                        <LikeIconArea>
+                          <Button variant="text" startIcon={<FavoriteBorderIcon />} size="big" color="error">
+                            좋아요
+                          </Button>
+                          <LikeNumCount>20</LikeNumCount>
+                        </LikeIconArea>
+                      </PostIconArea>
+                      <EditDeletebtns>
+                        <PostEditBtn>
+                          <Button
+                            variant="outlined"
+                            startIcon={<EditIcon />}
+                            size="small"
+                            color="primary"
+                            onClick={onModeToggleButtonClick}
+                          >
+                            수정
+                          </Button>
+                        </PostEditBtn>
+                        <PostDeleteBtn>
+                          <Button variant="outlined" startIcon={<DeleteIcon />} size="small" color="error">
+                            삭제
+                          </Button>
+                        </PostDeleteBtn>
+                      </EditDeletebtns>
+                    </ButtonContainer>
 
-          <CommentsList />
-        </PostDetailContainer>
-      </PostDetailCard>
-    </PostDetailBox>
+                    <CommentsList />
+                  </PostDetailContainer>
+                </PostDetailCard>
+              </PostDetailBox>
+            )
+          }
+          {
+            // 수정 화면
+            mode === "edit" && <EditPosting cloth={cloth} setMode={onModeToggleButtonClick} />
+          }
+        </>
+      )}
+    </>
   );
 };
 

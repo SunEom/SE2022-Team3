@@ -15,6 +15,7 @@ const BoardContainer = () => {
   };
 
   useEffect(() => {
+    setCategory(params.category);
     fetchPostings(params.category).then((r) => {
       setPostings(r);
       setLoading(false);

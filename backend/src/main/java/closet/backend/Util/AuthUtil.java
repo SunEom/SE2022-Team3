@@ -17,17 +17,17 @@ public class  AuthUtil {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public int getUserid(String uid) throws FirebaseAuthException{
-        //FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
-        //String uid = decodedToken.getUid();
+    public int getUserid(String token) throws FirebaseAuthException{
+        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
+        String uid = decodedToken.getUid();
         int id = -1;
         id = jdbcTemplate.queryForObject("select id from user where uid = '"+uid+"'",Integer.class);
         return id;
     }
 
-    public boolean isUser(String uid) throws FirebaseAuthException{
-        //FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
-        //String uid = decodedToken.getUid();
+    public boolean isUser(String token) throws FirebaseAuthException{
+        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
+        String uid = decodedToken.getUid();
         int id = -1;
         try{
             id = jdbcTemplate.queryForObject("select id from user where uid = '"+uid+"'",Integer.class);

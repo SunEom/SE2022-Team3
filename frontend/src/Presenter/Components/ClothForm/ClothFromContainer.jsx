@@ -1,82 +1,101 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ClothFormPresenter from "./ClothFormPresenter";
 
-const ClothFormContainer = ({ cloth = null, setMode = null, open, handleClose }) => {
-  const [editedName, setEditedName] = useState(cloth?.name);
-  const [editedSeason, setEditedSeason] = useState(cloth?.season);
-  const [editedSize, setEditedSize] = useState(cloth?.size);
-  const [editedBrand, setEditedBrand] = useState(cloth?.brand);
-  const [editedFileName, setEditedFileName] = useState(cloth?.file_name);
-  const [editedType, setEditedType] = useState(cloth?.type);
-  const [editedPlace, setEditedPlace] = useState(cloth?.place);
-  const [editedClothBody, setEditedClothBody] = useState(cloth?.cloth_body);
-  const [editedFavorite, setEditedFavorite] = useState(cloth?.favorite);
+const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open, handleClose }) => {
+  const [loading, setLoading] = useState(true);
+  const [mode, setMode] = useState(); // new: 의상 추가 , edit : 의상 수정
+  const [name, setName] = useState(null);
+  const [season, setSeason] = useState(null);
+  const [size, setSize] = useState(null);
+  const [brand, setBrand] = useState(null);
+  const [fileName, setFileName] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [place, setPlace] = useState(null);
+  const [clothBody, setClothBody] = useState(null);
+  const [favorite, setFavorite] = useState(null);
   const [newImgFile, setNewImgFile] = useState(null);
 
   //onChangeFunction
   const onNameChange = (e) => {
-    setEditedName(e.target.value);
+    setName(e.target.value);
   };
   const onBrandChange = (e) => {
-    setEditedBrand(e.target.value);
+    setBrand(e.target.value);
   };
   const onSizeChange = (e) => {
-    setEditedSize(e.target.value);
+    setSize(e.target.value);
   };
   const onCategoryChange = (e) => {
-    setEditedType(e.target.value);
+    setCategory(e.target.value);
   };
-  const onSeasonChange = (e) => {};
+  const onSeasonChange = (e) => {
+    const checkBoxes = document.getElementsByName("seasonCheckBox");
+
+    // 계절 입력 값 포멧팅
+    var temp = "";
+    checkBoxes.forEach((c) => {
+      if (c.checked) {
+        temp += c.value;
+        temp += ", ";
+      }
+    });
+    temp = temp.slice(0, temp.length - 2);
+
+    setSeason(temp);
+  };
   const onClothBodyChange = (e) => {
-    setEditedClothBody(e.target.value);
+    setClothBody(e.target.value);
   };
   const onPlaceChange = (e) => {
-    setEditedPlace(e.target.value);
+    setPlace(e.target.value);
   };
+
   const onImageFileChange = (e) => {
     // 업로드한 파일 미리보기 설정
-    setEditedFileName(URL.createObjectURL(e.target.files[0]));
+    setFileName(URL.createObjectURL(e.target.files[0]));
 
     // 서버로 전송하기 위한 이미지 파일 저장
     setNewImgFile(e.target.files[0]);
-
-    // axios
-    //   .post(`${process.env.REACT_APP_SERVER_URL}/mypage/image`, formData, {
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //   })
-    //   .then((response) => {
-    //     store.dispatch({ type: "LOGIN", user: { ...user, img: response.data.result } });
-    //   });
   };
 
   const resetEditContents = () => {
-    setEditedName(cloth ? cloth.name : null);
-    setEditedSeason(cloth ? cloth.season : null);
-    setEditedSize(cloth ? cloth.size : null);
-    setEditedBrand(cloth ? cloth.brand : null);
-    setEditedFileName(cloth ? cloth.file_name : null);
-    setEditedType(cloth ? cloth.type : null);
-    setEditedPlace(cloth ? cloth.place : null);
-    setEditedClothBody(cloth ? cloth.cloth_body : null);
-    setEditedFavorite(cloth ? cloth.favorite : null);
+    if (mode === "new") {
+      setName(null);
+      setSeason(null);
+      setSize(null);
+      setBrand(null);
+      setFileName(null);
+      setCategory(null);
+      setPlace(null);
+      setClothBody(null);
+      setFavorite(null);
+    } else if (mode === "edit") {
+      setName(cloth.name);
+      setSeason(cloth.season);
+      setSize(cloth.size);
+      setBrand(cloth.brand);
+      setFileName(cloth.file_name);
+      setCategory(cloth.genre);
+      setPlace(cloth.place);
+      setClothBody(cloth.cloth_body);
+      setFavorite(cloth.favorite);
+    }
   };
 
   // 수정하고자 하던 내용이 있는지 확인하는 함수
   const checkDifference = () => {
-    if (cloth === null) {
-      return editedName || editedBrand || editedSize || editedPlace || editedType || editedSeason || editedClothBody || editedFileName;
-    } else {
-      const { name, brand, size, place, type, season, cloth_body, file_name } = cloth;
-
+    if (mode === "new") {
+      return name || brand || size || place || category || season || clothBody || fileName;
+    } else if (mode === "edit") {
       return (
-        name !== editedName ||
-        brand !== editedBrand ||
-        size !== editedSize ||
-        place !== editedPlace ||
-        type !== editedType ||
-        season !== editedSeason ||
-        cloth_body !== editedClothBody ||
-        file_name !== editedFileName
+        cloth.name !== name ||
+        cloth.brand !== brand ||
+        cloth.size !== size ||
+        cloth.place !== place ||
+        cloth.category !== category ||
+        cloth.season !== season ||
+        cloth.cloth_body !== clothBody ||
+        cloth.file_name !== fileName
       );
     }
   };
@@ -92,27 +111,50 @@ const ClothFormContainer = ({ cloth = null, setMode = null, open, handleClose })
         return;
       }
     }
-    if (setMode) {
-      setMode("detail");
-    } else {
-      resetEditContents();
+    if (mode === "new") {
       handleClose();
+    } else if (mode === "edit") {
+      onModeToggleButtonClick();
     }
+    resetEditContents();
   };
+
+  useEffect(() => {
+    // 의상 추가 화면
+    if (cloth === null) {
+      setMode("new");
+    }
+    // 의상 수정 화면
+    else {
+      setMode("edit");
+      //입력 값 초기화
+      setName(cloth.name);
+      setSeason(cloth.season);
+      setSize(cloth.size);
+      setBrand(cloth.brand);
+      setFileName(cloth.file_name);
+      setCategory(cloth.category);
+      setPlace(cloth.place);
+      setClothBody(cloth.cloth_body);
+      setFavorite(cloth.favorite);
+    }
+
+    setLoading(false);
+  }, [open]);
 
   return (
     <ClothFormPresenter
       open={open}
       handleClose={closeHandler}
-      editedName={editedName}
-      editedSeason={editedSeason}
-      editedSize={editedSize}
-      editedBrand={editedBrand}
-      editedFileName={editedFileName}
-      editedType={editedType}
-      editedPlace={editedPlace}
-      editedClothBody={editedClothBody}
-      editedFavorite={editedFavorite}
+      name={name}
+      season={season}
+      size={size}
+      brand={brand}
+      fileName={fileName}
+      category={category}
+      place={place}
+      clothBody={clothBody}
+      favorite={favorite}
       newImgFile={newImgFile}
       onNameChange={onNameChange}
       onBrandChange={onBrandChange}
@@ -123,6 +165,7 @@ const ClothFormContainer = ({ cloth = null, setMode = null, open, handleClose })
       onPlaceChange={onPlaceChange}
       onImageFileChange={onImageFileChange}
       cloth={cloth}
+      loading={loading}
     />
   );
 };

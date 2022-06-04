@@ -25,5 +25,5 @@ public class User extends BaseEntity{
     @NotNull
     private int age;
     @NotNull
-    private String sex;
+    private String gender;
 }
