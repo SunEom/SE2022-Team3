@@ -1,14 +1,12 @@
 package closet.backend.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @Getter
 @ToString
+@Builder
 public class CategoryCountDto {
 
 	private int count;
