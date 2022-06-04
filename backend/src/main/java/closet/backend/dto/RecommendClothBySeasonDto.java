@@ -9,7 +9,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @ToString
-public class GetClothBySeasonDto {
-	private int id;
-	private String season;
+public class RecommendClothBySeasonDto {
+
+    private String season;
+    private String category;
+
 }
