@@ -13,4 +13,5 @@ public interface PostDao {
     PostDetailDto findByPostId(int post_id, int id);
     List<PostDtoWithCommentCount> findById(int id);
     int findWriterId(int post_id);
+    List<PostDtoWithCommentCount> findFavoritePost(int id);
 }

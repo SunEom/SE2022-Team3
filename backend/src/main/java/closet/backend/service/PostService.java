@@ -71,7 +71,7 @@ public class PostService {
     }
 
     public List<PostDtoWithCommentCount> getPostByGenre(String genre){
-        List<PostDtoWithCommentCount> result = getPostByGenre(genre);
+        List<PostDtoWithCommentCount> result = postDao.findByGenre(genre);
         return result;
     }
 
