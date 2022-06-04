@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Data
 @Getter
-@AllArgsConstructor
 @ToString
 public class UpdatePostReq {
     private String idToken;
@@ -20,4 +19,13 @@ public class UpdatePostReq {
     private String genre;
     private String post_body;
     private Optional<File> file;
+
+    public UpdatePostReq(String idToken, int post_id, String title, String genre, String post_body, File inputFile){
+        this.idToken = idToken;
+        this.post_id = post_id;
+        this.title = title;
+        this.genre = genre;
+        this.post_body = post_body;
+        this.file = Optional.ofNullable(inputFile);
+    }
 }
