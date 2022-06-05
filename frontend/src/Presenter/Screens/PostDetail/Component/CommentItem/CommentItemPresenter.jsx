@@ -74,13 +74,7 @@ const EditCommentDeleteBtn = styled.div`
   color: #b6b6b6;
 `;
 
-const CommentItemPresenter = ({
-  comment,
-  mode,
-  onModeToggleButtonClick,
-  onChange,
-  contents,
-}) => {
+const CommentItemPresenter = ({ comment, mode, onModeToggleButtonClick, onChange, contents }) => {
   return (
     <CommentBox>
       <CommentBoxArea>
@@ -89,20 +83,16 @@ const CommentItemPresenter = ({
           //댓글 조회
           mode === "show" && (
             <UserCommentArea>
-              {comment?.body}
+              {comment.comment_body}
               <CommentDetailIconBox>
                 <CommentDetail>
-                  <CommentDate>{comment.uploadDate}</CommentDate>
-                  <CommentTime>{comment.uploadTime}</CommentTime>
+                  <CommentDate>
+                    {new Date(+new Date(comment.created_date) + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "")}
+                  </CommentDate>
                 </CommentDetail>
                 <CommentIcons>
                   <CommentEditBtn>
-                    <IconButton
-                      aria-label="edit"
-                      size="large"
-                      color="primary"
-                      onClick={onModeToggleButtonClick}
-                    >
+                    <IconButton aria-label="edit" size="large" color="primary" onClick={onModeToggleButtonClick}>
                       <EditIcon />
                     </IconButton>
                   </CommentEditBtn>
@@ -118,12 +108,7 @@ const CommentItemPresenter = ({
         }
         {mode === "edit" && (
           <UserCommentArea>
-            <Modifycommentbox
-              type="text"
-              value={contents}
-              name="comment"
-              onChange={onChange}
-            ></Modifycommentbox>
+            <Modifycommentbox type="text" value={contents} name="comment" onChange={onChange}></Modifycommentbox>
 
             <EditCommentIcons>
               <Button variant="outlined" size="small" color="primary">
@@ -131,12 +116,7 @@ const CommentItemPresenter = ({
               </Button>
 
               <EditCommentDeleteBtn>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  color="error"
-                  onClick={onModeToggleButtonClick}
-                >
+                <Button variant="outlined" size="small" color="error" onClick={onModeToggleButtonClick}>
                   취소
                 </Button>
               </EditCommentDeleteBtn>

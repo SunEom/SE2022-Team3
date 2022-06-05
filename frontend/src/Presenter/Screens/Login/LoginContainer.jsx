@@ -21,9 +21,6 @@ const LoginContainer = () => {
         // IdToken을 localStorage에 저장
         setIdToken(idToken);
 
-        // Google 닉네임 가져오기 (추후 삭제예정)
-        window.localStorage.setItem("nickname", result.user.displayName);
-
         /* 서버와 통신하는 부분을 우선 주석처리 해놓았습니다.
             
             // 로그인을 위해 IdToken을 서버에 전달

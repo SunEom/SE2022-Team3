@@ -45,6 +45,9 @@ const CommentsListPresenter = ({
   maxPage,
   onPageChage,
   loading,
+  commentBody,
+  onNewCommentButtonClick,
+  onChange,
 }) => {
   return (
     <div>
@@ -54,23 +57,14 @@ const CommentsListPresenter = ({
             <CommentIconArea>
               <CommentIcon fontsize="small" color="primary" />
               <CommentText>댓글</CommentText>
-              <CommentNumCount>1</CommentNumCount>
+
+              <CommentNumCount>{commentList.length}</CommentNumCount>
             </CommentIconArea>
             {commentList.map((comment, index) => (
-              <CommentItem
-                comment={comment}
-                key={index}
-                page={page}
-                setMaxPage={setMaxPage}
-              />
+              <CommentItem comment={comment} key={index} />
             ))}
             <PiginationArea>
-              <Pagination
-                color="primary"
-                page={page}
-                count={maxPage}
-                onChange={onPageChage}
-              />
+              <Pagination color="primary" page={page} count={maxPage} onChange={onPageChage} />
             </PiginationArea>
           </CommentsListArea>
           <NewCommentArea>
@@ -81,11 +75,12 @@ const CommentsListPresenter = ({
               inputProps={{ maxLength: 400 }}
               multiline
               rows={7}
-              defaultValue=""
+              onChange={onChange}
+              value={commentBody}
             />
           </NewCommentArea>
           <CommentSubmitIcon>
-            <Button variant="contained" size="small">
+            <Button variant="contained" size="small" onClick={onNewCommentButtonClick}>
               등록
             </Button>
           </CommentSubmitIcon>
