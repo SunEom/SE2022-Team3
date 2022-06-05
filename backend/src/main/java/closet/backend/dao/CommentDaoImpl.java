@@ -37,11 +37,11 @@ public class CommentDaoImpl implements CommentDao{
 
     @Override
     public List<CommentDto> save(CreateCommentDto createCommentDto) {
-        jdbcTemplate.execute("INSERT INTO comment(comment_body,post_id,id,created_date) VALUES('"+
+        jdbcTemplate.execute("INSERT INTO comment(comment_body,post_id,id,created_date,updated_date) VALUES('"+
                 createCommentDto.getComment_body()+
                 "', "+createCommentDto.getPost_id()+
                 ", "+createCommentDto.getId()+
-                ", NOW())");
+                ", NOW(),NOW())");
         List<CommentDto> result = jdbcTemplate.query("select comment_id,comment_body,created_date,updated_date,post_id,comment.id,nickname FROM comment LEFT JOIN user ON comment.id = user.id WHERE post_id = "+createCommentDto.getPost_id()+" ORDER BY comment_id"
                 ,commentRowMapper);
         return result;
@@ -51,7 +51,7 @@ public class CommentDaoImpl implements CommentDao{
     public List<CommentDto> update(UpdateCommentDto updateCommentDto) {
         jdbcTemplate.execute("UPDATE comment SET comment_body = '"
                 +updateCommentDto.getComment_body()
-                +"' WHERE comment_id = "
+                +"', updated_date = NOW() WHERE comment_id = "
                 +updateCommentDto.getComment_id());
         List<CommentDto> result = jdbcTemplate.query("select comment_id,comment_body,created_date,updated_date,post_id,comment.id,nickname FROM comment LEFT JOIN user ON comment.id = user.id WHERE post_id = "+updateCommentDto.getPost_id()+" ORDER BY comment_id"
                 ,commentRowMapper);
