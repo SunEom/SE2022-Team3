@@ -32,19 +32,20 @@ public class ClothRecommendService {
         String[] summer = {"반팔","반바지","수영복"};
         String[] fall = {"가디건","후드","맨투맨","청바지","자켓","코트"};
         String[] winter = {"패딩","코트","청바지","후드"};
-        if(current.getMonth().equals(3) ||current.getMonth().equals(4) || current.getMonth().equals(5)){
+        int month = current.getMonth().getValue();
+        if(month == 3 || month == 4 || month == 5){
             season = "봄";
             category = spring[rand.nextInt(spring.length)];
         }
-        else if(current.getMonth().equals(6) ||current.getMonth().equals(7) || current.getMonth().equals(8)){
+        else if(month == 6 || month == 7 || month == 8){
             season = "여름";
             category = summer[rand.nextInt(summer.length)];
         }
-        else if(current.getMonth().equals(9) ||current.getMonth().equals(10) || current.getMonth().equals(11)){
+        else if(month == 9 || month == 10 || month == 11){
             season = "가을";
             category = fall[rand.nextInt(fall.length)];
         }
-        else if(current.getMonth().equals(12) ||current.getMonth().equals(1) || current.getMonth().equals(2)){
+        else if(month == 12 || month == 1 || month == 2){
             season = "겨울";
             category = winter[rand.nextInt(winter.length)];
         }
