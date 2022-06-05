@@ -1,20 +1,14 @@
 package closet.backend.service;
 
 
-import closet.backend.Util.FileUtil;
 import closet.backend.dao.UserDao;
-import closet.backend.dao.UserDaoImpl;
 import closet.backend.dto.UserDto;
 import closet.backend.dto.UserJoinDto;
-import closet.backend.entity.User;
+import closet.backend.dto.UserUpdateDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @Service
@@ -23,20 +17,34 @@ public class UserService {
     @Autowired
     private final UserDao userdao;
 
-    public List<User> getUsers(){
-        return userdao.findAll();
+    public UserDto register(UserJoinDto userJoinDto){
+        UserDto userDto = userdao.save(userJoinDto);
+        return userDto;
     }
 
-    public UserDto saveUser(UserJoinDto userJoinDto){
-        return userdao.save(userJoinDto);
+    public String deleteUser(int id){
+        String result = userdao.deleteUser(id);
+        return result;
     }
 
-    public UserDto findByUid(String uid){
-        return null;
+    public UserDto updateUser(UserUpdateDto userUpdateDto){
+        UserDto userDto = userdao.update(userUpdateDto);
+        return userDto;
     }
 
-    public UserDto findById(int id){
-        return userdao.findById(id);
+    public boolean checkNickname(String nickname){
+        UserDto userDto = userdao.findByNickname(nickname);
+        if(userDto != null){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public UserDto getUserInfo(int id){
+        UserDto userDto = userdao.findById(id);
+        return userDto;
     }
 
 }

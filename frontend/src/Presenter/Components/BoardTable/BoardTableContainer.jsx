@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BoardTablePresenter from "./BoardTablePresenter";
 
-const BoardTableContainer = ({ postings }) => {
+const BoardTableContainer = ({ category, postings }) => {
   const navigate = useNavigate();
 
   const [page, setPage] = useState(0);
@@ -32,6 +32,11 @@ const BoardTableContainer = ({ postings }) => {
   const onPostItemClick = (post) => (e) => {
     navigate(`/postDetail/${post.id}`);
   };
+
+  // 카테고리 변경시 첫 번째 페이지로 이동
+  useEffect(() => {
+    setPage(0);
+  }, [category]);
 
   return (
     <BoardTablePresenter
