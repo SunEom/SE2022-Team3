@@ -7,6 +7,7 @@ import lombok.*;
 @Data
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
     private int id;
     private String nickname;

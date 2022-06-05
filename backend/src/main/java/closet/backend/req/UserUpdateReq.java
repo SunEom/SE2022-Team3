@@ -1,15 +1,13 @@
 package closet.backend.req;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @ToString
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserUpdateReq {
     private String idToken;
     private String nickname;

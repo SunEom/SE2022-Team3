@@ -7,6 +7,7 @@ import lombok.*;
 @Getter
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserJoinReq {
     private String idToken;
     private String nickname;

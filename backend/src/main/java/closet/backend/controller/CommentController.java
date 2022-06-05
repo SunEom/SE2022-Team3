@@ -1,6 +1,6 @@
 package closet.backend.controller;
 
-import closet.backend.Util.AuthUtil;
+import closet.backend.util.AuthUtil;
 import closet.backend.dto.CommentDto;
 import closet.backend.req.CreateCommentReq;
 import closet.backend.req.DeleteCommentReq;
@@ -20,9 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentController {
 
-    @Autowired
     private final AuthUtil authUtil;
-    @Autowired
     private final CommentService commentService;
 
     @PostMapping("/comment/create")

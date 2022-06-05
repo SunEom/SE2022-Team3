@@ -78,7 +78,7 @@ public class PostDaoImpl implements PostDao{
                 "', genre = '"+updatePostDto.getGenre()+
                 "', post_body = '"+updatePostDto.getPost_body()+
                 "', file_name = '"+updatePostDto.getFile_name()+
-                "', updated_date = NOW()");
+                "', updated_date = NOW() WHERE post_id = "+updatePostDto.getPost_id());
         PostDto postDto = jdbcTemplate.queryForObject("select post_id,title,genre,post_body,file_name,created_date,updated_date,post.id,nickname from post left join user on post.id = user.id WHERE post_id = "+updatePostDto.getPost_id(),postRowMapper);
         return postDto;
     }

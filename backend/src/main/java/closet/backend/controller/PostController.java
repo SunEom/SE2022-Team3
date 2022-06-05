@@ -1,9 +1,6 @@
 package closet.backend.controller;
 
 
-import closet.backend.Util.AuthUtil;
-import closet.backend.Util.FileUtil;
-import closet.backend.dto.CreatePostDto;
 import closet.backend.dto.PostDetailDto;
 import closet.backend.dto.PostDto;
 import closet.backend.dto.PostDtoWithCommentCount;
@@ -13,11 +10,11 @@ import com.google.firebase.auth.FirebaseAuthException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,12 +22,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class PostController {
-    @Autowired
     private final PostService postService;
 
 
-    @PostMapping("/post/create")
-    public ResponseEntity createPost(@RequestBody CreatePostReq createPostReq) throws FirebaseAuthException, IOException {
+    @PostMapping(value = "/post/create", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity createPost(@RequestPart CreatePostReq createPostReq, @RequestPart MultipartFile img) throws FirebaseAuthException, IOException {
         PostDto postDto = postService.createPost(createPostReq);
         return ResponseEntity.ok().body(postDto);
     }

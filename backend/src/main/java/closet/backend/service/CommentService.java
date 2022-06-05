@@ -1,6 +1,6 @@
 package closet.backend.service;
 
-import closet.backend.Util.AuthUtil;
+import closet.backend.util.AuthUtil;
 import closet.backend.dao.CommentDao;
 import closet.backend.dto.CommentDto;
 import closet.backend.dto.CreateCommentDto;
