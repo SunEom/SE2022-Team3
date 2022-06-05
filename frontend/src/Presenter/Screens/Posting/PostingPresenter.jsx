@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, TextField, MenuItem } from "@mui/material";
 import styled from "styled-components";
+import PostDetailPresenter from "../PostDetail";
 
 const PostingBox = styled.div`
   min-widht: 1200px;
@@ -20,61 +21,81 @@ const TitleBox = styled.div`
 `;
 
 const Contents = styled.textarea`
-  width: 80ch;
+  width: 79.5ch;
   height: 50ch;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   border-color: lightgrey;
 `;
 
-const Category = [
-  {
-    value: "tip",
-    label: "의상 관리 꿀팁",
-  },
-  {
-    value: "fashion",
-    label: "나만의 패션 코디",
-  },
-];
-
 const Input = styled("input")({
   display: "none",
 });
 
-const PostingPresenter = () => {
+const PostingPresenter = ({
+  title,
+  genre,
+  postBody,
+  onToggleButtonClick,
+  onCancelBntClick,
+  onChange,
+  Genres,
+  mode,
+  cloth
+}) => {
   return (
-    <PostingBox>
-      <div style={{ fontSize: "32px", margin: "50px", fontWeight: "600" }}>게시글 작성</div>
-      <TitleBox>
-        <div style={{ fontSize: "21px" }}>제목</div>
-        <TextField hiddenLabel sx={{ width: "80ch", margin: "1.2ch 0 1.5ch 0" }} color="success" size="small"></TextField>
-        <div style={{ fontSize: "20px" }}>게시판 선택</div>
-        <TextField select hiddenLabel sx={{ width: "80ch", margin: "1.2ch 0 1ch 0" }} color="success" size="small">
-          {Category.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <div style={{ fontSize: "20px", margin: "1.2ch 0" }}>내용</div>
-        <label htmlFor="contained-button-file">
-          <Input accept="image/*" id="contained-button-file" multiple type="file" />
-          <Button variant="contained" component="span" color="success" size="small">
-            이미지 업로드
-          </Button>
-        </label>
-        <Contents style={{ margin: "1ch 0" }}></Contents>
-      </TitleBox>
-      <Button
-        variant="contained"
-        color="success"
-        //size="small"
-        sx={{ left: "42ch", margin: "1.5ch 0" }}
-      >
-        작성
-      </Button>
-    </PostingBox>
+    <>
+    {
+      // 수정화면
+      mode === "edit" && (
+        <PostingBox>
+        <TitleBox>
+          <div style={{ fontSize: "21px" }}>제목</div>
+          <TextField hiddenLabel sx={{ width: "80ch", margin: "1.2ch 0 1.5ch 0" }} color="success" size="small" onChange={onChange} value={title}></TextField>
+          <div style={{ fontSize: "20px" }}>게시판 선택</div>
+          <TextField select hiddenLabel sx={{ width: "80ch", margin: "1.2ch 0 1ch 0" }} color="success" size="small" onChange={onChange}>
+            {Genres.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          <div style={{ fontSize: "20px", margin: "1.2ch 0" }}>내용</div>
+          <label htmlFor="contained-button-file">
+            <Input accept="image/*" id="contained-button-file" multiple type="file" />
+            <Button variant="contained" component="span" color="success" size="small">
+              이미지 업로드
+            </Button>
+          </label>
+          <Contents style={{ margin: "1ch 0" }} onChange={onChange} value={postBody}></Contents>
+        </TitleBox>
+        <div>
+        <Button
+          variant="contained"
+          color="success"
+          //size="small"
+          sx={{ left: "35ch", margin: "1.5ch 0" }}
+          onClick={onCancelBntClick}
+        >
+          취소
+        </Button>
+        <Button
+          variant="contained"
+          color="success"
+          //size="small"
+          sx={{ left: "37.5ch", margin: "1.5ch 0" }}
+        >
+          작성
+        </Button>
+        </div>
+      </PostingBox>
+      )
+    }
+    {
+      // 조회 화면
+      mode === "show" && <PostDetailPresenter cloth={cloth} setMode={onToggleButtonClick} />
+    }
+  </>  
   );
 };
 
