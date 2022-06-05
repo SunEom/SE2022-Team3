@@ -38,38 +38,59 @@ const CommentNumCount = styled.div`
   margin-top: 2px;
 `;
 
-const CommentsListPresenter = ({ commentList }) => {
+const CommentsListPresenter = ({
+  commentList,
+  page,
+  setMaxPage,
+  maxPage,
+  onPageChage,
+  loading,
+}) => {
   return (
     <div>
-      <CommentsListArea>
-        <CommentIconArea>
-          <CommentIcon fontsize="small" color="primary" />
-          <CommentText>댓글</CommentText>
-          <CommentNumCount>1</CommentNumCount>
-        </CommentIconArea>
-        {commentList.map((comment, index) => (
-          <CommentItem comment={comment} key={index} />
-        ))}
-        <PiginationArea>
-          <Pagination count={1} color="primary" />
-        </PiginationArea>
-      </CommentsListArea>
-      <NewCommentArea>
-        <TextField
-          fullWidth
-          id="outlined-multiline-static"
-          label="댓글"
-          inputProps={{ maxLength: 400 }}
-          multiline
-          rows={7}
-          defaultValue=""
-        />
-      </NewCommentArea>
-      <CommentSubmitIcon>
-        <Button variant="contained" size="small">
-          등록
-        </Button>
-      </CommentSubmitIcon>
+      {!loading && (
+        <>
+          <CommentsListArea>
+            <CommentIconArea>
+              <CommentIcon fontsize="small" color="primary" />
+              <CommentText>댓글</CommentText>
+              <CommentNumCount>1</CommentNumCount>
+            </CommentIconArea>
+            {commentList.map((comment, index) => (
+              <CommentItem
+                comment={comment}
+                key={index}
+                page={page}
+                setMaxPage={setMaxPage}
+              />
+            ))}
+            <PiginationArea>
+              <Pagination
+                color="primary"
+                page={page}
+                count={maxPage}
+                onChange={onPageChage}
+              />
+            </PiginationArea>
+          </CommentsListArea>
+          <NewCommentArea>
+            <TextField
+              fullWidth
+              id="outlined-multiline-static"
+              label="댓글"
+              inputProps={{ maxLength: 400 }}
+              multiline
+              rows={7}
+              defaultValue=""
+            />
+          </NewCommentArea>
+          <CommentSubmitIcon>
+            <Button variant="contained" size="small">
+              등록
+            </Button>
+          </CommentSubmitIcon>
+        </>
+      )}
     </div>
   );
 };

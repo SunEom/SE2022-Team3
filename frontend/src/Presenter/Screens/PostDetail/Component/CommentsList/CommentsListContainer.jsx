@@ -3,6 +3,10 @@ import CommentsListPresenter from "./CommentsListPresenter";
 
 const CommentsListContainer = (comment) => {
   const [commentList, setCommentList] = useState([]);
+  const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(1);
+  const [nowCommentList, setNowCommentList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchComments = async () => {
     //임시 댓글 정보
@@ -50,14 +54,34 @@ const CommentsListContainer = (comment) => {
         uploadTime: "13:11",
       },
     ];
-    setCommentList(tempCommentList);
+    return tempCommentList;
   };
 
   useEffect(() => {
-    fetchComments();
-  }, []);
+    fetchComments().then((r) => {
+      setCommentList(r);
+      setNowCommentList(r.slice((page - 1) * 5, page * 5));
 
-  return <CommentsListPresenter commentList={commentList} comment={comment} />;
+      setMaxPage(Math.ceil(r.length / 5));
+      setLoading(false);
+    });
+  }, [page]);
+
+  const onPageChange = (e, page) => {
+    setPage(+page);
+  };
+
+  return (
+    <CommentsListPresenter
+      commentList={nowCommentList}
+      comment={comment}
+      page={page}
+      setMaxPage={setMaxPage}
+      maxPage={maxPage}
+      onPageChage={onPageChange}
+      loading={loading}
+    />
+  );
 };
 
 export default CommentsListContainer;
