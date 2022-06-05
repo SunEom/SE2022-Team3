@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchMyData, requestCheckNickname, requestUpdateUserData } from "../../../../../httpRequest";
+import { loginDispatch } from "../../../../../reduxAccess";
 import InfoEditPresenter from "./InfoEditPresenter";
 
 const InfoEditContainer = () => {
@@ -30,7 +31,16 @@ const InfoEditContainer = () => {
 
   // 닉네임 중복확인 버튼 클릭시 작동하는 함수
   const onNicknameCheckButtonClick = () => {
-    requestCheckNickname({ nickname });
+    requestCheckNickname({ nickname }).then((response) => {
+      let isAlreadyUsed = response.data;
+
+      if (isAlreadyUsed) {
+        window.alert("이미 사용중인 닉네임입니다.\n다른 닉네임을 사용해주세요");
+      } else {
+        window.alert("사용가능한 닉네임입니다!");
+        setIsNickChecked(true);
+      }
+    });
   };
 
   // 성별 정보 변경시 작동하는 함수
@@ -44,18 +54,21 @@ const InfoEditContainer = () => {
       window.alert("닉네임 중복확인을 먼저 해주세요!");
       return;
     }
-    requestUpdateUserData({ nickname, gender, age });
+    requestUpdateUserData({ nickname, gender, age }).then((response) => {
+      loginDispatch(response.data);
+      window.alert("정상적으로 수정되었습니다!");
+    });
   };
 
   useEffect(() => {
-    fetchMyData().then((r) => {
-      setNickname(r.nickname);
-      setAge(r.age);
-      setGender(r.gender);
+    fetchMyData().then((response) => {
+      setNickname(response.data.nickname);
+      setAge(response.data.age);
+      setGender(response.data.gender);
       setRows([
-        { key: "닉네임", value: r.nickname },
-        { key: "성별", value: r.gender },
-        { key: "나이", value: r.age },
+        { key: "닉네임", value: response.data.nickname },
+        { key: "성별", value: response.data.gender },
+        { key: "나이", value: response.data.age },
       ]);
       setLoading(false);
     });

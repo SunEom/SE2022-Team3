@@ -7,8 +7,8 @@ const RouterContainer = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchUserData().then((r) => {
-      loginDispatch(r);
+    fetchUserData().then((response) => {
+      loginDispatch(response.data);
       setLoading(false);
     });
   }, []);

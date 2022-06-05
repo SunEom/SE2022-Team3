@@ -178,8 +178,8 @@ const MainPresenter = ({
               <Pagination page={page} count={maxPage} variant="outlined" onChange={onPageChange} />
             </PagenationContainer>
             <SuggestionContainer>
-              <Suggestion />
-              <Suggestion />
+              <Suggestion about="category" />
+              <Suggestion about="season" />
             </SuggestionContainer>
           </MainPageContent>
         </MainTopContainer>
