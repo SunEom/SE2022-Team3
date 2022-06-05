@@ -5,6 +5,7 @@ import closet.backend.dto.UserJoinDto;
 import closet.backend.dto.UserUpdateDto;
 import closet.backend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -37,8 +38,13 @@ public class UserDaoImpl implements UserDao {
                 "',"+userJoinDto.getAge()+
                 ",'"+userJoinDto.getGender()+
                 "')");
-        User user = jdbcTemplate.queryForObject("Select * FROM user WHERE uid = '"+userJoinDto.getUid()+"'",userRowMapper);
-        UserDto userDto = new UserDto(user.getId(),user.getNickname(),user.getGender(),user.getAge(),user.getUid());
+        UserDto userDto;
+        try{
+            User user = jdbcTemplate.queryForObject("Select * FROM user WHERE uid = '"+userJoinDto.getUid()+"'",userRowMapper);
+            userDto = new UserDto(user.getId(),user.getNickname(),user.getGender(),user.getAge(),user.getUid());
+        } catch(EmptyResultDataAccessException e){
+            userDto = null;
+        }
         return userDto;
     }
 
@@ -85,7 +91,7 @@ public class UserDaoImpl implements UserDao {
     public UserDto update(UserUpdateDto userUpdateDto) {
         jdbcTemplate.execute("UPDATE user SET nickname = '"+userUpdateDto.getNickname()+
                 "', age = "+userUpdateDto.getAge()+
-                ", gender = '"+userUpdateDto.getGender()+"'");
+                ", gender = '"+userUpdateDto.getGender()+"' WHERE id = "+userUpdateDto.getId());
         User user = jdbcTemplate.queryForObject("Select * FROM user WHERE id = " + userUpdateDto.getId() ,userRowMapper);
         UserDto userDto = new UserDto(user.getId(),user.getNickname(),user.getGender(),user.getAge(),user.getUid());
         return userDto;

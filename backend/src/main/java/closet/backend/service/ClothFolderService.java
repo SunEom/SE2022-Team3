@@ -1,6 +1,6 @@
 package closet.backend.service;
 
-import closet.backend.Util.AuthUtil;
+import closet.backend.util.AuthUtil;
 import closet.backend.dao.ClothDao;
 import closet.backend.dao.ClothFolderDao;
 import closet.backend.dao.ClothFolderDetailDao;

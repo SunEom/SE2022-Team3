@@ -1,28 +1,22 @@
 package closet.backend.controller;
 
-import closet.backend.Util.AuthUtil;
+import closet.backend.util.AuthUtil;
 import closet.backend.dto.UserDto;
 import closet.backend.dto.UserJoinDto;
 import closet.backend.dto.UserUpdateDto;
-import closet.backend.entity.User;
-import closet.backend.exception.LoginException;
 import closet.backend.req.UserJoinReq;
 import closet.backend.req.UserUpdateReq;
 import closet.backend.service.UserService;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotEmpty;
-import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -33,7 +27,8 @@ public class UserController {
     private final AuthUtil authUtil;
 
     @PostMapping("/auth/login")
-    public ResponseEntity loginUser(@RequestBody String idToken) throws FirebaseAuthException{
+    public ResponseEntity loginUser(@RequestBody Map<String, String> req) throws FirebaseAuthException{
+        String idToken = req.get("idToken");
         int id = authUtil.getUserid(idToken);
         UserDto userDto = userService.getUserInfo(id);
         return ResponseEntity.ok().body(userDto);
@@ -50,13 +45,15 @@ public class UserController {
     }
 
     @PostMapping("/user/check_nickname")
-    public ResponseEntity checkNickname(@RequestBody String nickname){
+    public ResponseEntity checkNickname(@RequestBody Map<String, String> req){
+        String nickname = req.get("nickname");
         boolean result = userService.checkNickname(nickname);
         return ResponseEntity.ok().body(result);
     }
 
     @PostMapping("/user/userinfo")
-    public ResponseEntity getUserInfo(@RequestBody String idToken) throws FirebaseAuthException{
+    public ResponseEntity getUserInfo(@RequestBody Map<String, String> req) throws FirebaseAuthException{
+        String idToken = req.get("idToken");
         int id = authUtil.getUserid(idToken);
         UserDto userDto = userService.getUserInfo(id);
         return ResponseEntity.ok().body(userDto);
@@ -71,7 +68,8 @@ public class UserController {
     }
 
     @PostMapping("/user/signout")
-    public ResponseEntity deleteUser(@RequestBody String idToken) throws FirebaseAuthException{
+    public ResponseEntity deleteUser(@RequestBody Map<String, String> req) throws FirebaseAuthException{
+        String idToken = req.get("idToken");
         int id = authUtil.getUserid(idToken);
         String result = userService.deleteUser(id);
         return ResponseEntity.ok().body(result);

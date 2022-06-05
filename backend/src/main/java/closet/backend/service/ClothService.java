@@ -1,12 +1,11 @@
 package closet.backend.service;
 
-import closet.backend.Util.AuthUtil;
-import closet.backend.Util.FileUtil;
+import closet.backend.util.AuthUtil;
+import closet.backend.util.FileUtil;
 import closet.backend.dao.ClothDao;
 import closet.backend.dto.ChangeFavoriteDto;
 import closet.backend.dto.ClothDto;
 import closet.backend.dto.CreateClothDto;
-import closet.backend.dto.GetClothBySeasonDto;
 import closet.backend.exception.ClothException;
 import closet.backend.req.*;
 import com.google.firebase.auth.FirebaseAuthException;
@@ -28,15 +27,13 @@ public class ClothService {
     private final ClothDao clothDao;
     @Autowired
     private final AuthUtil authUtil;
-    @Autowired
     private final FileUtil fileUtil;
 
     public ClothDto createCloth(CreateClothReq createClothReq) throws FirebaseAuthException, IOException {
         int id = authUtil.getUserid(createClothReq.getIdToken());
         String file_name;
         if(createClothReq.getFile().isPresent()){
-            MultipartFile convertedFile = fileUtil.convertFile(createClothReq.getFile().get());
-            file_name = fileUtil.uploadFile(convertedFile);
+            file_name = fileUtil.uploadFile(null);
         }else{
             file_name = "";
         }

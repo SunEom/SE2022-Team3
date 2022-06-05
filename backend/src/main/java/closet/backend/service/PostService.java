@@ -1,13 +1,11 @@
 package closet.backend.service;
 
-import closet.backend.Util.AuthUtil;
-import closet.backend.Util.FileUtil;
+import closet.backend.util.AuthUtil;
+import closet.backend.util.FileUtil;
 import closet.backend.dao.FavoritePostDao;
 import closet.backend.dao.PostDao;
 import closet.backend.dto.*;
 import closet.backend.exception.PostException;
-import closet.backend.exception.UserException;
-import closet.backend.req.ChangeFavoriteReq;
 import closet.backend.req.ChangePostFavoriteReq;
 import closet.backend.req.CreatePostReq;
 import closet.backend.req.DeletePostReq;
@@ -32,15 +30,13 @@ public class PostService {
     private final FavoritePostDao favoritePostDao;
     @Autowired
     private final AuthUtil authUtil;
-    @Autowired
     private final FileUtil fileUtil;
 
     public PostDto createPost(CreatePostReq createPostReq) throws FirebaseAuthException, IOException {
         int id = authUtil.getUserid(createPostReq.getIdToken());
         String file_name;
         if(createPostReq.getFile().isPresent()){
-            MultipartFile convertedFile = fileUtil.convertFile(createPostReq.getFile().get());
-            file_name = fileUtil.uploadFile(convertedFile);
+            file_name = fileUtil.uploadFile(null);
         }else{
             file_name = "";
         }

@@ -1,22 +1,14 @@
 package closet.backend.service;
 
 
-import closet.backend.Util.AuthUtil;
-import closet.backend.Util.FileUtil;
 import closet.backend.dao.UserDao;
-import closet.backend.dao.UserDaoImpl;
 import closet.backend.dto.UserDto;
 import closet.backend.dto.UserJoinDto;
 import closet.backend.dto.UserUpdateDto;
-import closet.backend.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @Service
@@ -42,11 +34,11 @@ public class UserService {
 
     public boolean checkNickname(String nickname){
         UserDto userDto = userdao.findByNickname(nickname);
-        if(userDto == null){
-            return false;
+        if(userDto != null){
+            return true;
         }
         else{
-            return true;
+            return false;
         }
     }
 
