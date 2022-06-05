@@ -61,9 +61,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public UserDto findById(int id) {
-        User user = jdbcTemplate.queryForObject("Select * FROM user WHERE id = " + id ,userRowMapper);
-        UserDto userDto = new UserDto(user.getId(),user.getNickname(),user.getGender(),user.getAge(),user.getUid());
-        return userDto;
+        try {
+            User user = jdbcTemplate.queryForObject("Select * FROM user WHERE id = " + id, userRowMapper);
+            UserDto userDto = new UserDto(user.getId(), user.getNickname(), user.getGender(), user.getAge(), user.getUid());
+            return userDto;
+        } catch(EmptyResultDataAccessException error){
+            return null;
+        }
     }
 
     @Override
@@ -72,7 +76,7 @@ public class UserDaoImpl implements UserDao {
             User user = jdbcTemplate.queryForObject("Select * FROM user WHERE uid = " + uid ,userRowMapper);
             UserDto userDto = new UserDto(user.getId(),user.getNickname(),user.getGender(),user.getAge(),user.getUid());
             return userDto;
-        } catch(IncorrectResultSizeDataAccessException error){
+        } catch(EmptyResultDataAccessException error){
         return null;
         }
     }
