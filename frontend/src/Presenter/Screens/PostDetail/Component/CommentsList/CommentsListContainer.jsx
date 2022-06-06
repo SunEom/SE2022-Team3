@@ -19,28 +19,29 @@ const CommentsListContainer = (comment) => {
     setPage(+page);
   };
 
+  const refreshCommentList = () => {
+    fetchComments({ post_id: 1 }).then((response) => {
+      setCommentList(response.data);
+      setNowCommentList(response.data.slice((page - 1) * 5, page * 5));
+      setMaxPage(Math.ceil(response.data.length / 5));
+      setLoading(false);
+    });
+  };
+
   const onNewCommentButtonClick = () => {
-    if (commentBody === "") {
-      window.alert("댓글의 내용을 입력해주세요!");
-      return;
+    if (!commentBody) {
+      return window.alert("댓글의 내용을 입력해주세요!");
     }
     requestNewComment({ post_id: 1, comment_body: commentBody }).then((response) => {
       setCommentList(response.data);
       setNowCommentList(response.data.slice((page - 1) * 5, page * 5));
       setMaxPage(Math.ceil(response.data.length / 5));
-      setLoading(false);
-      setCommentBody("");
     });
+    setCommentBody("");
   };
 
   useEffect(() => {
-    fetchComments({ post_id: 1 }).then((response) => {
-      setCommentList(response.data);
-      setCommentList(response.data);
-      setNowCommentList(response.data.slice((page - 1) * 5, page * 5));
-      setMaxPage(Math.ceil(response.data.length / 5));
-      setLoading(false);
-    });
+    refreshCommentList();
   }, [page]);
 
   return (
@@ -55,6 +56,7 @@ const CommentsListContainer = (comment) => {
       maxPage={maxPage}
       onPageChage={onPageChange}
       onNewCommentButtonClick={onNewCommentButtonClick}
+      refreshCommentList={refreshCommentList}
     />
   );
 };

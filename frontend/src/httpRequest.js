@@ -1,10 +1,18 @@
-import { getIdToken } from "./localStorageAccess";
+import { getIdToken, removeIdToken } from "./localStorageAccess";
 import axios from "axios";
+import { logoutDispatch } from "./reduxAccess";
 
 const axiosPostRequest = async (url, data = {}) => {
   let idToken = getIdToken();
 
-  return await axios.post(`${process.env.REACT_APP_SERVER_URL}${url}`, { ...data, idToken });
+  return await axios.post(`${process.env.REACT_APP_SERVER_URL}${url}`, { ...data, idToken }).catch((err) => {
+    if (err.message === "Firebase ID token has expired.") {
+      window.alert("사용자 세션이 만료되었습니다.\n다시 로그인해주세요.");
+      logoutDispatch();
+      removeIdToken();
+      window.location.replace("/login");
+    }
+  });
 };
 
 const axiosGetRequest = async (url) => {
@@ -15,15 +23,7 @@ const axiosGetRequest = async (url) => {
 
 //특정 idToken에 해당하는 사용자 정보 요청
 export const fetchUserData = async () => {
-  const idToken = getIdToken();
-
-  if (idToken) {
-    return { nickname: window.localStorage.getItem("nickname") };
-  } else {
-    return null;
-  }
-
-  //return  axiosPostRequest("/user/login");
+  return axiosPostRequest("/user/userinfo");
 };
 
 //Join

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { accessControl } from "../../../util";
 import PostingPresenter from "./PostingPresenter";
 
-const PostingContainer = ({cloth}) => {
+const PostingContainer = ({ cloth }) => {
   const [title, setTitle] = useState();
-  const [genre, setGenre] = React.useState('tip');
+  const [genre, setGenre] = React.useState("tip");
   const [postBody, setPostBody] = useState();
   const [mode, setMode] = useState("edit");
 
@@ -23,9 +24,9 @@ const PostingContainer = ({cloth}) => {
       setMode("show");
     }
   };
-  
+
   const onChange = (e) => {
-    switch(e.target.name){
+    switch (e.target.name) {
       case "title":
         setTitle(e.target.value);
         break;
@@ -33,7 +34,7 @@ const PostingContainer = ({cloth}) => {
       case "genre":
         setGenre(e.target.value);
         break;
-      
+
       case "postBody":
         setPostBody(e.target.value);
         break;
@@ -41,40 +42,44 @@ const PostingContainer = ({cloth}) => {
   };
 
   const onCancelBntClick = () => {
-    if(cloth){
-      const confirm = window.confirm("게시글 수정을 취소하시겠습니까?")
-      if(confirm){
+    if (cloth) {
+      const confirm = window.confirm("게시글 수정을 취소하시겠습니까?");
+      if (confirm) {
         onToggleButtonClick();
       }
-    }
-    else{
-      const confirm = window.confirm("게시글 작성을 취소하시겠습니까?")
-      if(confirm){
+    } else {
+      const confirm = window.confirm("게시글 작성을 취소하시겠습니까?");
+      if (confirm) {
         window.history.back();
       }
     }
-  }
+  };
 
-  useEffect(()=>{
-    if(cloth){ //edit
+  useEffect(() => {
+    accessControl(true);
+
+    if (cloth) {
+      //edit
       setTitle(cloth.title);
       setGenre(cloth.genre);
       setPostBody(cloth.post_body);
+    } else {
+      //new
     }
-    else{ //new
-    }
-  },[])
+  }, []);
 
-  return <PostingPresenter
-    title={title}
-    genre={genre}
-    postBody={postBody}
-    onToggleButtonClick={onToggleButtonClick}
-    onCancelBntClick={onCancelBntClick}
-    onChange={onChange}
-    Genres={Genres}
-    mode={mode}
-  />;
+  return (
+    <PostingPresenter
+      title={title}
+      genre={genre}
+      postBody={postBody}
+      onToggleButtonClick={onToggleButtonClick}
+      onCancelBntClick={onCancelBntClick}
+      onChange={onChange}
+      Genres={Genres}
+      mode={mode}
+    />
+  );
 };
 
 export default PostingContainer;

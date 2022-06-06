@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { accessControl } from "../../../util";
 import MyPagePresenter from "./MyPagePresenter";
 
 const MyPageContainer = () => {
@@ -14,6 +15,11 @@ const MyPageContainer = () => {
       "aria-controls": `vertical-tabpanel-${index}`,
     };
   }
+
+  useEffect(() => {
+    accessControl(true);
+  });
+
   return <MyPagePresenter value={value} handleChange={handleChange} a11yProps={a11yProps} />;
 };
 

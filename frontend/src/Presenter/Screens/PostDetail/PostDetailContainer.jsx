@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchPostDetail } from "../../../httpRequest";
 import PostDetailPresenter from "./PostDetailPresenter";
 import { useParams } from "react-router-dom";
+import { accessControl } from "../../../util";
 
 const PostDetailContainer = () => {
   let params = useParams();
@@ -28,6 +29,8 @@ const PostDetailContainer = () => {
   };
 
   useEffect(() => {
+    accessControl(true);
+
     fetchPostDetail({ post_id: params.post_id }).then((result) => {
       setPostId(result.post_id);
       setTitle(result.title);

@@ -48,6 +48,7 @@ const CommentsListPresenter = ({
   commentBody,
   onNewCommentButtonClick,
   onChange,
+  refreshCommentList,
 }) => {
   return (
     <div>
@@ -61,7 +62,7 @@ const CommentsListPresenter = ({
               <CommentNumCount>{commentList.length}</CommentNumCount>
             </CommentIconArea>
             {commentList.map((comment, index) => (
-              <CommentItem comment={comment} key={index} />
+              <CommentItem comment={comment} key={index} refreshCommentList={refreshCommentList} />
             ))}
             <PiginationArea>
               <Pagination color="primary" page={page} count={maxPage} onChange={onPageChage} />
