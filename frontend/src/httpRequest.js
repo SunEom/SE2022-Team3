@@ -520,7 +520,7 @@ export const fetchPostDetail = async (postData) => {
   return {
     post_id: 1,
     title: "TITLE",
-    genre: "나만의 패션 코디",
+    genre: "fashion",
     post_body:
       "이번 아식스 신상들 다 예쁘게 뽑은거 같아요ㅠㅠ 특히 이거\n앤트러사이트 앤티크 골드 색상이 개인적으로 마음에 듭니다!\n카야노중에서 이게 착화감도 베스트라는 소문이 있네요ㅎ\n",
     file_name: "https://image.msscdn.net/images/goods_img/20220415/2493201/2493201_1_500.jpg",

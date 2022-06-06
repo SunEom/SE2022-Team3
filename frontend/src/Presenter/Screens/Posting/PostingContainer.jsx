@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { accessControl } from "../../../util";
 import PostingPresenter from "./PostingPresenter";
 
-const PostingContainer = ({ cloth }) => {
+const PostingContainer = ({ cloth, onModeToggleButtonClick }) => {
   const [title, setTitle] = useState();
   const [genre, setGenre] = React.useState("tip");
   const [postBody, setPostBody] = useState();
-  const [mode, setMode] = useState("edit");
 
   const Genres = [
     {
@@ -18,12 +17,6 @@ const PostingContainer = ({ cloth }) => {
       label: "나만의 패션 코디",
     },
   ];
-
-  const onToggleButtonClick = () => {
-    if (mode === "edit") {
-      setMode("show");
-    }
-  };
 
   const onChange = (e) => {
     switch (e.target.name) {
@@ -45,7 +38,7 @@ const PostingContainer = ({ cloth }) => {
     if (cloth) {
       const confirm = window.confirm("게시글 수정을 취소하시겠습니까?");
       if (confirm) {
-        onToggleButtonClick();
+        onModeToggleButtonClick();
       }
     } else {
       const confirm = window.confirm("게시글 작성을 취소하시겠습니까?");
@@ -73,11 +66,9 @@ const PostingContainer = ({ cloth }) => {
       title={title}
       genre={genre}
       postBody={postBody}
-      onToggleButtonClick={onToggleButtonClick}
       onCancelBntClick={onCancelBntClick}
       onChange={onChange}
       Genres={Genres}
-      mode={mode}
     />
   );
 };

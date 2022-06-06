@@ -170,7 +170,7 @@ const PostDetailPresenter = ({
           }
           {
             // 수정 화면
-            mode === "edit" && <EditPosting cloth={cloth} setMode={onModeToggleButtonClick} />
+            mode === "edit" && <EditPosting cloth={cloth} onModeToggleButtonClick={onModeToggleButtonClick} />
           }
         </>
       )}

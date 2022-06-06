@@ -36,7 +36,6 @@ const PostingPresenter = ({
   title,
   genre,
   postBody,
-  onToggleButtonClick,
   onCancelBntClick,
   onChange,
   Genres,
@@ -45,15 +44,12 @@ const PostingPresenter = ({
 }) => {
   return (
     <>
-    {
-      // 수정화면
-      mode === "edit" && (
         <PostingBox>
         <TitleBox>
           <div style={{ fontSize: "21px" }}>제목</div>
-          <TextField hiddenLabel sx={{ width: "80ch", margin: "1.2ch 0 1.5ch 0" }} color="success" size="small" onChange={onChange} value={title}></TextField>
+          <TextField hiddenLabel sx={{ width: "80ch", margin: "1.2ch 0 1.5ch 0" }} color="success" size="small" onChange={onChange} value={title} name="title"></TextField>
           <div style={{ fontSize: "20px" }}>게시판 선택</div>
-          <TextField select hiddenLabel sx={{ width: "80ch", margin: "1.2ch 0 1ch 0" }} color="success" size="small" onChange={onChange}>
+          <TextField select hiddenLabel sx={{ width: "80ch", margin: "1.2ch 0 1ch 0" }} color="success" size="small" onChange={onChange} value={genre} name="genre">
             {Genres.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
@@ -67,7 +63,7 @@ const PostingPresenter = ({
               이미지 업로드
             </Button>
           </label>
-          <Contents style={{ margin: "1ch 0" }} onChange={onChange} value={postBody}></Contents>
+          <Contents style={{ margin: "1ch 0" }} onChange={onChange} value={postBody} name="postBody"></Contents>
         </TitleBox>
         <div>
         <Button
@@ -89,12 +85,6 @@ const PostingPresenter = ({
         </Button>
         </div>
       </PostingBox>
-      )
-    }
-    {
-      // 조회 화면
-      mode === "show" && <PostDetailPresenter cloth={cloth} setMode={onToggleButtonClick} />
-    }
   </>  
   );
 };
