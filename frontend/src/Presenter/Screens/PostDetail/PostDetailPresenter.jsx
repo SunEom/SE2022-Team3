@@ -127,10 +127,10 @@ const PostDetailPresenter = ({
                     <PostDetailInfo>
                       <WriterName>작성자 : {nickname}</WriterName>
                       <WrittenDate>작성 날짜 : {createdDate}</WrittenDate>
-                      <BoardType>{genre}</BoardType>
+                      <BoardType>{genre === "fashion" ? "나만의 패션 코디" : "의상 관리 꿀팁"}</BoardType>
                     </PostDetailInfo>
                     <ImageBoxArea>
-                      <ImageBox src={fileName} />
+                      <ImageBox src="http://localhost:8000/sc.png" />
                     </ImageBoxArea>
                     <TextArea>{postBody}</TextArea>
                     <ButtonContainer>

@@ -392,13 +392,13 @@ export const requesRemoveClothToFolder = (clothFolderData) => {
 };
 
 // 계절별 의상 추천 요청
-export const fetchSeasonalRecommnend = (season) => {
-  return axiosPostRequest("/recommend/season", season);
+export const fetchSeasonalRecommnend = () => {
+  return axiosGetRequest("/recommend/season");
 };
 
 // 카테고리별 의상 추천 요청
-export const fetchCategoricalRecommnend = (category) => {
-  return axiosPostRequest("/recommend/category", category);
+export const fetchCategoricalRecommnend = () => {
+  return axiosPostRequest("/recommend/category");
 };
 
 //Board
