@@ -130,7 +130,7 @@ const PostDetailPresenter = ({
                       <BoardType>{genre === "fashion" ? "나만의 패션 코디" : "의상 관리 꿀팁"}</BoardType>
                     </PostDetailInfo>
                     <ImageBoxArea>
-                      <ImageBox src="http://localhost:8000/sc.png" />
+                      <ImageBox src={fileName} />
                     </ImageBoxArea>
                     <TextArea>{postBody}</TextArea>
                     <ButtonContainer>
