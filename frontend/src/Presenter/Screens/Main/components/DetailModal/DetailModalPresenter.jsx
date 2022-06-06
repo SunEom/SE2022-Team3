@@ -10,6 +10,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ClothForm from "../../../../Components/ClothForm";
+import ClassificationListitem from "../ClassificationListItem";
 
 const StyledBox = styled(Box)`
   font-family: "Noto Sans KR", sans-serif;
@@ -217,6 +218,7 @@ const DetailModalPresenter = ({
                 </ClassificationButton>
                 <Menu
                   id="basic-menu"
+                  disableAutoFocusItem={true}
                   anchorEl={anchorEl}
                   open={openMenu}
                   onClose={handleMenuClose}
@@ -225,13 +227,14 @@ const DetailModalPresenter = ({
                   }}
                   sx={{ right: 100 }}
                 >
-                  {classificationList.map((c) => (
-                    <MenuItem onClick={handleMenuClose}>{c}</MenuItem>
+                  {classificationList.map((item) => (
+                    <ClassificationListitem onClick={handleMenuClose} classification={item} />
                   ))}
                   <Divider />
 
                   <ClassificationMenuContainer>
                     <TextField
+                      onKeyDown={(e) => e.stopPropagation()}
                       size="small"
                       sx={{ width: 200 }}
                       label="새로운 분류 이름"

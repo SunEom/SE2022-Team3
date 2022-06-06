@@ -13,6 +13,13 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
   const [clothBody, setClothBody] = useState(cloth.cloth_body);
   const [favorite, setFavorite] = useState(cloth.favorite);
 
+  const [classificationList, setClassificationList] = useState([
+    { folder_id: 1, folder_name: "제주도 여행" },
+    { folder_id: 2, folder_name: "여름 휴가" },
+    { folder_id: 3, folder_name: "미국 여행" },
+  ]);
+  const [newClassification, setNewClassification] = useState("");
+
   //분류 버튼을 위한 Property
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openMenu = Boolean(anchorEl);
@@ -22,8 +29,7 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  const [classificationList, setClassificationList] = useState(["제주도 여행", "여름 휴가", "미국 여행"]);
-  const [newClassification, setNewClassification] = useState("");
+
   const onClassificationAddButtonClick = () => {
     if (newClassification === "") {
       window.alert("분류 이름을 입력해주세요");
