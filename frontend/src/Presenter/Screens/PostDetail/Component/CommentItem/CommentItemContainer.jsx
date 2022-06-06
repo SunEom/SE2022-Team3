@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { requestDeleteComment, requestUpdateComment } from "../../../../../httpRequest";
 import CommentItemPresenter from "./CommentItemPresenter";
 
-const CommentItemContainer = ({ comment }) => {
+const CommentItemContainer = ({ comment, refreshCommentList }) => {
   const [mode, setMode] = useState("show"); // show : 댓글 조회, edit : 댓글 수정
-  const [contents, setContents] = useState(comment?.body);
+  const [contents, setContents] = useState(comment.comment_body);
+
+  console.log(comment.comment_body);
   const onChange = (e) => {
     e.preventDefault();
     setContents(e.target.value);
@@ -14,8 +17,25 @@ const CommentItemContainer = ({ comment }) => {
       setMode("edit");
     } else if (mode === "edit") {
       setMode("show");
-      setContents(comment?.body);
+      setContents(comment.comment_body);
     }
+  };
+
+  const onDeleteButtonClick = () => {
+    let answer = window.confirm("정말로 삭제하시겠습니까?");
+
+    if (answer) {
+      requestDeleteComment({ comment_id: comment.comment_id }).then(() => {
+        refreshCommentList();
+      });
+    }
+  };
+
+  const onEditButtonClick = () => {
+    requestUpdateComment({ comment_id: comment.comment_id, comment_body: contents }).then((response) => {
+      setMode("show");
+      refreshCommentList();
+    });
   };
 
   return (
@@ -25,6 +45,8 @@ const CommentItemContainer = ({ comment }) => {
       onModeToggleButtonClick={onModeToggleButtonClick}
       onChange={onChange}
       contents={contents}
+      onDeleteButtonClick={onDeleteButtonClick}
+      onEditButtonClick={onEditButtonClick}
     />
   );
 };

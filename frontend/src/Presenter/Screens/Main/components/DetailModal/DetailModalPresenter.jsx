@@ -112,6 +112,8 @@ const ClothDescriptionTitle = styled.div`
 `;
 const ClothDescriptionBody = styled.div`
   font-size: 14px;
+  white-space: pre-line;
+  line-height: 20px;
 `;
 
 const LikeButton = styled(Fab)``;

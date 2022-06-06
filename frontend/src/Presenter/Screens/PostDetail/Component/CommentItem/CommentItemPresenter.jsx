@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { IconButton, Button } from "@mui/material";
+import { IconButton, Button, TextField } from "@mui/material";
 
 const CommentBox = styled.div`
   border: solid #e9e9e9 2px;
@@ -19,6 +19,8 @@ const CommentUser = styled.div`
 
 const UserCommentArea = styled.div`
   margin: 15px 0px 0px 15px;
+  white-space: pre-line;
+  line-height: 20px;
 `;
 
 const CommentDetail = styled.div`
@@ -62,7 +64,7 @@ const Modifycommentbox = styled.input`
   width: 700px;
   border: 1px solid lightgrey;
 
-  padding: 10px 0px 20px 0px;
+  padding: 0px 5px 0px 5px;
   font-family: "Lato", sans-serif;
   &:focus {
     border: 1px solid grey;
@@ -74,7 +76,7 @@ const EditCommentDeleteBtn = styled.div`
   color: #b6b6b6;
 `;
 
-const CommentItemPresenter = ({ comment, mode, onModeToggleButtonClick, onChange, contents }) => {
+const CommentItemPresenter = ({ comment, mode, onModeToggleButtonClick, onChange, contents, onDeleteButtonClick, onEditButtonClick }) => {
   return (
     <CommentBox>
       <CommentBoxArea>
@@ -87,7 +89,12 @@ const CommentItemPresenter = ({ comment, mode, onModeToggleButtonClick, onChange
               <CommentDetailIconBox>
                 <CommentDetail>
                   <CommentDate>
-                    {new Date(+new Date(comment.created_date) + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "")}
+                    {comment.created_date === comment.updated_date
+                      ? new Date(+new Date(comment.created_date) + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "")
+                      : `${new Date(+new Date(comment.updated_date) + 3240 * 10000)
+                          .toISOString()
+                          .replace("T", " ")
+                          .replace(/\..*/, "")} (수정됨)`}
                   </CommentDate>
                 </CommentDetail>
                 <CommentIcons>
@@ -97,7 +104,7 @@ const CommentItemPresenter = ({ comment, mode, onModeToggleButtonClick, onChange
                     </IconButton>
                   </CommentEditBtn>
                   <CommentDeleteBtn>
-                    <IconButton aria-label="delete" size="large" color="error">
+                    <IconButton aria-label="delete" size="large" color="error" onClick={onDeleteButtonClick}>
                       <DeleteIcon />
                     </IconButton>
                   </CommentDeleteBtn>
@@ -108,10 +115,10 @@ const CommentItemPresenter = ({ comment, mode, onModeToggleButtonClick, onChange
         }
         {mode === "edit" && (
           <UserCommentArea>
-            <Modifycommentbox type="text" value={contents} name="comment" onChange={onChange}></Modifycommentbox>
+            <TextField type="text" value={contents} name="comment" onChange={onChange} fullWidth sx={{ fontSize: 1 }} multiline></TextField>
 
             <EditCommentIcons>
-              <Button variant="outlined" size="small" color="primary">
+              <Button variant="outlined" size="small" color="primary" onClick={onEditButtonClick}>
                 수정
               </Button>
 

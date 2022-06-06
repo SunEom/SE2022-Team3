@@ -64,6 +64,8 @@ const ImageBox = styled.img`
 
 const TextArea = styled.div`
   margin: 70px 0px 50px 0px;
+  white-space: pre-line;
+  line-height: 20px;
 `;
 
 const ButtonContainer = styled.div`
@@ -134,12 +136,7 @@ const PostDetailPresenter = ({
                     <ButtonContainer>
                       <PostIconArea>
                         <LikeIconArea>
-                          <Button
-                            variant="text"
-                            startIcon={<FavoriteBorderIcon />}
-                            size="big"
-                            color="error"
-                          >
+                          <Button variant="text" startIcon={<FavoriteBorderIcon />} size="big" color="error">
                             좋아요
                           </Button>
                           <LikeNumCount>20</LikeNumCount>
@@ -158,12 +155,7 @@ const PostDetailPresenter = ({
                           </Button>
                         </PostEditBtn>
                         <PostDeleteBtn>
-                          <Button
-                            variant="outlined"
-                            startIcon={<DeleteIcon />}
-                            size="small"
-                            color="error"
-                          >
+                          <Button variant="outlined" startIcon={<DeleteIcon />} size="small" color="error">
                             삭제
                           </Button>
                         </PostDeleteBtn>
@@ -178,9 +170,7 @@ const PostDetailPresenter = ({
           }
           {
             // 수정 화면
-            mode === "edit" && (
-              <EditPosting cloth={cloth} setMode={onModeToggleButtonClick} />
-            )
+            mode === "edit" && <EditPosting cloth={cloth} setMode={onModeToggleButtonClick} />
           }
         </>
       )}
