@@ -9,14 +9,14 @@ const RouterContainer = () => {
 
   useEffect(() => {
     if (getIdToken()) {
-      fetchUserData().then((response) => {
-        loginDispatch(response.data);
-        setLoading(false);
-      });
+      fetchUserData()
+        .then(async (response) => {
+          await loginDispatch(response.data);
+        })
+        .then(() => setLoading(false));
     } else {
       setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   return <RouterPresenter loading={loading} />;

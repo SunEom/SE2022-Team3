@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchPostings } from "../../../httpRequest";
+import { accessControl } from "../../../util";
 import BoardPresenter from "./BoardPresenter";
 
 const BoardContainer = () => {
@@ -23,6 +24,7 @@ const BoardContainer = () => {
   }, [params.category]);
 
   useEffect(() => {
+    accessControl(true);
     fetchPostings(params.category).then((r) => {
       setPostings(r);
       setLoading(false);

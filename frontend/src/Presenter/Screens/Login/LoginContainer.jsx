@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import LoginPresenter from "./LoginPresenter";
 import { authService } from "../../../firebase";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, getIdToken } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { setIdToken } from "../../../localStorageAccess";
 import { getUserState, loginDispatch } from "../../../reduxAccess";
@@ -37,7 +37,9 @@ const LoginContainer = () => {
       });
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    accessControl(false);
+  }, []);
 
   return <LoginPresenter onLoginButtonClick={onLoginButtonClick} />;
 };

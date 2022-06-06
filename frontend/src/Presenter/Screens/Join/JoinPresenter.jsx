@@ -61,80 +61,84 @@ const LoginButtonContent = styled.div`
   color: green;
 `;
 
-const JoinPresenter = ({ onSubmitJoinButton, onSubmitNicknameCheck, onChange, gender, age, nickname }) => {
+const JoinPresenter = ({ onSubmitJoinButton, onSubmitNicknameCheck, onChange, gender, age, nickname, loading }) => {
   return (
-    <LoginBox>
-      <LoginCard>
-        <LogoContainer component="img" alt="cleset logo" image={logo} />
-        <ContentContainer>
-          <CardContent style={{ padding: 0 }}>
-            <Typography gutterBottom variant="h6" component="div">
-              <LoginTitleDiv>
-                <div display="flex">
-                  <TextField
-                    label="닉네임"
-                    name="nickname"
-                    variant="standard"
-                    inputProps={{ maxLength: 12 }}
-                    sx={{ width: "12.5ch", marginBottom: "1.8ch" }}
-                    color="success"
-                    onChange={onChange}
-                    value={nickname}
-                  />
-                  <Button
-                    variant="contained"
-                    color="success"
-                    size="small"
-                    sx={{ top: "0.8ch", left: "1.5ch" }}
-                    onClick={onSubmitNicknameCheck}
-                  >
-                    확인
-                  </Button>
-                </div>
-                <TextField
-                  name="age"
-                  type="number"
-                  label="나이"
-                  variant="standard"
-                  inputProps={{ max: 100, min: 0 }}
-                  sx={{ width: "18ch", marginBottom: "2ch" }}
-                  color="success"
-                  onChange={onChange}
-                  value={age}
-                />
-                <TextField
-                  select
-                  name="gender"
-                  label="성별"
-                  defaultValue={gender}
-                  onChange={onChange}
-                  variant="standard"
-                  sx={{ width: "18ch" }}
-                  color="success"
-                >
-                  <MenuItem key="비공개" value="비공개">
-                    비공개
-                  </MenuItem>
-                  <MenuItem key="남자" value="남자">
-                    남자
-                  </MenuItem>
-                  <MenuItem key="여자" value="여자">
-                    여자
-                  </MenuItem>
-                </TextField>
-              </LoginTitleDiv>
-            </Typography>
-          </CardContent>
-          <CardActions style={{ padding: 0 }}>
-            <LoginButtonContainer>
-              <GoogleLoginButton variant="outlined" color="success" onClick={onSubmitJoinButton} type="submit" value="회원가입">
-                <LoginButtonContent>회원가입</LoginButtonContent>
-              </GoogleLoginButton>
-            </LoginButtonContainer>
-          </CardActions>
-        </ContentContainer>
-      </LoginCard>
-    </LoginBox>
+    <>
+      {!loading && (
+        <LoginBox>
+          <LoginCard>
+            <LogoContainer component="img" alt="cleset logo" image={logo} />
+            <ContentContainer>
+              <CardContent style={{ padding: 0 }}>
+                <Typography gutterBottom variant="h6" component="div">
+                  <LoginTitleDiv>
+                    <div display="flex">
+                      <TextField
+                        label="닉네임"
+                        name="nickname"
+                        variant="standard"
+                        inputProps={{ maxLength: 12 }}
+                        sx={{ width: "12.5ch", marginBottom: "1.8ch" }}
+                        color="success"
+                        onChange={onChange}
+                        value={nickname}
+                      />
+                      <Button
+                        variant="contained"
+                        color="success"
+                        size="small"
+                        sx={{ top: "0.8ch", left: "1.5ch" }}
+                        onClick={onSubmitNicknameCheck}
+                      >
+                        확인
+                      </Button>
+                    </div>
+                    <TextField
+                      name="age"
+                      type="number"
+                      label="나이"
+                      variant="standard"
+                      inputProps={{ max: 100, min: 0 }}
+                      sx={{ width: "18ch", marginBottom: "2ch" }}
+                      color="success"
+                      onChange={onChange}
+                      value={age}
+                    />
+                    <TextField
+                      select
+                      name="gender"
+                      label="성별"
+                      defaultValue={gender}
+                      onChange={onChange}
+                      variant="standard"
+                      sx={{ width: "18ch" }}
+                      color="success"
+                    >
+                      <MenuItem key="비공개" value="비공개">
+                        비공개
+                      </MenuItem>
+                      <MenuItem key="남자" value="남자">
+                        남자
+                      </MenuItem>
+                      <MenuItem key="여자" value="여자">
+                        여자
+                      </MenuItem>
+                    </TextField>
+                  </LoginTitleDiv>
+                </Typography>
+              </CardContent>
+              <CardActions style={{ padding: 0 }}>
+                <LoginButtonContainer>
+                  <GoogleLoginButton variant="outlined" color="success" onClick={onSubmitJoinButton} type="submit" value="회원가입">
+                    <LoginButtonContent>회원가입</LoginButtonContent>
+                  </GoogleLoginButton>
+                </LoginButtonContainer>
+              </CardActions>
+            </ContentContainer>
+          </LoginCard>
+        </LoginBox>
+      )}
+    </>
   );
 };
 

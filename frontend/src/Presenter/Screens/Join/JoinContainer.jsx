@@ -4,6 +4,7 @@ import store from "../../../store";
 import { useNavigate } from "react-router-dom";
 import { requestCheckNickname, requestJoin } from "../../../httpRequest";
 import { loginDispatch } from "../../../reduxAccess";
+import { accessControl } from "../../../util";
 //import { useHistory } from 'react-router-dom';
 
 const JoinContainer = () => {
@@ -12,9 +13,12 @@ const JoinContainer = () => {
   const [nickname, setNickname] = useState();
   const [isNicknamePassed, setIsNicknamePassed] = useState(false);
   const [age, setAge] = useState();
-  const [gender, setGender] = React.useState("비공개");
-
-  useEffect(() => {}, []);
+  const [gender, setGender] = useState("비공개");
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    accessControl(false);
+    setLoading(false);
+  }, []);
 
   const onChange = (e) => {
     e.preventDefault();
@@ -78,6 +82,7 @@ const JoinContainer = () => {
       nickname={nickname}
       age={age}
       gender={gender}
+      loading={loading}
     />
   );
 };
