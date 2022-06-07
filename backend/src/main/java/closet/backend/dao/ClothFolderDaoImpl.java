@@ -4,6 +4,7 @@ import closet.backend.dto.ClothFolderDto;
 import closet.backend.dto.CreateFolderDto;
 import closet.backend.dto.UpdateFolderDto;
 import closet.backend.req.UpdateFolderReq;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,7 @@ import java.util.List;
 @Repository
 public class ClothFolderDaoImpl implements ClothFolderDao{
 
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     private final RowMapper<ClothFolderDto> folderRowMapper = (rs, rowNum) ->

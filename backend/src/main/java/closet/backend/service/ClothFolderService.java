@@ -32,7 +32,7 @@ public class ClothFolderService {
 
     public ClothFolderDto updateFolder(UpdateFolderReq updateFolderReq) throws FirebaseAuthException{
         int id = authUtil.getUserid(updateFolderReq.getIdToken());
-        UpdateFolderDto updateFolderDto = new UpdateFolderDto(id, updateFolderReq.getFolder_id(), updateFolderReq.getFolderName());
+        UpdateFolderDto updateFolderDto = new UpdateFolderDto(id, updateFolderReq.getFolder_id(), updateFolderReq.getFolder_name());
         ClothFolderDto result = clothFolderDao.update(updateFolderDto);
         return result;
     }
