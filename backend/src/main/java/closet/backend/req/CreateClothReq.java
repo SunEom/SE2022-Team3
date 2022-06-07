@@ -22,5 +22,4 @@ public class CreateClothReq {
 	private String place;
 	private String size;
 	private String cloth_body;
-	private Optional<File> file;
 }

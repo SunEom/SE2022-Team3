@@ -13,7 +13,6 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 public class UpdateClothReq {
-
 	private String idToken;
 	private int cloth_id;
 	private String name;
@@ -23,5 +22,4 @@ public class UpdateClothReq {
 	private String place;
 	private String size;
 	private String cloth_body;
-	private Optional<File> file;
 }

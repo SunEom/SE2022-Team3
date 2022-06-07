@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,15 +28,15 @@ public class PostController {
 
 
     @PostMapping(value = "/post/create", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity createPost(@RequestPart CreatePostReq createPostReq, @RequestPart MultipartFile img) throws FirebaseAuthException, IOException {
-        PostDto postDto = postService.createPost(createPostReq);
-        return ResponseEntity.ok().body(postDto);
+    public ResponseEntity createPost(@RequestPart CreatePostReq createPostReq, @RequestPart Optional<MultipartFile> img) throws FirebaseAuthException, IOException {
+        PostDto result = postService.createPost(createPostReq, img);
+        return ResponseEntity.status(201).body(result);
     }
 
-    @PostMapping("/post/update")
-    public ResponseEntity updatePost(@RequestBody UpdatePostReq updatePostReq){
-
-        return null;
+    @PostMapping(value = "/post/update",consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE} )
+    public ResponseEntity updatePost(@RequestPart UpdatePostReq updatePostReq, @RequestPart Optional<MultipartFile> img) throws FirebaseAuthException, IOException {
+        PostDto result = postService.updatePost(updatePostReq,img);
+        return ResponseEntity.ok().body(result);
     }
 
     @PostMapping("/post/delete")
@@ -50,7 +52,8 @@ public class PostController {
     }
 
     @PostMapping("/post/{post_id}")
-    public ResponseEntity getPostDetail(@PathVariable int post_id,@RequestBody String idToken) throws FirebaseAuthException{
+    public ResponseEntity getPostDetail(@PathVariable int post_id,@RequestBody Map<String, String> req) throws FirebaseAuthException{
+        String idToken = req.get("idToken");
         PostDetailDto result = postService.getPostDetail(post_id,idToken);
         return ResponseEntity.ok().body(result);
     }

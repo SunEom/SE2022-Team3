@@ -1,5 +1,6 @@
 package closet.backend.service;
 
+import closet.backend.req.UpdatePostReq;
 import closet.backend.util.AuthUtil;
 import closet.backend.util.FileUtil;
 import closet.backend.dao.FavoritePostDao;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -32,11 +34,11 @@ public class PostService {
     private final AuthUtil authUtil;
     private final FileUtil fileUtil;
 
-    public PostDto createPost(CreatePostReq createPostReq) throws FirebaseAuthException, IOException {
+    public PostDto createPost(CreatePostReq createPostReq, Optional<MultipartFile> img) throws FirebaseAuthException, IOException {
         int id = authUtil.getUserid(createPostReq.getIdToken());
         String file_name;
-        if(createPostReq.getFile().isPresent()){
-            file_name = fileUtil.uploadFile(null);
+        if(img.isPresent()){
+            file_name = fileUtil.uploadFile(img.get());
         }else{
             file_name = "";
         }
@@ -55,9 +57,17 @@ public class PostService {
         }
     }
 
-    public PostDto updatePost(int post_id) {
-
-        return null;
+    public PostDto updatePost(UpdatePostReq updatePostReq, Optional<MultipartFile> img) throws FirebaseAuthException, IOException {
+        int id = authUtil.getUserid(updatePostReq.getIdToken());
+        String file_name;
+        if(img.isPresent()){
+            file_name = fileUtil.uploadFile(img.get());
+        }else{
+            file_name = "";
+        }
+        UpdatePostDto updatePostDto = new UpdatePostDto(id, updatePostReq.getPost_id(), updatePostReq.getTitle(), updatePostReq.getGenre(), updatePostReq.getPost_body(), file_name);
+        PostDto result = postDao.update(updatePostDto);
+        return result;
     }
 
     public PostDetailDto getPostDetail(int post_id,String idToken) throws FirebaseAuthException{
