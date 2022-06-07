@@ -1,14 +1,14 @@
 package closet.backend.service;
 
 import closet.backend.util.AuthUtil;
-import closet.backend.dao.CommentDao;
-import closet.backend.dto.CommentDto;
-import closet.backend.dto.CreateCommentDto;
-import closet.backend.dto.UpdateCommentDto;
+import closet.backend.dao.comment.CommentDao;
+import closet.backend.dto.comment.CommentDto;
+import closet.backend.dto.comment.CreateCommentDto;
+import closet.backend.dto.comment.UpdateCommentDto;
 import closet.backend.exception.CommentException;
-import closet.backend.req.CreateCommentReq;
-import closet.backend.req.DeleteCommentReq;
-import closet.backend.req.UpdateCommentReq;
+import closet.backend.req.comment.CreateCommentReq;
+import closet.backend.req.comment.DeleteCommentReq;
+import closet.backend.req.comment.UpdateCommentReq;
 import com.google.firebase.auth.FirebaseAuthException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,10 +1,10 @@
 package closet.backend.service;
 
 
-import closet.backend.dao.UserDao;
-import closet.backend.dto.UserDto;
-import closet.backend.dto.UserJoinDto;
-import closet.backend.dto.UserUpdateDto;
+import closet.backend.dao.user.UserDao;
+import closet.backend.dto.user.UserDto;
+import closet.backend.dto.user.UserJoinDto;
+import closet.backend.dto.user.UserUpdateDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,15 +1,15 @@
 package closet.backend.service;
 
-import closet.backend.req.UpdatePostReq;
+import closet.backend.dto.post.*;
+import closet.backend.req.post.UpdatePostReq;
 import closet.backend.util.AuthUtil;
 import closet.backend.util.FileUtil;
-import closet.backend.dao.FavoritePostDao;
-import closet.backend.dao.PostDao;
-import closet.backend.dto.*;
+import closet.backend.dao.post.FavoritePostDao;
+import closet.backend.dao.post.PostDao;
 import closet.backend.exception.PostException;
-import closet.backend.req.ChangePostFavoriteReq;
-import closet.backend.req.CreatePostReq;
-import closet.backend.req.DeletePostReq;
+import closet.backend.req.post.ChangePostFavoriteReq;
+import closet.backend.req.post.CreatePostReq;
+import closet.backend.req.post.DeletePostReq;
 import com.google.firebase.auth.FirebaseAuthException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -70,7 +70,7 @@ public class PostService {
         return result;
     }
 
-    public PostDetailDto getPostDetail(int post_id,String idToken) throws FirebaseAuthException{
+    public PostDetailDto getPostDetail(int post_id, String idToken) throws FirebaseAuthException{
         int id = authUtil.getUserid(idToken);
         PostDetailDto result = postDao.findByPostId(post_id, id);
         return result;

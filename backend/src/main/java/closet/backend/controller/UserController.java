@@ -1,18 +1,17 @@
 package closet.backend.controller;
 
 import closet.backend.util.AuthUtil;
-import closet.backend.dto.UserDto;
-import closet.backend.dto.UserJoinDto;
-import closet.backend.dto.UserUpdateDto;
-import closet.backend.req.UserJoinReq;
-import closet.backend.req.UserUpdateReq;
+import closet.backend.dto.user.UserDto;
+import closet.backend.dto.user.UserJoinDto;
+import closet.backend.dto.user.UserUpdateDto;
+import closet.backend.req.user.UserJoinReq;
+import closet.backend.req.user.UserUpdateReq;
 import closet.backend.service.UserService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

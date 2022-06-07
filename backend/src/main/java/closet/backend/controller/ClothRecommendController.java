@@ -1,7 +1,7 @@
 package closet.backend.controller;
 
-import closet.backend.dto.CategoryCountDto;
-import closet.backend.dto.RecommendClothBySeasonDto;
+import closet.backend.dto.cloth.CategoryCountDto;
+import closet.backend.dto.cloth.RecommendClothBySeasonDto;
 import closet.backend.service.ClothRecommendService;
 import com.google.firebase.auth.FirebaseAuthException;
 import lombok.RequiredArgsConstructor;

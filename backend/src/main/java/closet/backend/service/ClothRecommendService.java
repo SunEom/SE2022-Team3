@@ -2,9 +2,9 @@ package closet.backend.service;
 
 
 import closet.backend.util.AuthUtil;
-import closet.backend.dao.ClothDao;
-import closet.backend.dto.CategoryCountDto;
-import closet.backend.dto.RecommendClothBySeasonDto;
+import closet.backend.dao.cloth.ClothDao;
+import closet.backend.dto.cloth.CategoryCountDto;
+import closet.backend.dto.cloth.RecommendClothBySeasonDto;
 import com.google.firebase.auth.FirebaseAuthException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
