@@ -59,7 +59,7 @@ const PostingContainer = ({ post, onModeToggleButtonClick }) => {
     }
   };
 
-  const onSaveButtonClick = () => {
+  const onSaveButtonClick = async () => {
     if (!title) {
       window.alert("제목을 입력해주세요");
     }
@@ -70,30 +70,32 @@ const PostingContainer = ({ post, onModeToggleButtonClick }) => {
       window.alert("내용을 입력해주세요");
     }
 
-    const formdata = new FormData();
-    formdata.append("img", imgfile);
+    const formData = new FormData();
+    formData.append("img", imgfile);
 
     if (post) {
-      formdata.append("updatePostReq", {
-        post_id: post.post_id,
-        title,
-        genre,
-        post_body: postBody,
-      });
-
-      requestUpdatePosting(formdata).then((response) => {
+      requestUpdatePosting(
+        {
+          post_id: post.post_id,
+          title,
+          genre,
+          post_body: postBody,
+        },
+        imgfile
+      ).then((response) => {
         console.log(response.data);
         window.alert("정상적으로 수정되었습니다!");
         onModeToggleButtonClick();
       });
     } else {
-      formdata.append("createPostReq", {
-        title,
-        genre,
-        post_body: postBody,
-      });
-
-      requestNewPosting(formdata).then((response) => {
+      requestNewPosting(
+        {
+          title,
+          genre,
+          post_body: postBody,
+        },
+        imgfile
+      ).then((response) => {
         console.log(response.data);
         window.alert("정상적으로 추가되었습니다!");
         navigate(`/postDetail/${response.data.post_id}`, { replace: true });

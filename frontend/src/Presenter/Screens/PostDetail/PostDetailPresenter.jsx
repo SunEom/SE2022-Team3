@@ -114,6 +114,7 @@ const PostDetailPresenter = ({
   favorite,
   favCount,
   onFavButtonClick,
+  onDeleteButtonClick,
 }) => {
   return (
     <>
@@ -137,9 +138,11 @@ const PostDetailPresenter = ({
                       </WriterDiv>
                       <BoardType>{genre === "fashion" ? "나만의 패션 코디" : "의상 관리 꿀팁"}</BoardType>
                     </PostDetailInfo>
-                    <ImageBoxArea>
-                      <ImageBox src={fileName} />
-                    </ImageBoxArea>
+                    {fileName && (
+                      <ImageBoxArea>
+                        <ImageBox src={fileName} />
+                      </ImageBoxArea>
+                    )}
                     <TextArea>{postBody}</TextArea>
                     <ButtonContainer>
                       <PostIconArea>
@@ -168,7 +171,7 @@ const PostDetailPresenter = ({
                           </Button>
                         </PostEditBtn>
                         <PostDeleteBtn>
-                          <Button variant="outlined" startIcon={<DeleteIcon />} size="small" color="error">
+                          <Button variant="outlined" startIcon={<DeleteIcon />} size="small" color="error" onClick={onDeleteButtonClick}>
                             삭제
                           </Button>
                         </PostDeleteBtn>

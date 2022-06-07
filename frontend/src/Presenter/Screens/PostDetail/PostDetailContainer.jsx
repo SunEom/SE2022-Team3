@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { fetchPostDetail, requestChangePostFavState } from "../../../httpRequest";
+import { fetchPostDetail, requestChangePostFavState, requestDeletePosting } from "../../../httpRequest";
 import PostDetailPresenter from "./PostDetailPresenter";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { accessControl } from "../../../util";
 
 const PostDetailContainer = () => {
   let params = useParams();
+  let navigate = useNavigate();
 
   const [mode, setMode] = useState("show"); // show : 조회 화면, edit : 수정 화면
   const [loading, setLoading] = useState(true);
@@ -33,32 +34,41 @@ const PostDetailContainer = () => {
   const onFavButtonClick = () => {
     requestChangePostFavState({ post_id: postId, favorite }).then((response) => {
       setFavorite(response.data.favorite);
-      setFavCount((current) => {
-        return response.data.favorite === 1 ? current + 1 : current - 1;
-      });
+      setFavCount(response.data.favorite_count);
     });
+  };
+
+  const onDeleteButtonClick = () => {
+    let answer = window.confirm("정말로 삭제하시겠습니까?");
+
+    if (answer) {
+      requestDeletePosting({ post_id: post.post_id }).then((response) => {
+        window.alert("정상적으로 삭제되었습니다!");
+        navigate(`/board/${post.genre}`);
+      });
+    }
   };
 
   useEffect(() => {
     accessControl(true);
 
     fetchPostDetail({ post_id: params.post_id }).then((response) => {
-      setPostId(response.data.post_id);
-      setTitle(response.data.title);
-      setGenre(response.data.genre);
-      setPostBody(response.data.post_body);
-      setFileName(response.data.file_name);
-      setId(response.data.id);
-      setCreatedDate(response.data.created_date);
-      setUpdatedDate(response.data.updated_date);
-      setNickname(response.data.nickname);
+      setPostId(response.data.postDto.post_id);
+      setTitle(response.data.postDto.title);
+      setGenre(response.data.postDto.genre);
+      setPostBody(response.data.postDto.post_body);
+      setFileName(response.data.postDto.file_name);
+      setId(response.data.postDto.id);
+      setCreatedDate(response.data.postDto.created_date);
+      setUpdatedDate(response.data.postDto.updated_date);
+      setNickname(response.data.postDto.nickname);
       setFavCount(response.data.favorite_count);
       setFavorite(response.data.favorite);
-      setPost(response.data);
+      setPost(response.data.postDto);
 
       setLoading(false);
     });
-  }, []);
+  }, [mode]);
 
   return (
     <PostDetailPresenter
@@ -78,6 +88,7 @@ const PostDetailContainer = () => {
       favorite={favorite}
       favCount={favCount}
       onFavButtonClick={onFavButtonClick}
+      onDeleteButtonClick={onDeleteButtonClick}
     />
   );
 };

@@ -24,6 +24,30 @@ const axiosGetRequest = async (url) => {
   return await axios.get(`${process.env.REACT_APP_SERVER_URL}${url}`);
 };
 
+const axiosMultiPartRequeset = async (url, dataName, data = {}, img) => {
+  let idToken = getIdToken();
+
+  let formData = new FormData();
+  formData.append("img", img);
+  formData.append(dataName, new Blob([JSON.stringify({ ...data, idToken })], { type: "application/json" }));
+
+  return await axios
+    .post(`${process.env.REACT_APP_SERVER_URL}${url}`, formData, { headers: { "Content-Type": "multipart/form-data" } })
+    .catch((err) => {
+      if (err?.response?.data?.message === "EXPIRED_ID_TOKEN") {
+        window.alert("사용자 세션이 만료되었습니다.\n다시 로그인해주세요.");
+        logoutDispatch();
+        removeIdToken();
+        window.location.replace("/login");
+      } else if (err?.response?.data?.message === "INVALID_ID_TOKEN") {
+        window.alert("잘못된 사용자 정보입니다.\n다시 로그인해주세요.");
+        logoutDispatch();
+        removeIdToken();
+        window.location.replace("/login");
+      }
+    });
+};
+
 //Router
 
 //특정 idToken에 해당하는 사용자 정보 요청
@@ -429,13 +453,13 @@ export const fetchCategoryList = async (category) => {
 };
 
 //새로운 의상 추가 요청
-export const requestNewCloth = (clothData) => {
-  return axiosPostRequest("/cloth/crate", clothData, { "Content-Type": "multipart/form-data" });
+export const requestNewCloth = (clothData, img) => {
+  return axiosMultiPartRequeset("/cloth/crate", "createClothReq", clothData, img);
 };
 
 //의상 정보 수정 요청
-export const requestUpdateCloth = (clothData) => {
-  return axiosPostRequest("/cloth/update", clothData, { "Content-Type": "multipart/form-data" });
+export const requestUpdateCloth = (clothData, img) => {
+  return axiosMultiPartRequeset("/cloth/update", "updateClothReq", clothData, img);
 };
 
 //의상 정보 삭제 요청
@@ -1625,19 +1649,17 @@ const tempPostingList = [
 
 // 특정 카테고리의 게시글 목록 요청
 export const fetchPostings = async (data) => {
-  return { data: tempPostingList.filter((p) => p.genre === data.genre) };
-
-  //return return  axiosGetRequest(`/post/{category.genre}`);
+  return axiosGetRequest(`/post/${data.genre}`);
 };
 
 // 새로운 게시글 생성 요청
-export const requestNewPosting = async (postData) => {
-  return axiosPostRequest("/post/create", postData, { "Content-Type": "multipart/form-data" });
+export const requestNewPosting = async (postData, img) => {
+  return axiosMultiPartRequeset("/post/create", "createPostReq", postData, img);
 };
 
 // 게시글 수정 요청
-export const requestUpdatePosting = async (postData) => {
-  return axiosPostRequest("/post/update", postData, { "Content-Type": "multipart/form-data" });
+export const requestUpdatePosting = async (postData, img) => {
+  return axiosMultiPartRequeset("/post/update", "updatePostReq", postData, img);
 };
 
 // 게시글 삭제 요청
@@ -1647,18 +1669,12 @@ export const requestDeletePosting = async (postData) => {
 
 // 게시글 상세 내용 조회
 export const fetchPostDetail = async (postData) => {
-  return { data: tempPostingList.filter((p) => +p.post_id === +postData.post_id)[0] };
-  //return  axiosGetRequest(`/post/${postData.post_id}}`);
+  return axiosPostRequest(`/post/${postData.post_id}`);
 };
 
 // 게시글 좋아요 상태 변경 요청
 export const requestChangePostFavState = async (postData) => {
-  return {
-    data: {
-      favorite: postData.favorite === 0 ? 1 : 0,
-    },
-  };
-  // return axiosPostRequest("/post/change_favorite", postData);
+  return axiosPostRequest("/post/change_favorite", postData);
 };
 
 // 새로운 댓글 추가 요청
