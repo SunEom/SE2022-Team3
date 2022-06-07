@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { IconButton, Button, TextField } from "@mui/material";
+import { dateFormatting } from "../../../../../util";
 
 const CommentBox = styled.div`
   border: solid #e9e9e9 2px;
@@ -27,6 +28,7 @@ const CommentDetail = styled.div`
   display: flex;
 `;
 const CommentDate = styled.div`
+  font-size: 12px;
   margin-top: 20px;
   color: #b6b6b6;
 `;
@@ -34,11 +36,6 @@ const CommentDate = styled.div`
 const CommentDetailIconBox = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-const CommentTime = styled.div`
-  margin: 20px 0px 0px 10px;
-  color: #b6b6b6;
 `;
 
 const CommentIcons = styled.div`
@@ -58,17 +55,6 @@ const EditCommentIcons = styled.div`
   display: flex;
   justify-content: right;
   padding-top: 20px;
-`;
-const Modifycommentbox = styled.input`
-  height: 73px;
-  width: 700px;
-  border: 1px solid lightgrey;
-
-  padding: 0px 5px 0px 5px;
-  font-family: "Lato", sans-serif;
-  &:focus {
-    border: 1px solid grey;
-  }
 `;
 
 const EditCommentDeleteBtn = styled.div`
@@ -90,11 +76,8 @@ const CommentItemPresenter = ({ comment, mode, onModeToggleButtonClick, onChange
                 <CommentDetail>
                   <CommentDate>
                     {comment.created_date === comment.updated_date
-                      ? new Date(+new Date(comment.created_date) + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "")
-                      : `${new Date(+new Date(comment.updated_date) + 3240 * 10000)
-                          .toISOString()
-                          .replace("T", " ")
-                          .replace(/\..*/, "")} (수정됨)`}
+                      ? dateFormatting(comment.created_date)
+                      : `${dateFormatting(comment.updated_date)} (수정됨)`}
                   </CommentDate>
                 </CommentDetail>
                 <CommentIcons>

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Backdrop, Box, Button, Divider, Fab, Fade, Menu, MenuItem, Modal, TextField } from "@mui/material";
+import { Backdrop, Box, Button, Divider, Fab, Fade, Menu, Modal, TextField } from "@mui/material";
 import { faCanadianMapleLeaf } from "@fortawesome/free-brands-svg-icons";
 import { faEnvira } from "@fortawesome/free-brands-svg-icons";
 import { faSun, faSnowflake } from "@fortawesome/free-regular-svg-icons";
@@ -11,6 +11,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ClothForm from "../../../../Components/ClothForm";
 import ClassificationListitem from "../ClassificationListItem";
+import DefaultImage from "../../../../../images/DefaultImage.png";
 
 const StyledBox = styled(Box)`
   font-family: "Noto Sans KR", sans-serif;
@@ -117,6 +118,15 @@ const ClothDescriptionBody = styled.div`
   line-height: 20px;
 `;
 
+const ClothDateContainer = styled.div`
+  margin-top: 15px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: gray;
+`;
+
 const LikeButton = styled(Fab)``;
 const ClassificationButton = styled(Fab)``;
 
@@ -129,6 +139,7 @@ const BottomButtonContainer = styled.div`
 `;
 
 const ClassificationMenuContainer = styled.div`
+  margin-top: 10px;
   display: flex;
   align-items: center;
   padding: 5px;
@@ -159,135 +170,150 @@ const DetailModalPresenter = ({
   onNewClassificationInputChange,
   newClassification,
   classificationList,
+  setClassificationList,
   cloth,
+  loading,
 }) => {
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
-    >
-      <Fade in={open}>
-        <StyledBox>
-          {mode === "detail" && (
-            <>
-              <SeasonBadgeContainer>
-                {season.includes("봄") && (
-                  <SeasonBadge style={{ borderColor: "green" }}>
-                    <FontAwesomeIcon icon={faEnvira} color="green" size="lg" />
-                  </SeasonBadge>
-                )}
+    <>
+      {!loading && (
+        <Modal
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <StyledBox>
+              {mode === "detail" && (
+                <>
+                  <SeasonBadgeContainer>
+                    {season.includes("봄") && (
+                      <SeasonBadge style={{ borderColor: "green" }}>
+                        <FontAwesomeIcon icon={faEnvira} color="green" size="lg" />
+                      </SeasonBadge>
+                    )}
 
-                {season.includes("여름") && (
-                  <SeasonBadge style={{ borderColor: "red" }}>
-                    <FontAwesomeIcon icon={faSun} color="red" />
-                  </SeasonBadge>
-                )}
+                    {season.includes("여름") && (
+                      <SeasonBadge style={{ borderColor: "red" }}>
+                        <FontAwesomeIcon icon={faSun} color="red" />
+                      </SeasonBadge>
+                    )}
 
-                {season.includes("가을") && (
-                  <SeasonBadge style={{ borderColor: "brown" }}>
-                    <FontAwesomeIcon icon={faCanadianMapleLeaf} color="brown" size="lg" />
-                  </SeasonBadge>
-                )}
+                    {season.includes("가을") && (
+                      <SeasonBadge style={{ borderColor: "brown" }}>
+                        <FontAwesomeIcon icon={faCanadianMapleLeaf} color="brown" size="lg" />
+                      </SeasonBadge>
+                    )}
 
-                {season.includes("겨울") && (
-                  <SeasonBadge style={{ borderColor: "gray" }}>
-                    <FontAwesomeIcon icon={faSnowflake} color="gray" size="lg" />
-                  </SeasonBadge>
-                )}
-              </SeasonBadgeContainer>
+                    {season.includes("겨울") && (
+                      <SeasonBadge style={{ borderColor: "gray" }}>
+                        <FontAwesomeIcon icon={faSnowflake} color="gray" size="lg" />
+                      </SeasonBadge>
+                    )}
+                  </SeasonBadgeContainer>
 
-              <RightTopButtonContainer>
-                <LikeButton aria-label="like" style={{ color: favorite ? "red" : "black" }} size="small" onClick={onLikeButtonClick}>
-                  <FavoriteIcon />
-                </LikeButton>
-                <ClassificationButton
-                  id="classification-button"
-                  aria-controls={openMenu ? "basic-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={openMenu ? "true" : undefined}
-                  onClick={handleClick}
-                  aria-label="classification"
-                  size="small"
-                >
-                  <CreateNewFolderIcon />
-                </ClassificationButton>
-                <Menu
-                  id="basic-menu"
-                  disableAutoFocusItem={true}
-                  anchorEl={anchorEl}
-                  open={openMenu}
-                  onClose={handleMenuClose}
-                  MenuListProps={{
-                    "aria-labelledby": "classification-button",
-                  }}
-                  sx={{ right: 100 }}
-                >
-                  {classificationList.map((item) => (
-                    <ClassificationListitem onClick={handleMenuClose} classification={item} />
-                  ))}
-                  <Divider />
-
-                  <ClassificationMenuContainer>
-                    <TextField
-                      onKeyDown={(e) => e.stopPropagation()}
+                  <RightTopButtonContainer>
+                    <LikeButton aria-label="like" style={{ color: favorite ? "red" : "black" }} size="small" onClick={onLikeButtonClick}>
+                      <FavoriteIcon />
+                    </LikeButton>
+                    <ClassificationButton
+                      id="classification-button"
+                      aria-controls={openMenu ? "basic-menu" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={openMenu ? "true" : undefined}
+                      onClick={handleClick}
+                      aria-label="classification"
                       size="small"
-                      sx={{ width: 200 }}
-                      label="새로운 분류 이름"
-                      value={newClassification}
-                      onChange={onNewClassificationInputChange}
-                      inputProps={{ maxLength: 10 }}
-                    />
-                    <Button variant="outlined" onClick={onClassificationAddButtonClick}>
-                      추가
+                    >
+                      <CreateNewFolderIcon />
+                    </ClassificationButton>
+                    <Menu
+                      id="basic-menu"
+                      disableAutoFocusItem={true}
+                      anchorEl={anchorEl}
+                      open={openMenu}
+                      onClose={handleMenuClose}
+                      MenuListProps={{
+                        "aria-labelledby": "classification-button",
+                      }}
+                      sx={{ right: 100 }}
+                    >
+                      {classificationList.map((item) => (
+                        <ClassificationListitem
+                          cloth={cloth}
+                          onClose={handleMenuClose}
+                          onClick={handleMenuClose}
+                          classification={item}
+                          setClassificationList={setClassificationList}
+                        />
+                      ))}
+                      <Divider />
+
+                      <ClassificationMenuContainer>
+                        <TextField
+                          onKeyDown={(e) => e.stopPropagation()}
+                          size="small"
+                          sx={{ width: 200 }}
+                          label="새로운 분류 이름"
+                          value={newClassification}
+                          onChange={onNewClassificationInputChange}
+                          inputProps={{ maxLength: 10 }}
+                        />
+                        <Button variant="outlined" onClick={onClassificationAddButtonClick}>
+                          추가
+                        </Button>
+                      </ClassificationMenuContainer>
+                    </Menu>
+                  </RightTopButtonContainer>
+
+                  <ImageContainer>
+                    <ClothImage src={fileName ? `${process.env.REACT_APP_SERVER_URL}/img/${fileName}` : DefaultImage} />
+                  </ImageContainer>
+
+                  <ClothTopStack>
+                    <ClothName>{name}</ClothName>
+                    <ClothType>{type}</ClothType>
+                  </ClothTopStack>
+
+                  <ClothBrand>브랜드: {brand}</ClothBrand>
+
+                  <ClothSize>사이즈: {size}</ClothSize>
+
+                  <ClothLocationContainer>
+                    <ClothLocationTitle>보관 위치: {place}</ClothLocationTitle>
+                  </ClothLocationContainer>
+
+                  <ClothDescription>
+                    <ClothDescriptionTitle>기타</ClothDescriptionTitle>
+                    <ClothDescriptionBody>{clothBody}</ClothDescriptionBody>
+                  </ClothDescription>
+                  <ClothDateContainer>
+                    {cloth.created_date === cloth.updated_date ? cloth.created_date : `${cloth.updated_date} (수정됨)`}
+                  </ClothDateContainer>
+
+                  <BottomButtonContainer>
+                    <Button variant="outlined" startIcon={<EditIcon />} size="small" color="primary" onClick={onModeToggleButtonClick}>
+                      수정
                     </Button>
-                  </ClassificationMenuContainer>
-                </Menu>
-              </RightTopButtonContainer>
+                    <Button variant="outlined" startIcon={<DeleteIcon />} size="small" color="error" onClick={onDeleteButtonClick}>
+                      삭제
+                    </Button>
+                  </BottomButtonContainer>
+                </>
+              )}
 
-              <ImageContainer>
-                <ClothImage src={fileName} />
-              </ImageContainer>
-
-              <ClothTopStack>
-                <ClothName>{name}</ClothName>
-                <ClothType>{type}</ClothType>
-              </ClothTopStack>
-
-              <ClothBrand>브랜드: {brand}</ClothBrand>
-
-              <ClothSize>사이즈: {size}</ClothSize>
-
-              <ClothLocationContainer>
-                <ClothLocationTitle>보관 위치: {place}</ClothLocationTitle>
-              </ClothLocationContainer>
-
-              <ClothDescription>
-                <ClothDescriptionTitle>기타</ClothDescriptionTitle>
-                <ClothDescriptionBody>{clothBody}</ClothDescriptionBody>
-              </ClothDescription>
-
-              <BottomButtonContainer>
-                <Button variant="outlined" startIcon={<EditIcon />} size="small" color="primary" onClick={onModeToggleButtonClick}>
-                  수정
-                </Button>
-                <Button variant="outlined" startIcon={<DeleteIcon />} size="small" color="error" onClick={onDeleteButtonClick}>
-                  삭제
-                </Button>
-              </BottomButtonContainer>
-            </>
-          )}
-
-          {mode === "edit" && (
-            <ClothForm cloth={cloth} onModeToggleButtonClick={onModeToggleButtonClick} open={open} handleClose={handleClose} />
-          )}
-        </StyledBox>
-      </Fade>
-    </Modal>
+              {mode === "edit" && (
+                <ClothForm cloth={cloth} onModeToggleButtonClick={onModeToggleButtonClick} open={open} handleClose={handleClose} />
+              )}
+            </StyledBox>
+          </Fade>
+        </Modal>
+      )}
+    </>
   );
 };
 

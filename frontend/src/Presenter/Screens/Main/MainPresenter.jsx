@@ -68,6 +68,7 @@ const MainPresenter = ({
   page,
   setMaxPage,
   maxPage,
+  folderList,
 }) => {
   return (
     <>
@@ -147,7 +148,7 @@ const MainPresenter = ({
 
               {
                 // 분류 선택 Drop down
-                filterIdx === 3 && (
+                filterIdx === 3 && folderList.length !== 0 && (
                   <FormControl sx={{ mr: 1, minWidth: 120 }} size="small">
                     <InputLabel id="demo-select-small" color="success">
                       분류
@@ -158,10 +159,13 @@ const MainPresenter = ({
                       label="분류"
                       color="success"
                       onChange={onSecondFilterChange}
-                      defaultValue={0}
+                      defaultValue={folderList.length > 0 && folderList[0].folder_id}
                     >
-                      <MenuItem value={0}>상의</MenuItem>
-                      <MenuItem value={1}>하의</MenuItem>
+                      {folderList.map((f, idx) => (
+                        <MenuItem key={idx} value={f.folder_id}>
+                          {f.folder_name}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                 )

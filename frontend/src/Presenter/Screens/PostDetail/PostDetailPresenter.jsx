@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Card, Typography, Button, TextField, MenuItem } from "@mui/material";
+import { Card, Typography, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import EditIcon from "@mui/icons-material/Edit";
 import CommentsList from "./Component/CommentsList";
 import EditPosting from "../Posting";
+import { dateFormatting } from "../../../util";
 
 const PostDetailBox = styled.div`
   min-width: 1000px;
@@ -32,21 +34,23 @@ const PostDetailTitle = styled.div``;
 
 const PostDetailInfo = styled.div`
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
   margin-top: 20px;
   color: gray;
-  font-size: 20px;
+  font-size: 16px;
+`;
+
+const WriterDiv = styled.div`
+  display: flex;
+  gap: 20px;
 `;
 
 const WriterName = styled.div``;
 
-const WrittenDate = styled.div`
-  margin-left: 30px;
-`;
+const WrittenDate = styled.div``;
 
 const BoardType = styled.div`
   margin-left: 300px;
-  //align-self: flex-end;
 `;
 
 const ImageBoxArea = styled.div`
@@ -79,13 +83,10 @@ const ButtonContainer = styled.div`
 const PostIconArea = styled.div`
   display: flex;
   margin-bottom: 100px;
+  align-items: center;
 `;
 const LikeIconArea = styled.div`
   display: flex;
-`;
-
-const LikeNumCount = styled.div`
-  margin-top: 8px;
 `;
 
 const EditDeletebtns = styled.div`
@@ -107,9 +108,13 @@ const PostDetailPresenter = ({
   createdDate,
   updatedDate,
   nickname,
-  cloth,
+  post,
   mode,
   onModeToggleButtonClick,
+  favorite,
+  favCount,
+  onFavButtonClick,
+  onDeleteButtonClick,
 }) => {
   return (
     <>
@@ -125,21 +130,32 @@ const PostDetailPresenter = ({
                       <PostDetailTitle>{title}</PostDetailTitle>
                     </Typography>
                     <PostDetailInfo>
-                      <WriterName>작성자 : {nickname}</WriterName>
-                      <WrittenDate>작성 날짜 : {createdDate}</WrittenDate>
+                      <WriterDiv>
+                        <WriterName>작성자 : {nickname}</WriterName>
+                        <WrittenDate>
+                          작성 날짜 : {createdDate === updatedDate ? dateFormatting(createdDate) : dateFormatting(updatedDate)}
+                        </WrittenDate>
+                      </WriterDiv>
                       <BoardType>{genre === "fashion" ? "나만의 패션 코디" : "의상 관리 꿀팁"}</BoardType>
                     </PostDetailInfo>
-                    <ImageBoxArea>
-                      <ImageBox src={fileName} />
-                    </ImageBoxArea>
+                    {fileName && (
+                      <ImageBoxArea>
+                        <ImageBox src={`${process.env.REACT_APP_SERVER_URL}/img/${fileName}`} />
+                      </ImageBoxArea>
+                    )}
                     <TextArea>{postBody}</TextArea>
                     <ButtonContainer>
                       <PostIconArea>
                         <LikeIconArea>
-                          <Button variant="text" startIcon={<FavoriteBorderIcon />} size="big" color="error">
-                            좋아요
+                          <Button
+                            variant="outlined"
+                            startIcon={favorite === 0 ? <FavoriteBorderIcon /> : <FavoriteIcon />}
+                            size="big"
+                            color="error"
+                            onClick={onFavButtonClick}
+                          >
+                            {favCount}
                           </Button>
-                          <LikeNumCount>20</LikeNumCount>
                         </LikeIconArea>
                       </PostIconArea>
                       <EditDeletebtns>
@@ -155,7 +171,7 @@ const PostDetailPresenter = ({
                           </Button>
                         </PostEditBtn>
                         <PostDeleteBtn>
-                          <Button variant="outlined" startIcon={<DeleteIcon />} size="small" color="error">
+                          <Button variant="outlined" startIcon={<DeleteIcon />} size="small" color="error" onClick={onDeleteButtonClick}>
                             삭제
                           </Button>
                         </PostDeleteBtn>
@@ -170,7 +186,7 @@ const PostDetailPresenter = ({
           }
           {
             // 수정 화면
-            mode === "edit" && <EditPosting cloth={cloth} onModeToggleButtonClick={onModeToggleButtonClick} />
+            mode === "edit" && <EditPosting post={post} onModeToggleButtonClick={onModeToggleButtonClick} />
           }
         </>
       )}

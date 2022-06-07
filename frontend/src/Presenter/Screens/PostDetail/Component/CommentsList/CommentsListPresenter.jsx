@@ -64,9 +64,11 @@ const CommentsListPresenter = ({
             {commentList.map((comment, index) => (
               <CommentItem comment={comment} key={index} refreshCommentList={refreshCommentList} />
             ))}
-            <PiginationArea>
-              <Pagination color="primary" page={page} count={maxPage} onChange={onPageChage} />
-            </PiginationArea>
+            {!commentList.length === 0 && (
+              <PiginationArea>
+                <Pagination color="primary" page={page} count={maxPage} onChange={onPageChage} />
+              </PiginationArea>
+            )}
           </CommentsListArea>
           <NewCommentArea>
             <TextField

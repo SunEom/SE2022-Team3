@@ -16,7 +16,7 @@ const BoardTablePresenter = ({ columns, rows, page, rowsPerPage, onPostItemClick
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, idx) => {
+            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, idx) => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={idx}>
                   {columns.map((column) => {

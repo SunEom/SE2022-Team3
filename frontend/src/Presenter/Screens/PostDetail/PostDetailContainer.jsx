@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { fetchPostDetail } from "../../../httpRequest";
+import { fetchPostDetail, requestChangePostFavState, requestDeletePosting } from "../../../httpRequest";
 import PostDetailPresenter from "./PostDetailPresenter";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { accessControl } from "../../../util";
 
 const PostDetailContainer = () => {
   let params = useParams();
+  let navigate = useNavigate();
 
   const [mode, setMode] = useState("show"); // show : 조회 화면, edit : 수정 화면
   const [loading, setLoading] = useState(true);
@@ -18,7 +19,9 @@ const PostDetailContainer = () => {
   const [createdDate, setCreatedDate] = useState();
   const [updatedDate, setUpdatedDate] = useState();
   const [nickname, setNickname] = useState();
-  const [cloth, setCloth] = useState(); // 의상 전체 정보
+  const [post, setPost] = useState(); // 게시글 전체 정보
+  const [favorite, setFavorite] = useState();
+  const [favCount, setFavCount] = useState();
 
   const onModeToggleButtonClick = () => {
     if (mode === "show") {
@@ -28,24 +31,44 @@ const PostDetailContainer = () => {
     }
   };
 
+  const onFavButtonClick = () => {
+    requestChangePostFavState({ post_id: postId, favorite }).then((response) => {
+      setFavorite(response.data.favorite);
+      setFavCount(response.data.favorite_count);
+    });
+  };
+
+  const onDeleteButtonClick = () => {
+    let answer = window.confirm("정말로 삭제하시겠습니까?");
+
+    if (answer) {
+      requestDeletePosting({ post_id: post.post_id }).then((response) => {
+        window.alert("정상적으로 삭제되었습니다!");
+        navigate(`/board/${post.genre}`);
+      });
+    }
+  };
+
   useEffect(() => {
     accessControl(true);
 
-    fetchPostDetail({ post_id: params.post_id }).then((result) => {
-      setPostId(result.post_id);
-      setTitle(result.title);
-      setGenre(result.genre);
-      setPostBody(result.post_body);
-      setFileName(result.file_name);
-      setId(result.id);
-      setCreatedDate(result.created_date);
-      setUpdatedDate(result.updated_date);
-      setNickname(result.nickname);
-      setCloth(result);
+    fetchPostDetail({ post_id: params.post_id }).then((response) => {
+      setPostId(response.data.postDto.post_id);
+      setTitle(response.data.postDto.title);
+      setGenre(response.data.postDto.genre);
+      setPostBody(response.data.postDto.post_body);
+      setFileName(response.data.postDto.file_name);
+      setId(response.data.postDto.id);
+      setCreatedDate(response.data.postDto.created_date);
+      setUpdatedDate(response.data.postDto.updated_date);
+      setNickname(response.data.postDto.nickname);
+      setFavCount(response.data.favorite_count);
+      setFavorite(response.data.favorite);
+      setPost(response.data.postDto);
 
       setLoading(false);
     });
-  }, []);
+  }, [mode]);
 
   return (
     <PostDetailPresenter
@@ -59,9 +82,13 @@ const PostDetailContainer = () => {
       createdDate={createdDate}
       updatedDate={updatedDate}
       nickname={nickname}
-      cloth={cloth}
+      post={post}
       mode={mode}
       onModeToggleButtonClick={onModeToggleButtonClick}
+      favorite={favorite}
+      favCount={favCount}
+      onFavButtonClick={onFavButtonClick}
+      onDeleteButtonClick={onDeleteButtonClick}
     />
   );
 };

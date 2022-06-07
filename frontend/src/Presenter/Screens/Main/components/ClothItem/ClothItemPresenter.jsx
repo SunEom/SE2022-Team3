@@ -5,6 +5,7 @@ import styled from "styled-components";
 import DetailButton from "../DetailButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import DefaultImage from "../../../../../images/DefaultImage.png";
 
 const ClothItemCard = styled(Card)`
   width: 450px;
@@ -43,7 +44,12 @@ const ClothItemPresenter = ({ cloth }) => {
 
   return (
     <ClothItemCard>
-      <CardMedia component="img" sx={{ width: 150 }} image={file_name} alt="cloth image" />
+      <CardMedia
+        component="img"
+        sx={{ width: 150 }}
+        image={file_name ? `${process.env.REACT_APP_SERVER_URL}/img/${file_name}` : DefaultImage}
+        alt="cloth image"
+      />
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <InfoContainer>
           <Title>{name.length <= 17 ? name : name.substring(0, 17) + "..."}</Title>

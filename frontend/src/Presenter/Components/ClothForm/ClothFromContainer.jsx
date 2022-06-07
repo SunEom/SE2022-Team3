@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { requestNewCloth, requestUpdateCloth } from "../../../httpRequest";
 import ClothFormPresenter from "./ClothFormPresenter";
 
 const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open, handleClose }) => {
   const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState(); // new: 의상 추가 , edit : 의상 수정
-  const [name, setName] = useState(null);
-  const [season, setSeason] = useState(null);
-  const [size, setSize] = useState(null);
-  const [brand, setBrand] = useState(null);
-  const [fileName, setFileName] = useState(null);
-  const [category, setCategory] = useState(null);
-  const [place, setPlace] = useState(null);
-  const [clothBody, setClothBody] = useState(null);
-  const [favorite, setFavorite] = useState(null);
+  const [name, setName] = useState("");
+  const [season, setSeason] = useState("");
+  const [size, setSize] = useState("");
+  const [brand, setBrand] = useState("");
+  const [fileName, setFileName] = useState("");
+  const [category, setCategory] = useState("");
+  const [place, setPlace] = useState("");
+  const [clothBody, setClothBody] = useState("");
+  const [favorite, setFavorite] = useState("");
   const [newImgFile, setNewImgFile] = useState(null);
 
   //onChangeFunction
@@ -60,15 +61,16 @@ const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open
 
   const resetEditContents = () => {
     if (mode === "new") {
-      setName(null);
-      setSeason(null);
-      setSize(null);
-      setBrand(null);
-      setFileName(null);
-      setCategory(null);
-      setPlace(null);
-      setClothBody(null);
-      setFavorite(null);
+      setName("");
+      setSeason("");
+      setSize("");
+      setBrand("");
+      setFileName("");
+      setCategory("");
+      setPlace("");
+      setClothBody("");
+      setFavorite("");
+      setNewImgFile(null);
     } else if (mode === "edit") {
       setName(cloth.name);
       setSeason(cloth.season);
@@ -79,6 +81,7 @@ const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open
       setPlace(cloth.place);
       setClothBody(cloth.cloth_body);
       setFavorite(cloth.favorite);
+      setNewImgFile(null);
     }
   };
 
@@ -117,6 +120,62 @@ const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open
       onModeToggleButtonClick();
     }
     resetEditContents();
+  };
+
+  const onSaveButtonClick = () => {
+    if (!name) {
+      return window.alert("제품명을 입력해주세요!");
+    }
+    if (!category) {
+      return window.alert("카테고리를 선택해주세요!");
+    }
+    if (!brand) {
+      return window.alert("브랜드명을 입력해주세요!");
+    }
+    if (!size) {
+      return window.alert("사이즈를 입력해주세요!");
+    }
+    if (!place) {
+      return window.alert("보관위치를 입력해주세요!");
+    }
+    if (!season) {
+      return window.alert("계절을 선택해주세요!");
+    }
+
+    if (mode === "new") {
+      requestNewCloth(
+        {
+          name,
+          season,
+          category,
+          brand,
+          place,
+          size,
+          cloth_body: clothBody,
+        },
+        newImgFile
+      ).then((response) => {
+        window.alert("정상적으로 추가되었습니다!");
+        window.location.reload();
+      });
+    } else if (mode === "edit") {
+      requestUpdateCloth(
+        {
+          cloth_id: cloth.cloth_id,
+          name,
+          season,
+          category,
+          brand,
+          place,
+          size,
+          cloth_body: clothBody,
+        },
+        newImgFile
+      ).then((response) => {
+        window.alert("정상적으로 수정되었습니다.");
+        window.location.reload();
+      });
+    }
   };
 
   useEffect(() => {
@@ -166,6 +225,7 @@ const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open
       onImageFileChange={onImageFileChange}
       cloth={cloth}
       loading={loading}
+      onSaveButtonClick={onSaveButtonClick}
     />
   );
 };

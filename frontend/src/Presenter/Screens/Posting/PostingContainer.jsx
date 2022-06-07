@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { requestNewPosting, requestUpdatePosting } from "../../../httpRequest";
 import { accessControl } from "../../../util";
 import PostingPresenter from "./PostingPresenter";
 
-const PostingContainer = ({ cloth, onModeToggleButtonClick }) => {
+const PostingContainer = ({ post, onModeToggleButtonClick }) => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState();
   const [genre, setGenre] = React.useState("tip");
   const [postBody, setPostBody] = useState();
+  const [imgfile, setImgFile] = useState();
 
   const Genres = [
     {
@@ -31,11 +35,18 @@ const PostingContainer = ({ cloth, onModeToggleButtonClick }) => {
       case "postBody":
         setPostBody(e.target.value);
         break;
+
+      case "img":
+        setImgFile(e.target.files[0]);
+        break;
+
+      default:
+        break;
     }
   };
 
   const onCancelBntClick = () => {
-    if (cloth) {
+    if (post) {
       const confirm = window.confirm("게시글 수정을 취소하시겠습니까?");
       if (confirm) {
         onModeToggleButtonClick();
@@ -48,14 +59,58 @@ const PostingContainer = ({ cloth, onModeToggleButtonClick }) => {
     }
   };
 
+  const onSaveButtonClick = async () => {
+    if (!title) {
+      window.alert("제목을 입력해주세요");
+    }
+    if (!genre) {
+      window.alert("게시판을 선택해주세요");
+    }
+    if (!postBody) {
+      window.alert("내용을 입력해주세요");
+    }
+
+    const formData = new FormData();
+    formData.append("img", imgfile);
+
+    if (post) {
+      requestUpdatePosting(
+        {
+          post_id: post.post_id,
+          title,
+          genre,
+          post_body: postBody,
+        },
+        imgfile
+      ).then((response) => {
+        console.log(response.data);
+        window.alert("정상적으로 수정되었습니다!");
+        onModeToggleButtonClick();
+      });
+    } else {
+      requestNewPosting(
+        {
+          title,
+          genre,
+          post_body: postBody,
+        },
+        imgfile
+      ).then((response) => {
+        console.log(response.data);
+        window.alert("정상적으로 추가되었습니다!");
+        navigate(`/postDetail/${response.data.post_id}`, { replace: true });
+      });
+    }
+  };
+
   useEffect(() => {
     accessControl(true);
 
-    if (cloth) {
+    if (post) {
       //edit
-      setTitle(cloth.title);
-      setGenre(cloth.genre);
-      setPostBody(cloth.post_body);
+      setTitle(post.title);
+      setGenre(post.genre);
+      setPostBody(post.post_body);
     } else {
       //new
     }
@@ -69,6 +124,8 @@ const PostingContainer = ({ cloth, onModeToggleButtonClick }) => {
       onCancelBntClick={onCancelBntClick}
       onChange={onChange}
       Genres={Genres}
+      imgfile={imgfile}
+      onSaveButtonClick={onSaveButtonClick}
     />
   );
 };

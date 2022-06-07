@@ -1,13 +1,24 @@
 import React, { useState } from "react";
-import { requestDeleteClothFolder, requesUpdateClothFolder } from "../../../../../httpRequest";
+import {
+  fetchClothFolderList,
+  requestAddClothToFolder,
+  requestDeleteClothFolder,
+  requesUpdateClothFolder,
+} from "../../../../../httpRequest";
 import ClassificationListItemPresenter from "./ClassificationListItemPresenter";
 
-const ClassificationListItemContainer = ({ classification }) => {
+const ClassificationListItemContainer = ({ classification, setClassificationList, cloth, onClose }) => {
   const [mode, setMode] = useState("show");
   const [editedName, setEditedName] = useState(classification.folder_name);
 
   const onChange = (e) => {
     setEditedName(e.target.value);
+  };
+
+  const onClassificationClick = () => {
+    requestAddClothToFolder({ folder_id: classification.folder_id, cloth_id: cloth.cloth_id }).then(async () => {
+      window.alert(`${classification.folder_name}에 추가되었습니다.`);
+    });
   };
 
   const onModeToggleButtonClick = () => {
@@ -21,7 +32,10 @@ const ClassificationListItemContainer = ({ classification }) => {
 
   const onSaveButtonClick = () => {
     requesUpdateClothFolder({ folder_id: classification.folder_id, folder_name: editedName }).then((response) => {
-      console.log(response);
+      fetchClothFolderList().then((response) => {
+        setClassificationList(response.data);
+        setMode("show");
+      });
     });
   };
 
@@ -30,7 +44,9 @@ const ClassificationListItemContainer = ({ classification }) => {
 
     if (answer) {
       requestDeleteClothFolder({ folder_id: classification.folder_id }).then((response) => {
-        console.log(response);
+        fetchClothFolderList().then((response) => {
+          setClassificationList(response.data);
+        });
       });
     }
   };
@@ -44,6 +60,7 @@ const ClassificationListItemContainer = ({ classification }) => {
       mode={mode}
       editedName={editedName}
       onDeleteButtonClick={onDeleteButtonClick}
+      onClassificationClick={onClassificationClick}
     />
   );
 };

@@ -18,9 +18,9 @@ const BoardTableContainer = ({ category, postings }) => {
   };
 
   const columns = [
-    { id: "id", label: "번호", width: 50, align: "center" },
+    { id: "post_id", label: "번호", width: 50, align: "center" },
     { id: "title", label: "제목", width: 600 },
-    { id: "comments", label: "댓글 수", width: 100, align: "center" },
+    { id: "comment_count", label: "댓글 수", width: 100, align: "center" },
     {
       id: "nickname",
       label: "작성자",
@@ -30,7 +30,7 @@ const BoardTableContainer = ({ category, postings }) => {
   ];
 
   const onPostItemClick = (post) => (e) => {
-    navigate(`/postDetail/${post.id}`);
+    navigate(`/postDetail/${post.post_id}`);
   };
 
   // 카테고리 변경시 첫 번째 페이지로 이동

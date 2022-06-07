@@ -1,7 +1,14 @@
 import React from "react";
+import ClothItem from "../ClothItem";
 
-const ClassficationPresenter = () => {
-  return <div>classification 구현 에정</div>;
+const ClassficationPresenter = ({ clothList }) => {
+  return (
+    <>
+      {clothList.map((cloth, index) => (
+        <ClothItem cloth={cloth} key={index} />
+      ))}
+    </>
+  );
 };
 
 export default ClassficationPresenter;

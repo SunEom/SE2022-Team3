@@ -20,12 +20,15 @@ const ClassificationListItemPresenter = ({
   mode,
   editedName,
   onDeleteButtonClick,
+  onClassificationClick,
 }) => {
   return (
     <>
       {mode === "show" && (
         <ItemContainer>
-          <MenuItem style={{ width: "100%" }}>{classification.folder_name}</MenuItem>
+          <MenuItem style={{ width: "100%" }} onClick={onClassificationClick}>
+            {classification.folder_name}
+          </MenuItem>
           <IconButton size="small" color="primary" onClick={onModeToggleButtonClick}>
             <EditIcon />
           </IconButton>
