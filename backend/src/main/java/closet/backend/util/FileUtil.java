@@ -19,7 +19,7 @@ public class FileUtil {
     public String uploadFile(MultipartFile inputFile) throws IOException{
         String uploadedFileName = RandomStringUtils.randomAlphabetic(32)+".jpg";
         String url = System.getProperty("user.dir");
-        String fileUrl = url+"\\src\\main\\resources\\static\\img\\";
+        String fileUrl = url+"/src/main/resources/static/img/";
         File uploadedFile = new File(fileUrl+uploadedFileName);;
         uploadedFile.getParentFile().mkdirs();
         inputFile.transferTo(uploadedFile);

@@ -59,7 +59,7 @@ public class ClothDaoImpl implements ClothDao{
 
     @Override
     public ClothDto save(CreateClothDto createClothDto) {
-        jdbcTemplate.execute("INSERT INTO cloth(name,season,category,brand,place,size,cloth_body,file_name,created_date) VALUES('"+
+        jdbcTemplate.execute("INSERT INTO cloth(name,season,category,brand,place,size,cloth_body,file_name,created_date,updated_date,id) VALUES('"+
                 createClothDto.getName()+
                 "','"+createClothDto.getSeason()+
                 "','"+createClothDto.getCategory()+
@@ -67,7 +67,7 @@ public class ClothDaoImpl implements ClothDao{
                 "','"+createClothDto.getPlace()+
                 "','"+createClothDto.getSize()+
                 "','"+createClothDto.getCloth_body()+
-                "','"+createClothDto.getFile_name()+"',NOW())");
+                "','"+createClothDto.getFile_name()+"', NOW(), NOW(), "+createClothDto.getId()+")");
         ClothDto clothDto = jdbcTemplate
                 .queryForObject("SELECT cloth_id,name,season,category,brand,place,size,cloth_body,file_name,created_date,updated_date,favorite,id FROM cloth WHERE name = '"
                                 +createClothDto.getName()+"' and cloth_body = '"+createClothDto.getCloth_body() +"'",clothRowMapper);
@@ -84,7 +84,7 @@ public class ClothDaoImpl implements ClothDao{
                     + "', place = '" + updateClothDto.getPlace()
                     + "', size = '" + updateClothDto.getSize()
                     + "', cloth_body = '" + updateClothDto.getCloth_body()
-                    + "', updated_date = NOW()");
+                    + "', updated_date = NOW() WHERE cloth_id = "+updateClothDto.getCloth_id());
         }else{
             jdbcTemplate.execute("UPDATE cloth SET name = '"+ updateClothDto.getName()
                     + "', season = '"+updateClothDto.getSeason()
@@ -130,7 +130,7 @@ public class ClothDaoImpl implements ClothDao{
     @Override
     public List<CategoryCountDto> countByCategory(int id) {
         List<CategoryCountDto> result;
-        result = jdbcTemplate.query("SELECT category,count(category) as count from cloth WHERE id = "+id+" GROUP BY id",categoryRowMapper);
+        result = jdbcTemplate.query("SELECT category,count(cloth_id) as count from cloth WHERE id = "+id+" GROUP BY category",categoryRowMapper);
         return result;
     }
 
@@ -138,7 +138,7 @@ public class ClothDaoImpl implements ClothDao{
     public List<ClothDto> findBySeason(int id, String season) {
         List<ClothDto> result;
         result = jdbcTemplate.query("SELECT cloth_id,name,season,category,brand,place,size,cloth_body,file_name,created_date,updated_date,favorite,id FROM cloth WHERE id = "
-                +id+" and season = '"+season+"'",clothRowMapper);
+                +id+" and season LIKE '%"+season+"%'",clothRowMapper);
         return result;
     }
 

@@ -40,7 +40,7 @@ public class ClothController {
     }
 
     @PostMapping("/cloth/delete")
-    public ResponseEntity deleteCloth(DeleteClothReq deleteClothReq) throws FirebaseAuthException {
+    public ResponseEntity deleteCloth(@RequestBody DeleteClothReq deleteClothReq) throws FirebaseAuthException {
         String result = clothService.deleteCloth(deleteClothReq);
         return ResponseEntity.ok().body(result);
     }

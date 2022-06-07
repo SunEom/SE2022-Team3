@@ -12,5 +12,5 @@ import lombok.ToString;
 public class ClothInFolderDto {
 
 	private int id;
-	private int floder_id;
+	private int folder_id;
 }

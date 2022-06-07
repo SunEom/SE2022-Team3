@@ -1,6 +1,7 @@
 package closet.backend.dao;
 
 import closet.backend.dto.ClothDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,7 @@ import java.util.List;
 @Repository
 public class ClothFolderDetailDaoImpl implements ClothFolderDetailDao{
 
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     private final RowMapper<ClothDto> clothRowMapper = (rs, rowNum) ->
