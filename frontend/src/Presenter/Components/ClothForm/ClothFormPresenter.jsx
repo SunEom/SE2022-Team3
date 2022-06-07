@@ -159,7 +159,11 @@ const ClothFormPresenter = ({
               <TopContainer>
                 <LeftContainer>
                   <ImagePreviewContainer>
-                    <img style={{ maxHeight: "100%", maxWidth: "100%" }} src={fileName ? fileName : DefaultImage} alt="" />
+                    <img
+                      style={{ maxHeight: "100%", maxWidth: "100%" }}
+                      src={fileName ? `${process.env.REACT_APP_SERVER_URL}/img/${fileName}` : DefaultImage}
+                      alt=""
+                    />
                   </ImagePreviewContainer>
 
                   <label htmlFor="contained-button-file" style={{ textAlign: "center" }}>

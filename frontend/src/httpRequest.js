@@ -424,7 +424,7 @@ export const fetchClothList = async () => {
 
 // 특정 계절의 의상 목록 요청
 export const fetchSeasonList = async (season) => {
-  return axiosPostRequest("/cloth/category", season);
+  return axiosPostRequest("/cloth/season", season);
 };
 
 // 좋아요 누른 의상 목록 요청
@@ -434,9 +434,12 @@ export const fetchFavList = async () => {
 
 // 특정 카테고리 의상 목록 요청
 export const fetchCategoryList = async (category) => {
-  return { data: tempClothList.filter((c) => c.category === category) };
+  return axiosPostRequest("/cloth/category", category);
+};
 
-  // return axiosPostRequest("/cloth/category", category);
+//특정 분류의 의상 목록 요청
+export const fetchSomeClassificationList = async (data) => {
+  return axiosPostRequest("/cloth/folder/detail", data);
 };
 
 //새로운 의상 추가 요청
@@ -485,7 +488,7 @@ export const requestDeleteClothFolder = (folderData) => {
 };
 
 // 특정 분류 폴더에 의상 추가
-export const requesAddClothToFolder = (clothFolderData) => {
+export const requestAddClothToFolder = (clothFolderData) => {
   return axiosPostRequest("/cloth/folder/insert", clothFolderData);
 };
 
@@ -494,8 +497,8 @@ export const fetchFolderClothList = (folderData) => {
   return axiosPostRequest("/cloth/folder/Detail", folderData);
 };
 
-// 특정 분류 폴더에 의상 t삭제
-export const requesRemoveClothToFolder = (clothFolderData) => {
+// 특정 분류 폴더에 의상 삭제
+export const requestRemoveClothToFolder = (clothFolderData) => {
   return axiosPostRequest("/cloth/folder/remove", clothFolderData);
 };
 

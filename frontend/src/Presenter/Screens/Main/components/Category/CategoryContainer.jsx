@@ -7,7 +7,7 @@ const CategoryContainer = ({ secondFilter, page, setMaxPage }) => {
   const [nowPageList, setNowPageList] = useState([]);
 
   useEffect(() => {
-    fetchCategoryList(secondFilter).then((response) => {
+    fetchCategoryList({ category: secondFilter }).then((response) => {
       setCategoryClothList(response.data);
       setNowPageList(response.data.slice((page - 1) * 10, page * 10));
 

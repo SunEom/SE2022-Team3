@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { fetchClothFolderList, requestNewClothFolder } from "../../../../../httpRequest";
+import { fetchClothFolderList, requestChangeClothFavState, requestDeleteCloth, requestNewClothFolder } from "../../../../../httpRequest";
 import DetailModalPresenter from "./DetailModalPresenter";
 
 const DetailModalContainer = ({ open, handleClose, cloth }) => {
+  const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState("detail");
   const [name, setName] = useState(cloth.name);
   const [season, setSeason] = useState(cloth.season);
@@ -14,11 +15,7 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
   const [clothBody, setClothBody] = useState(cloth.cloth_body);
   const [favorite, setFavorite] = useState(cloth.favorite);
 
-  const [classificationList, setClassificationList] = useState([
-    { folder_id: 1, folder_name: "제주도 여행" },
-    { folder_id: 2, folder_name: "여름 휴가" },
-    { folder_id: 3, folder_name: "미국 여행" },
-  ]);
+  const [classificationList, setClassificationList] = useState();
   const [newClassification, setNewClassification] = useState("");
 
   //분류 버튼을 위한 Property
@@ -27,7 +24,8 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
     fetchClothFolderList().then((response) => {
-      console.log(response);
+      setClassificationList(response.data);
+      setLoading(false);
     });
   };
   const handleMenuClose = () => {
@@ -36,28 +34,30 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
 
   const onClassificationAddButtonClick = () => {
     if (newClassification === "") {
-      window.alert("분류 이름을 입력해주세요");
-      return;
+      return window.alert("분류명을 입력해주세요");
     }
 
-    if (classificationList.includes(newClassification)) {
-      window.alert("이미 존재하는 분류 이름입니다!");
-      return;
+    for (var item of classificationList) {
+      if (item.folder_name === newClassification) {
+        return window.alert("이미 사용중인 분류명 입니다.");
+      }
     }
 
-    //서버에 분류 추가 요청 (구현 예정)
-    requestNewClothFolder({ folderName: newClassification }).then((response) => {
-      console.log(response);
+    requestNewClothFolder({ folder_name: newClassification }).then((response) => {
+      setClassificationList((current) => [...current, response.data]);
     });
-    setClassificationList((current) => [...current, newClassification]);
+
     setNewClassification("");
   };
+
   const onNewClassificationInputChange = (e) => {
     setNewClassification(e.target.value);
   };
 
   const onLikeButtonClick = () => {
-    //서버에 요청하는 코드가 들어갈 부분 (구현예정)
+    requestChangeClothFavState({ cloth_id: cloth.cloth_id, favorite }).then((response) => {
+      setFavorite(response.data.favorite);
+    });
 
     setFavorite((current) => !current);
   };
@@ -87,16 +87,21 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
     const doubleCheck = window.confirm("정말로 삭제하시겠습니까?");
 
     if (doubleCheck) {
-      //서버에 의상 삭제 요청 보낼 부분 (구현예정)
-
-      window.alert("삭제되었습니다!");
-      handleClose();
+      requestDeleteCloth({ cloth_id: cloth.cloth_id }).then((response) => {
+        window.alert("삭제되었습니다!");
+        handleClose();
+        window.location.reload();
+      });
     }
   };
 
   useEffect(() => {
     // 다음 페이지로 넘어갔을 때 Modal의 내용이 변경되지 않는 것을 방지하기 위한 코드
     resetDetailContents();
+    fetchClothFolderList().then((response) => {
+      setClassificationList(response.data);
+      setLoading(false);
+    });
   }, [cloth]);
 
   return (
@@ -125,6 +130,8 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
       onNewClassificationInputChange={onNewClassificationInputChange}
       newClassification={newClassification}
       classificationList={classificationList}
+      setClassificationList={setClassificationList}
+      loading={loading}
     />
   );
 };

@@ -142,38 +142,36 @@ const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open
       return window.alert("계절을 선택해주세요!");
     }
 
-    const formData = new FormData();
-    formData.append("img", newImgFile);
-
     if (mode === "new") {
-      formData.append("createClothReq", {
-        name,
-        season,
-        category,
-        brand,
-        place,
-        size,
-        cloth_body: clothBody,
-      });
-
-      requestNewCloth(formData).then((response) => {
-        console.log(response.data);
+      requestNewCloth(
+        {
+          name,
+          season,
+          category,
+          brand,
+          place,
+          size,
+          cloth_body: clothBody,
+        },
+        newImgFile
+      ).then((response) => {
         window.alert("정상적으로 추가되었습니다!");
         window.location.reload();
       });
     } else if (mode === "edit") {
-      formData.append("updateClothReq", {
-        name,
-        season,
-        category,
-        brand,
-        place,
-        size,
-        cloth_body: clothBody,
-      });
-
-      requestUpdateCloth(formData).then((response) => {
-        console.log(response.data);
+      requestUpdateCloth(
+        {
+          cloth_id: cloth.cloth_id,
+          name,
+          season,
+          category,
+          brand,
+          place,
+          size,
+          cloth_body: clothBody,
+        },
+        newImgFile
+      ).then((response) => {
         window.alert("정상적으로 수정되었습니다.");
         window.location.reload();
       });

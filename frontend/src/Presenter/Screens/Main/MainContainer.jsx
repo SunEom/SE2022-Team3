@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MainPresenter from "./MainPresenter";
 import { accessControl } from "../../../util";
+import { fetchClothFolderList } from "../../../httpRequest";
 
 const MainContainer = () => {
   const [loading, setLoading] = useState(true);
@@ -8,6 +9,7 @@ const MainContainer = () => {
   const [secondFilter, setSecondFilter] = useState(); // 봄,여름,가을,겨울 또는 상의, 하의 ...
   const [page, setPage] = useState(1); // 현재 보고있는 페이지
   const [maxPage, setMaxPage] = useState(1); // 마지막 페이지가 몇번째 페이지인가.
+  const [folderList, setFolderList] = useState([]);
 
   //전체, 계절별, 카테고리별 버튼 선택시
   const onFilterButtonClick = (idx) => () => {
@@ -18,6 +20,11 @@ const MainContainer = () => {
     } else if (idx === 2) {
       // 카테고리별 화면 이동시
       setSecondFilter("상의");
+    } else if (idx === 3) {
+      // 카테고리별 화면 이동시
+      if (folderList.length > 0) {
+        setSecondFilter(folderList[0].folder_id);
+      }
     }
     setPage(1);
     setMaxPage(1);
@@ -37,8 +44,11 @@ const MainContainer = () => {
 
   useEffect(() => {
     accessControl(true);
-    setLoading(false);
-  }, []);
+    fetchClothFolderList().then((response) => {
+      setFolderList(response.data);
+      setLoading(false);
+    });
+  }, [filterIdx]);
 
   return (
     <MainPresenter
@@ -51,6 +61,7 @@ const MainContainer = () => {
       setMaxPage={setMaxPage}
       maxPage={maxPage}
       loading={loading}
+      folderList={folderList}
     />
   );
 };
