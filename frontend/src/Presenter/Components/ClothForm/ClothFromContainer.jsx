@@ -143,22 +143,35 @@ const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open
     }
 
     const formData = new FormData();
-    formData.append("file", newImgFile);
-    formData.append("name", name);
-    formData.append("season", season);
-    formData.append("category", category);
-    formData.append("brand", brand);
-    formData.append("place", place);
-    formData.append("size", size);
-    formData.append("cloth_body", clothBody);
+    formData.append("img", newImgFile);
 
     if (mode === "new") {
+      formData.append("createClothReq", {
+        name,
+        season,
+        category,
+        brand,
+        place,
+        size,
+        cloth_body: clothBody,
+      });
+
       requestNewCloth(formData).then((response) => {
         console.log(response.data);
         window.alert("정상적으로 추가되었습니다!");
         window.location.reload();
       });
     } else if (mode === "edit") {
+      formData.append("updateClothReq", {
+        name,
+        season,
+        category,
+        brand,
+        place,
+        size,
+        cloth_body: clothBody,
+      });
+
       requestUpdateCloth(formData).then((response) => {
         console.log(response.data);
         window.alert("정상적으로 수정되었습니다.");

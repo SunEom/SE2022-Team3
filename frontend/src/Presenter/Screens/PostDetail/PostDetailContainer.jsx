@@ -18,7 +18,7 @@ const PostDetailContainer = () => {
   const [createdDate, setCreatedDate] = useState();
   const [updatedDate, setUpdatedDate] = useState();
   const [nickname, setNickname] = useState();
-  const [cloth, setCloth] = useState(); // 의상 전체 정보
+  const [post, setPost] = useState(); // 게시글 전체 정보
   const [favorite, setFavorite] = useState();
   const [favCount, setFavCount] = useState();
 
@@ -54,7 +54,7 @@ const PostDetailContainer = () => {
       setNickname(response.data.nickname);
       setFavCount(response.data.favorite_count);
       setFavorite(response.data.favorite);
-      setCloth(response.data);
+      setPost(response.data);
 
       setLoading(false);
     });
@@ -72,7 +72,7 @@ const PostDetailContainer = () => {
       createdDate={createdDate}
       updatedDate={updatedDate}
       nickname={nickname}
-      cloth={cloth}
+      post={post}
       mode={mode}
       onModeToggleButtonClick={onModeToggleButtonClick}
       favorite={favorite}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -38,11 +38,6 @@ const CommentDetailIconBox = styled.div`
   justify-content: space-between;
 `;
 
-const CommentTime = styled.div`
-  margin: 20px 0px 0px 10px;
-  color: #b6b6b6;
-`;
-
 const CommentIcons = styled.div`
   display: flex;
 `;
@@ -60,17 +55,6 @@ const EditCommentIcons = styled.div`
   display: flex;
   justify-content: right;
   padding-top: 20px;
-`;
-const Modifycommentbox = styled.input`
-  height: 73px;
-  width: 700px;
-  border: 1px solid lightgrey;
-
-  padding: 0px 5px 0px 5px;
-  font-family: "Lato", sans-serif;
-  &:focus {
-    border: 1px solid grey;
-  }
 `;
 
 const EditCommentDeleteBtn = styled.div`

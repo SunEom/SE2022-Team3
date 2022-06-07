@@ -89,10 +89,6 @@ const LikeIconArea = styled.div`
   display: flex;
 `;
 
-const LikeNumCount = styled.div`
-  margin-left: 15px;
-`;
-
 const EditDeletebtns = styled.div`
   display: flex;
 `;
@@ -112,7 +108,7 @@ const PostDetailPresenter = ({
   createdDate,
   updatedDate,
   nickname,
-  cloth,
+  post,
   mode,
   onModeToggleButtonClick,
   favorite,
@@ -187,7 +183,7 @@ const PostDetailPresenter = ({
           }
           {
             // 수정 화면
-            mode === "edit" && <EditPosting cloth={cloth} onModeToggleButtonClick={onModeToggleButtonClick} />
+            mode === "edit" && <EditPosting post={post} onModeToggleButtonClick={onModeToggleButtonClick} />
           }
         </>
       )}

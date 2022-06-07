@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Backdrop, Box, Button, Divider, Fab, Fade, Menu, MenuItem, Modal, TextField } from "@mui/material";
+import { Backdrop, Box, Button, Divider, Fab, Fade, Menu, Modal, TextField } from "@mui/material";
 import { faCanadianMapleLeaf } from "@fortawesome/free-brands-svg-icons";
 import { faEnvira } from "@fortawesome/free-brands-svg-icons";
 import { faSun, faSnowflake } from "@fortawesome/free-regular-svg-icons";

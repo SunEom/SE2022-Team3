@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { fetchClothFolderList, requestNewClothFolder } from "../../../../../httpRequest";
 import DetailModalPresenter from "./DetailModalPresenter";
 
 const DetailModalContainer = ({ open, handleClose, cloth }) => {
@@ -25,6 +26,9 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
   const openMenu = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    fetchClothFolderList().then((response) => {
+      console.log(response);
+    });
   };
   const handleMenuClose = () => {
     setAnchorEl(null);
@@ -42,6 +46,9 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
     }
 
     //서버에 분류 추가 요청 (구현 예정)
+    requestNewClothFolder({ folderName: newClassification }).then((response) => {
+      console.log(response);
+    });
     setClassificationList((current) => [...current, newClassification]);
     setNewClassification("");
   };

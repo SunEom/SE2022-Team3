@@ -1647,7 +1647,6 @@ export const requestDeletePosting = async (postData) => {
 
 // 게시글 상세 내용 조회
 export const fetchPostDetail = async (postData) => {
-  console.log(postData);
   return { data: tempPostingList.filter((p) => +p.post_id === +postData.post_id)[0] };
   //return  axiosGetRequest(`/post/${postData.post_id}}`);
 };
