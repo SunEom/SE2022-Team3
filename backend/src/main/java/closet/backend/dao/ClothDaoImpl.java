@@ -76,7 +76,29 @@ public class ClothDaoImpl implements ClothDao{
 
     @Override
     public ClothDto update(UpdateClothDto updateClothDto) {
-        return null;
+        if(updateClothDto.getFile_name().equals("")) {
+            jdbcTemplate.execute("UPDATE cloth SET name = '" + updateClothDto.getName()
+                    + "', season = '" + updateClothDto.getSeason()
+                    + "', category = '" + updateClothDto.getCategory()
+                    + "', brand = '" + updateClothDto.getBrand()
+                    + "', place = '" + updateClothDto.getPlace()
+                    + "', size = '" + updateClothDto.getSize()
+                    + "', cloth_body = '" + updateClothDto.getCloth_body()
+                    + "', updated_date = NOW()");
+        }else{
+            jdbcTemplate.execute("UPDATE cloth SET name = '"+ updateClothDto.getName()
+                    + "', season = '"+updateClothDto.getSeason()
+                    +"', category = '"+updateClothDto.getCategory()
+                    +"', brand = '"+updateClothDto.getBrand()
+                    +"', place = '"+updateClothDto.getPlace()
+                    +"', size = '"+updateClothDto.getSize()
+                    +"', cloth_body = '"+updateClothDto.getCloth_body()
+                    +"', file_name = '"+updateClothDto.getFile_name()
+                    +"', updated_date = NOW() WHERE cloth_id = "+updateClothDto.getCloth_id());
+        }
+        ClothDto result = jdbcTemplate.queryForObject("SELECT cloth_id,name,season,category,brand,place,size,cloth_body,file_name,created_date,updated_date,favorite,id FROM cloth WHERE cloth_id = "
+                +updateClothDto.getCloth_id(),clothRowMapper);
+        return result;
     }
 
     @Override

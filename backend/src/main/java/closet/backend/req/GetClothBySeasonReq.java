@@ -8,7 +8,6 @@ import lombok.ToString;
 @Data
 @Getter
 @ToString
-@AllArgsConstructor
 public class GetClothBySeasonReq {
 
     private String idToken;

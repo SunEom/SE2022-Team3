@@ -10,11 +10,15 @@ import com.google.firebase.auth.FirebaseAuthException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -23,15 +27,16 @@ public class ClothController {
 
     private final ClothService clothService;
 
-    @PostMapping("/cloth/create")
-    public ResponseEntity createCloth(@RequestBody CreateClothReq createClothReq) throws FirebaseAuthException, IOException {
-        ClothDto result =clothService.createCloth(createClothReq);
+    @PostMapping(value = "/cloth/create",consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity createCloth(@RequestPart CreateClothReq createClothReq, @RequestPart Optional<MultipartFile> img) throws FirebaseAuthException, IOException {
+        ClothDto result =clothService.createCloth(createClothReq,img);
         return ResponseEntity.status(201).body(result);
     }
 
-    @PostMapping("/cloth/update")
-    public ResponseEntity updateCloth(@RequestBody UpdateClothReq updateClothReq){
-        return null;
+    @PostMapping(value = "/cloth/update",consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity updateCloth(@RequestPart UpdateClothReq updateClothReq, @RequestPart Optional<MultipartFile> img) throws FirebaseAuthException, IOException{
+        ClothDto result = clothService.updateCloth(updateClothReq,img);
+        return ResponseEntity.ok().body(result);
     }
 
     @PostMapping("/cloth/delete")
@@ -41,7 +46,8 @@ public class ClothController {
     }
 
     @PostMapping("/cloth")
-    public ResponseEntity getCloth(@RequestBody String idToken) throws FirebaseAuthException {
+    public ResponseEntity getCloth(@RequestBody Map<String, String> req) throws FirebaseAuthException {
+        String idToken = req.get("idToken");
         List<ClothDto> result = clothService.getCloth(idToken);
         return ResponseEntity.ok().body(result);
     }
@@ -71,7 +77,8 @@ public class ClothController {
     }
 
     @PostMapping("/cloth/favorite")
-    public ResponseEntity getFavoriteCloth(@RequestBody String idToken) throws FirebaseAuthException {
+    public ResponseEntity getFavoriteCloth(@RequestBody Map<String, String> req) throws FirebaseAuthException {
+        String idToken = req.get("idToken");
         List<ClothDto> result = clothService.getFavoriteCloth(idToken);
         return ResponseEntity.ok().body(result);
     }

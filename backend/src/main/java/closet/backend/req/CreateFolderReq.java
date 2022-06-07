@@ -6,11 +6,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Data
-@AllArgsConstructor
 @Getter
 @ToString
 public class CreateFolderReq {
 
 	private String idToken;
-	private String folderName;
+	private String folder_name;
 }

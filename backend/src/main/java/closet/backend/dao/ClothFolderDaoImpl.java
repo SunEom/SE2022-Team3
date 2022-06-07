@@ -25,7 +25,7 @@ public class ClothFolderDaoImpl implements ClothFolderDao{
     @Override
     public ClothFolderDto save(CreateFolderDto createFolderDto) {
         int id = createFolderDto.getId();
-        String folder_name = createFolderDto.getFolderName();
+        String folder_name = createFolderDto.getFolder_name();
         jdbcTemplate.execute("INSERT INTO cloth_folder(id,folder_name) VALUES ("+id+", '"+folder_name+"')");
         ClothFolderDto result = jdbcTemplate.queryForObject("SELECT * FROM cloth_folder WHERE id = "+id+" and folder_name = '"+folder_name+"'",folderRowMapper);
         return result;

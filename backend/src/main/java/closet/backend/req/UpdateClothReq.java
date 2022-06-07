@@ -11,7 +11,6 @@ import lombok.ToString;
 @ToString
 @Data
 @Getter
-@AllArgsConstructor
 public class UpdateClothReq {
 	private String idToken;
 	private int cloth_id;

@@ -8,7 +8,6 @@ import lombok.ToString;
 @ToString
 @Data
 @Getter
-@AllArgsConstructor
 public class DeleteClothReq {
 
 	private String idToken;

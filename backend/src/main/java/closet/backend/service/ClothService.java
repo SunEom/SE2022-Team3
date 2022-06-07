@@ -1,5 +1,6 @@
 package closet.backend.service;
 
+import closet.backend.dto.UpdateClothDto;
 import closet.backend.util.AuthUtil;
 import closet.backend.util.FileUtil;
 import closet.backend.dao.ClothDao;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -29,11 +31,11 @@ public class ClothService {
     private final AuthUtil authUtil;
     private final FileUtil fileUtil;
 
-    public ClothDto createCloth(CreateClothReq createClothReq) throws FirebaseAuthException, IOException {
+    public ClothDto createCloth(CreateClothReq createClothReq, Optional<MultipartFile> img) throws FirebaseAuthException, IOException {
         int id = authUtil.getUserid(createClothReq.getIdToken());
         String file_name;
-        if(true){
-            file_name = fileUtil.uploadFile(null);
+        if(img.isPresent()){
+            file_name = fileUtil.uploadFile(img.get());
         }else{
             file_name = "";
         }
@@ -43,8 +45,18 @@ public class ClothService {
         return clothDto;
     }
 
-    public ClothDto updateCloth(UpdateClothReq updateClothReq){
-        return null;
+    public ClothDto updateCloth(UpdateClothReq updateClothReq, Optional<MultipartFile> img) throws FirebaseAuthException,IOException{
+        int id = authUtil.getUserid(updateClothReq.getIdToken());
+        String file_name;
+        if(img.isPresent()){
+            file_name = fileUtil.uploadFile(img.get());
+        }else{
+            file_name = "";
+        }
+        UpdateClothDto updateClothDto = new UpdateClothDto(id, updateClothReq.getCloth_id(), updateClothReq.getName(), updateClothReq.getSeason(),
+                updateClothReq.getCategory(), updateClothReq.getBrand(), updateClothReq.getPlace(), updateClothReq.getSize(), updateClothReq.getCloth_body(), file_name);
+        ClothDto result = clothDao.update(updateClothDto);
+        return result;
     }
 
     public String deleteCloth(DeleteClothReq deleteClothReq) throws FirebaseAuthException{
