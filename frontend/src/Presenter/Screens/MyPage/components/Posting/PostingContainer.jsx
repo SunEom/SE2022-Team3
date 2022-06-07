@@ -12,9 +12,9 @@ const PostingContainer = () => {
 
   useEffect(() => {
     if (idx === 0) {
-      fetchMyPosting().then((result) => setPostings(result));
+      fetchMyPosting().then((response) => setPostings(response.data));
     } else if (idx === 1) {
-      fetchMyFavPosting().then((result) => setPostings(result));
+      fetchMyFavPosting().then((response) => setPostings(response.data));
     }
   }, [idx]);
 

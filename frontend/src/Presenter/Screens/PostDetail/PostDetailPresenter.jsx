@@ -140,7 +140,7 @@ const PostDetailPresenter = ({
                     </PostDetailInfo>
                     {fileName && (
                       <ImageBoxArea>
-                        <ImageBox src={fileName} />
+                        <ImageBox src={`${process.env.REACT_APP_SERVER_URL}/img/${fileName}`} />
                       </ImageBoxArea>
                     )}
                     <TextArea>{postBody}</TextArea>

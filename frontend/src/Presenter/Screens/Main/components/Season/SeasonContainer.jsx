@@ -7,7 +7,8 @@ const SeasonContainer = ({ secondFilter, page, setMaxPage }) => {
   const [nowPageList, setNowPageList] = useState([]);
 
   useEffect(() => {
-    fetchSeasonList(secondFilter).then((response) => {
+    console.log(secondFilter);
+    fetchSeasonList({ season: secondFilter }).then((response) => {
       setSeasonClothList(response.data);
       setNowPageList(response.data.slice((page - 1) * 10, page * 10));
 

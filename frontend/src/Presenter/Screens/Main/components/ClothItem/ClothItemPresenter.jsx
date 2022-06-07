@@ -43,7 +43,12 @@ const ClothItemPresenter = ({ cloth }) => {
 
   return (
     <ClothItemCard>
-      <CardMedia component="img" sx={{ width: 150 }} image={file_name} alt="cloth image" />
+      <CardMedia
+        component="img"
+        sx={{ width: 150 }}
+        image={file_name ? `${process.env.REACT_APP_SERVER_URL}/img/${file_name}` : ""}
+        alt="cloth image"
+      />
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <InfoContainer>
           <Title>{name.length <= 17 ? name : name.substring(0, 17) + "..."}</Title>
