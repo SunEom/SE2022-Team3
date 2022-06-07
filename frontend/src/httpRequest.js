@@ -6,8 +6,13 @@ const axiosPostRequest = async (url, data = {}, headerOption = null) => {
   let idToken = getIdToken();
 
   return await axios.post(`${process.env.REACT_APP_SERVER_URL}${url}`, { ...data, idToken }, { headers: headerOption }).catch((err) => {
-    if (err?.response?.data?.message === "Firebase ID token has expired.") {
+    if (err?.response?.data?.message === "EXPIRED_ID_TOKEN") {
       window.alert("사용자 세션이 만료되었습니다.\n다시 로그인해주세요.");
+      logoutDispatch();
+      removeIdToken();
+      window.location.replace("/login");
+    } else if (err?.response?.data?.message === "INVALID_ID_TOKEN") {
+      window.alert("잘못된 사용자 정보입니다.\n다시 로그인해주세요.");
       logoutDispatch();
       removeIdToken();
       window.location.replace("/login");
