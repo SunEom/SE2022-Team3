@@ -1,14 +1,14 @@
 package closet.backend.service;
 
-import closet.backend.dto.UpdateClothDto;
+import closet.backend.dto.cloth.UpdateClothDto;
+import closet.backend.req.cloth.*;
 import closet.backend.util.AuthUtil;
 import closet.backend.util.FileUtil;
-import closet.backend.dao.ClothDao;
-import closet.backend.dto.ChangeFavoriteDto;
-import closet.backend.dto.ClothDto;
-import closet.backend.dto.CreateClothDto;
+import closet.backend.dao.cloth.ClothDao;
+import closet.backend.dto.cloth.ChangeFavoriteDto;
+import closet.backend.dto.cloth.ClothDto;
+import closet.backend.dto.cloth.CreateClothDto;
 import closet.backend.exception.ClothException;
-import closet.backend.req.*;
 import com.google.firebase.auth.FirebaseAuthException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

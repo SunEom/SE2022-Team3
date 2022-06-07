@@ -1,8 +1,8 @@
 package closet.backend.controller;
 
-import closet.backend.dto.ClothDto;
-import closet.backend.dto.ClothFolderDto;
-import closet.backend.req.*;
+import closet.backend.dto.cloth.ClothDto;
+import closet.backend.dto.cloth.ClothFolderDto;
+import closet.backend.req.cloth.*;
 import closet.backend.service.ClothFolderService;
 import com.google.firebase.auth.FirebaseAuthException;
 import lombok.RequiredArgsConstructor;

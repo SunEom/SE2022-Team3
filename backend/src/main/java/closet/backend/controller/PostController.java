@@ -1,15 +1,17 @@
 package closet.backend.controller;
 
 
-import closet.backend.dto.PostDetailDto;
-import closet.backend.dto.PostDto;
-import closet.backend.dto.PostDtoWithCommentCount;
-import closet.backend.req.*;
+import closet.backend.dto.post.PostDetailDto;
+import closet.backend.dto.post.PostDto;
+import closet.backend.dto.post.PostDtoWithCommentCount;
+import closet.backend.req.post.ChangePostFavoriteReq;
+import closet.backend.req.post.CreatePostReq;
+import closet.backend.req.post.DeletePostReq;
+import closet.backend.req.post.UpdatePostReq;
 import closet.backend.service.PostService;
 import com.google.firebase.auth.FirebaseAuthException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

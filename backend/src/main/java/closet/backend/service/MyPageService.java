@@ -1,8 +1,8 @@
 package closet.backend.service;
 
 import closet.backend.util.AuthUtil;
-import closet.backend.dao.PostDao;
-import closet.backend.dto.PostDtoWithCommentCount;
+import closet.backend.dao.post.PostDao;
+import closet.backend.dto.post.PostDtoWithCommentCount;
 import com.google.firebase.auth.FirebaseAuthException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

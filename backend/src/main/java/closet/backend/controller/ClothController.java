@@ -1,15 +1,11 @@
 package closet.backend.controller;
 
-import closet.backend.dto.ChangeFavoriteDto;
-import closet.backend.dto.ClothDto;
-import closet.backend.dto.GetClothBySeasonDto;
-import closet.backend.req.*;
+import closet.backend.dto.cloth.ClothDto;
+import closet.backend.req.cloth.*;
 import closet.backend.service.ClothService;
-import closet.backend.service.PostService;
 import com.google.firebase.auth.FirebaseAuthException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
