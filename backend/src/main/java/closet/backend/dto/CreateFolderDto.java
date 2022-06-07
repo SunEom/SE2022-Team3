@@ -12,5 +12,5 @@ import lombok.ToString;
 public class CreateFolderDto {
 
 	private int id;
-	private String folderName;
+	private String folder_name;
 }

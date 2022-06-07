@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -39,7 +40,8 @@ public class ClothFolderController {
     }
 
     @PostMapping("/cloth/folder")
-    public ResponseEntity getFolders(@RequestBody String idToken) throws FirebaseAuthException {
+    public ResponseEntity getFolders(@RequestBody Map<String, String> req) throws FirebaseAuthException {
+        String idToken = req.get("idToken");
         List<ClothFolderDto> result = clothFolderService.getFolder(idToken);
         return ResponseEntity.ok().body(result);
     }

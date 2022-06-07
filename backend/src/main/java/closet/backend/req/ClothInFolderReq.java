@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Data
-@AllArgsConstructor
 @Getter
 @ToString
 public class ClothInFolderReq {

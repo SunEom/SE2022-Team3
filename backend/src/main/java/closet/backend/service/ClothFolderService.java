@@ -25,7 +25,7 @@ public class ClothFolderService {
 
     public ClothFolderDto createFolder(CreateFolderReq createFolderReq) throws FirebaseAuthException {
         int id = authUtil.getUserid(createFolderReq.getIdToken());
-        CreateFolderDto createFolderDto = new CreateFolderDto(id,createFolderReq.getFolderName());
+        CreateFolderDto createFolderDto = new CreateFolderDto(id,createFolderReq.getFolder_name());
         ClothFolderDto result = clothFolderDao.save(createFolderDto);
         return result;
     }
