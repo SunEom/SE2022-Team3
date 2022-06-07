@@ -1,5 +1,8 @@
 package closet.backend.exception;
 
+import lombok.Getter;
+
+@Getter
 public class PostException extends RuntimeException{
     public PostException() {
     }
