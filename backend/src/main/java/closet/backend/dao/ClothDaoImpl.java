@@ -108,7 +108,7 @@ public class ClothDaoImpl implements ClothDao{
     @Override
     public List<CategoryCountDto> countByCategory(int id) {
         List<CategoryCountDto> result;
-        result = jdbcTemplate.query("SELECT category,count(category) as count from cloth WHERE id = "+id+"GROUP BY id",categoryRowMapper);
+        result = jdbcTemplate.query("SELECT category,count(category) as count from cloth WHERE id = "+id+" GROUP BY id",categoryRowMapper);
         return result;
     }
 

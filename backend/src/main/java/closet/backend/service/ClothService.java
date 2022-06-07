@@ -32,7 +32,7 @@ public class ClothService {
     public ClothDto createCloth(CreateClothReq createClothReq) throws FirebaseAuthException, IOException {
         int id = authUtil.getUserid(createClothReq.getIdToken());
         String file_name;
-        if(createClothReq.getFile().isPresent()){
+        if(true){
             file_name = fileUtil.uploadFile(null);
         }else{
             file_name = "";

@@ -43,19 +43,20 @@ public class PostDaoImpl implements PostDao{
 
     @Override
     public PostDto save(CreatePostDto createPostDto) {
-        jdbcTemplate.execute("INSERT INTO post(title,genre,post_body,file_name,created_date) VALUES('"+
+        jdbcTemplate.execute("INSERT INTO post(title,genre,post_body,file_name,created_date,updated_date,id) VALUES('"+
                 createPostDto.getTitle()+
                 "','"+createPostDto.getGenre()+
                 "','"+createPostDto.getPost_body()+
                 "','"+createPostDto.getFile_name()+
-                "',NOW())");
-        PostDto postDto = jdbcTemplate
-                .queryForObject("SELECT post_id,title,genre,post_body,file_name,created_date,updated_date,post.id,nickname FROM post LEFT JOIN user on post.id = user.id WHERE title = '"
+                "',NOW(),NOW(),"+
+                createPostDto.getId()+")");
+        List<PostDto> postDto = jdbcTemplate
+                .query("SELECT post_id,title,genre,post_body,file_name,created_date,updated_date,post.id,nickname FROM post LEFT JOIN user on post.id = user.id WHERE title = '"
                 +createPostDto.getTitle()+
                 "' and post_body = '"
                 +createPostDto.getPost_body()+
                 "' ORDER BY created_date DESC;",postRowMapper);
-        return postDto;
+        return postDto.get(0);
     }
 
     @Override
@@ -74,11 +75,18 @@ public class PostDaoImpl implements PostDao{
 
     @Override
     public PostDto update(UpdatePostDto updatePostDto) {
-        jdbcTemplate.execute("UPDATE post SET title = '"+ updatePostDto.getTitle()+
-                "', genre = '"+updatePostDto.getGenre()+
-                "', post_body = '"+updatePostDto.getPost_body()+
-                "', file_name = '"+updatePostDto.getFile_name()+
-                "', updated_date = NOW() WHERE post_id = "+updatePostDto.getPost_id());
+        if(updatePostDto.getFile_name().equals("")) {
+            jdbcTemplate.execute("UPDATE post SET title = '" + updatePostDto.getTitle() +
+                    "', genre = '" + updatePostDto.getGenre() +
+                    "', post_body = '" + updatePostDto.getPost_body() +
+                    "', updated_date = NOW() WHERE post_id = " + updatePostDto.getPost_id());
+        }else{
+            jdbcTemplate.execute("UPDATE post SET title = '"+ updatePostDto.getTitle()+
+                    "', genre = '"+updatePostDto.getGenre()+
+                    "', post_body = '"+updatePostDto.getPost_body()+
+                    "', file_name = '"+updatePostDto.getFile_name()+
+                    "', updated_date = NOW() WHERE post_id = "+updatePostDto.getPost_id());
+        }
         PostDto postDto = jdbcTemplate.queryForObject("select post_id,title,genre,post_body,file_name,created_date,updated_date,post.id,nickname from post left join user on post.id = user.id WHERE post_id = "+updatePostDto.getPost_id(),postRowMapper);
         return postDto;
     }
@@ -93,7 +101,7 @@ public class PostDaoImpl implements PostDao{
     public PostDetailDto findByPostId(int post_id, int id) {
         PostDto postDto = jdbcTemplate.queryForObject("Select post_id,title,genre,post_body,file_name,created_date,updated_date,post.id,nickname FROM post LEFT JOIN user on post.id = user.id WHERE post_id = "+post_id,postRowMapper);
         int favorite_count = jdbcTemplate.queryForObject("SELECT count(*) FROM favorite_post WHERE post_id = "+post_id,Integer.class);
-        int favorite = jdbcTemplate.queryForObject("SELECT count(*) FROM favorite_post WHERE post_id = "+post_id +"and id = "+id,Integer.class);
+        int favorite = jdbcTemplate.queryForObject("SELECT count(*) FROM favorite_post WHERE post_id = "+post_id +" and id = "+id,Integer.class);
         PostDetailDto postDetailDto = new PostDetailDto(postDto,favorite,favorite_count);
         return postDetailDto;
     }
