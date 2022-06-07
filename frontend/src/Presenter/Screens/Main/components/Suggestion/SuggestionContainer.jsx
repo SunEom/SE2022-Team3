@@ -13,8 +13,6 @@ const SuggestionContainer = ({ about }) => {
   useEffect(() => {
     if (about === "season") {
       fetchSeasonalRecommnend().then((response) => {
-        console.log("season", response.data);
-
         let ss = response.data.season;
         let ct = response.data.category;
 
@@ -31,7 +29,6 @@ const SuggestionContainer = ({ about }) => {
       });
     } else if (about === "category") {
       fetchCategoricalRecommnend().then((response) => {
-        console.log("category", response);
         setLoading(false);
       });
     }
