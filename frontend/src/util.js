@@ -9,3 +9,7 @@ export const accessControl = (allowFor) => {
     window.location.replace("/");
   }
 };
+
+export const dateFormatting = (date) => {
+  return new Date(+new Date(date) + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "");
+};

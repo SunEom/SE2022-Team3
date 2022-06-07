@@ -17,16 +17,16 @@ const BoardContainer = () => {
 
   useEffect(() => {
     setCategory(params.category);
-    fetchPostings(params.category).then((r) => {
-      setPostings(r);
+    fetchPostings({ genre: params.category }).then((response) => {
+      setPostings(response.data);
       setLoading(false);
     });
   }, [params.category]);
 
   useEffect(() => {
     accessControl(true);
-    fetchPostings(params.category).then((r) => {
-      setPostings(r);
+    fetchPostings({ genre: params.category }).then((response) => {
+      setPostings(response.data);
       setLoading(false);
     });
   }, []);

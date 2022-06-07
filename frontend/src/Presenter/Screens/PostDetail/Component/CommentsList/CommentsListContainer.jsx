@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { fetchComments, requestNewComment } from "../../../../../httpRequest";
 import CommentsListPresenter from "./CommentsListPresenter";
 
 const CommentsListContainer = (comment) => {
+  const params = useParams();
   const [commentList, setCommentList] = useState([]);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(1);
@@ -20,7 +22,7 @@ const CommentsListContainer = (comment) => {
   };
 
   const refreshCommentList = () => {
-    fetchComments({ post_id: 1 }).then((response) => {
+    fetchComments({ post_id: params.post_id }).then((response) => {
       setCommentList(response.data);
       setNowCommentList(response.data.slice((page - 1) * 5, page * 5));
       setMaxPage(Math.ceil(response.data.length / 5));
@@ -32,7 +34,7 @@ const CommentsListContainer = (comment) => {
     if (!commentBody) {
       return window.alert("댓글의 내용을 입력해주세요!");
     }
-    requestNewComment({ post_id: 1, comment_body: commentBody }).then((response) => {
+    requestNewComment({ post_id: params.post_id, comment_body: commentBody }).then((response) => {
       setCommentList(response.data);
       setNowCommentList(response.data.slice((page - 1) * 5, page * 5));
       setMaxPage(Math.ceil(response.data.length / 5));

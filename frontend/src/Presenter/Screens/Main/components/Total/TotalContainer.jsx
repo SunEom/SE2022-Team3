@@ -7,12 +7,12 @@ const TotalContainer = ({ page, setMaxPage }) => {
   const [nowPageList, setNowPageList] = useState([]); // 현재 보여지고 있는 페이지 리스트
 
   useEffect(() => {
-    fetchClothList().then((r) => {
-      setClothList(r);
-      setNowPageList(r.slice((page - 1) * 10, page * 10));
+    fetchClothList().then((response) => {
+      setClothList(response.data);
+      setNowPageList(response.data.slice((page - 1) * 10, page * 10));
 
       // 마지막 페이지 번호 설정
-      setMaxPage(Math.ceil(r.length / 10));
+      setMaxPage(Math.ceil(response.data.length / 10));
     });
   }, [page]);
 

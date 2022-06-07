@@ -117,6 +117,15 @@ const ClothDescriptionBody = styled.div`
   line-height: 20px;
 `;
 
+const ClothDateContainer = styled.div`
+  margin-top: 15px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: gray;
+`;
+
 const LikeButton = styled(Fab)``;
 const ClassificationButton = styled(Fab)``;
 
@@ -270,6 +279,9 @@ const DetailModalPresenter = ({
                 <ClothDescriptionTitle>기타</ClothDescriptionTitle>
                 <ClothDescriptionBody>{clothBody}</ClothDescriptionBody>
               </ClothDescription>
+              <ClothDateContainer>
+                {cloth.created_date === cloth.updated_date ? cloth.created_date : `${cloth.updated_date} (수정됨)`}
+              </ClothDateContainer>
 
               <BottomButtonContainer>
                 <Button variant="outlined" startIcon={<EditIcon />} size="small" color="primary" onClick={onModeToggleButtonClick}>

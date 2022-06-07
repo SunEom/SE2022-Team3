@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchPostDetail } from "../../../httpRequest";
+import { fetchPostDetail, requestChangePostFavState } from "../../../httpRequest";
 import PostDetailPresenter from "./PostDetailPresenter";
 import { useParams } from "react-router-dom";
 import { accessControl } from "../../../util";
@@ -19,6 +19,8 @@ const PostDetailContainer = () => {
   const [updatedDate, setUpdatedDate] = useState();
   const [nickname, setNickname] = useState();
   const [cloth, setCloth] = useState(); // 의상 전체 정보
+  const [favorite, setFavorite] = useState();
+  const [favCount, setFavCount] = useState();
 
   const onModeToggleButtonClick = () => {
     if (mode === "show") {
@@ -28,20 +30,31 @@ const PostDetailContainer = () => {
     }
   };
 
+  const onFavButtonClick = () => {
+    requestChangePostFavState({ post_id: postId, favorite }).then((response) => {
+      setFavorite(response.data.favorite);
+      setFavCount((current) => {
+        return response.data.favorite === 1 ? current + 1 : current - 1;
+      });
+    });
+  };
+
   useEffect(() => {
     accessControl(true);
 
-    fetchPostDetail({ post_id: params.post_id }).then((result) => {
-      setPostId(result.post_id);
-      setTitle(result.title);
-      setGenre(result.genre);
-      setPostBody(result.post_body);
-      setFileName(result.file_name);
-      setId(result.id);
-      setCreatedDate(result.created_date);
-      setUpdatedDate(result.updated_date);
-      setNickname(result.nickname);
-      setCloth(result);
+    fetchPostDetail({ post_id: params.post_id }).then((response) => {
+      setPostId(response.data.post_id);
+      setTitle(response.data.title);
+      setGenre(response.data.genre);
+      setPostBody(response.data.post_body);
+      setFileName(response.data.file_name);
+      setId(response.data.id);
+      setCreatedDate(response.data.created_date);
+      setUpdatedDate(response.data.updated_date);
+      setNickname(response.data.nickname);
+      setFavCount(response.data.favorite_count);
+      setFavorite(response.data.favorite);
+      setCloth(response.data);
 
       setLoading(false);
     });
@@ -62,6 +75,9 @@ const PostDetailContainer = () => {
       cloth={cloth}
       mode={mode}
       onModeToggleButtonClick={onModeToggleButtonClick}
+      favorite={favorite}
+      favCount={favCount}
+      onFavButtonClick={onFavButtonClick}
     />
   );
 };

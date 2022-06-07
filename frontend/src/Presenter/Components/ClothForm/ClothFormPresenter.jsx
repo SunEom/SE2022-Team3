@@ -140,6 +140,7 @@ const ClothFormPresenter = ({
   onPlaceChange,
   cloth,
   loading,
+  onSaveButtonClick,
 }) => {
   return (
     <>
@@ -281,7 +282,7 @@ const ClothFormPresenter = ({
               <ButtonContainer>
                 <LeftButtonContainer></LeftButtonContainer>
                 <RightButtonContainer>
-                  <Button variant="outlined" color="success" style={{ width: 80 }} size="small">
+                  <Button variant="outlined" color="success" style={{ width: 80 }} size="small" onClick={onSaveButtonClick}>
                     <SaveIcon fontSize="small" style={{ marginRight: 3 }} />
                     저장
                   </Button>

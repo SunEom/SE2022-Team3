@@ -6,7 +6,6 @@ const CommentItemContainer = ({ comment, refreshCommentList }) => {
   const [mode, setMode] = useState("show"); // show : 댓글 조회, edit : 댓글 수정
   const [contents, setContents] = useState(comment.comment_body);
 
-  console.log(comment.comment_body);
   const onChange = (e) => {
     e.preventDefault();
     setContents(e.target.value);
