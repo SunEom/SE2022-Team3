@@ -43,7 +43,7 @@ public class ClothDaoImpl implements ClothDao{
     @Override
     public List<ClothDto> findById(int id) {
         List<ClothDto> result;
-        result = jdbcTemplate.query("SELECT cloth_id,name,season,category,brand,place,size,cloth_body,file_name,created_date,updated_date,favorite,id FROM cloth WHERE id = "+id
+        result = jdbcTemplate.query("SELECT cloth_id,name,season,category,brand,place,size,cloth_body,file_name,created_date,updated_date,favorite,id FROM cloth WHERE id = "+id+" ORDER BY updated_date DESC"
                 ,clothRowMapper);
         return result;
     }
@@ -129,7 +129,7 @@ public class ClothDaoImpl implements ClothDao{
     @Override
     public List<CategoryCountDto> countByCategory(int id) {
         List<CategoryCountDto> result;
-        result = jdbcTemplate.query("SELECT category,count(cloth_id) as count from cloth WHERE id = "+id+" GROUP BY category",categoryRowMapper);
+        result = jdbcTemplate.query("SELECT category,count(cloth_id) as count from cloth WHERE id = "+id+" GROUP BY category ",categoryRowMapper);
         return result;
     }
 
@@ -137,7 +137,7 @@ public class ClothDaoImpl implements ClothDao{
     public List<ClothDto> findBySeason(int id, String season) {
         List<ClothDto> result;
         result = jdbcTemplate.query("SELECT cloth_id,name,season,category,brand,place,size,cloth_body,file_name,created_date,updated_date,favorite,id FROM cloth WHERE id = "
-                +id+" and season LIKE '%"+season+"%'",clothRowMapper);
+                +id+" and season LIKE '%"+season+"%' ORDER BY updated_date DESC",clothRowMapper);
         return result;
     }
 
@@ -145,7 +145,7 @@ public class ClothDaoImpl implements ClothDao{
     public List<ClothDto> findByCategory(int id, String category) {
         List<ClothDto> result;
         result = jdbcTemplate.query("SELECT cloth_id,name,season,category,brand,place,size,cloth_body,file_name,created_date,updated_date,favorite,id FROM cloth WHERE id = "
-                +id+" and category = '"+category+"'",clothRowMapper);
+                +id+" and category = '"+category+"' ORDER BY updated_date DESC",clothRowMapper);
         return result;
     }
 
@@ -153,7 +153,7 @@ public class ClothDaoImpl implements ClothDao{
     public List<ClothDto> findByFavorite(int id) {
         List<ClothDto> result;
         result = jdbcTemplate.query("SELECT cloth_id,name,season,category,brand,place,size,cloth_body,file_name,created_date,updated_date,favorite,id FROM cloth WHERE id = "
-                +id+" and favorite = 1",clothRowMapper);
+                +id+" and favorite = 1 ORDER BY updated_date DESC",clothRowMapper);
         return result;
     }
 
