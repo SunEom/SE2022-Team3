@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ClothItemPresenter from "./ClothItemPresenter";
 
 const ClothItemContainer = ({ cloth }) => {
@@ -14,6 +14,10 @@ const ClothItemContainer = ({ cloth }) => {
     setFileName(cloth.file_name);
     setFavorite(cloth.favorite);
   };
+
+  useEffect(() => {
+    configurePresentData(cloth);
+  }, [cloth]);
 
   return <ClothItemPresenter cloth={cloth} presentedData={clothProps} configurePresentData={configurePresentData} />;
 };
