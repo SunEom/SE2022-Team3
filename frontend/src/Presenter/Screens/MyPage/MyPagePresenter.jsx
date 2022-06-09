@@ -9,6 +9,7 @@ import MyInfo from "./components/MyInfo";
 import InfoEdit from "./components/InfoEdit";
 import Posting from "./components/Posting";
 import Account from "./components/Account";
+import ClassificationManage from "./components/ClassificationManage";
 
 const MyPageTopContainer = styled.div`
   min-width: 1200px;
@@ -66,8 +67,9 @@ const MyPagePresenter = ({ value, handleChange, a11yProps }) => {
             >
               <Tab label="내 정보" {...a11yProps(0)} />
               <Tab label="정보 수정" {...a11yProps(1)} />
-              <Tab label="게시글 관리" {...a11yProps(2)} />
-              <Tab label="계정 관리" {...a11yProps(3)} />
+              <Tab label="의상 분류 관리" {...a11yProps(2)} />
+              <Tab label="게시글 관리" {...a11yProps(3)} />
+              <Tab label="계정 관리" {...a11yProps(4)} />
             </Tabs>
             <TabPanel value={value} index={0}>
               <MyInfo />
@@ -76,9 +78,12 @@ const MyPagePresenter = ({ value, handleChange, a11yProps }) => {
               <InfoEdit />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <Posting />
+              <ClassificationManage />
             </TabPanel>
             <TabPanel value={value} index={3}>
+              <Posting />
+            </TabPanel>
+            <TabPanel value={value} index={4}>
               <Account />
             </TabPanel>
           </Box>
