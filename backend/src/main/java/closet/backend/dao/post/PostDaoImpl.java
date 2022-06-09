@@ -62,14 +62,14 @@ public class PostDaoImpl implements PostDao{
     @Override
     public List<PostDtoWithCommentCount> findByGenre(String genre) {
         List<PostDtoWithCommentCount> result = jdbcTemplate
-                .query("select post.post_id,title,genre,post_body,file_name,post.created_date,post.updated_date,post.id,nickname,count(comment.post_id) as comment_count from (select post_id,title,genre,post_body,file_name,created_date,updated_date,post.id,nickname from post left join user on post.id = user.id WHERE genre ='"+genre+"') as post left join comment on post.post_id = comment.post_id GROUP BY post.post_id;",postCountRowMapper);
+                .query("select post.post_id,title,genre,post_body,file_name,post.created_date,post.updated_date,post.id,nickname,count(comment.post_id) as comment_count from (select post_id,title,genre,post_body,file_name,created_date,updated_date,post.id,nickname from post left join user on post.id = user.id WHERE genre ='"+genre+"') as post left join comment on post.post_id = comment.post_id GROUP BY post.post_id ORDER BY updated_date DESC",postCountRowMapper);
         return result;
     }
 
     @Override
     public List<PostDtoWithCommentCount> findAll() {
         List<PostDtoWithCommentCount> result = jdbcTemplate
-                .query("select post.post_id,title,genre,post_body,file_name,post.created_date,post.updated_date,post.id,nickname,count(comment.post_id) as comment_count from (select post_id,title,genre,post_body,file_name,created_date,updated_date,post.id,nickname from post left join user on post.id = user.id) as post left join comment on post.post_id = comment.post_id GROUP BY post.post_id;",postCountRowMapper);
+                .query("select post.post_id,title,genre,post_body,file_name,post.created_date,post.updated_date,post.id,nickname,count(comment.post_id) as comment_count from (select post_id,title,genre,post_body,file_name,created_date,updated_date,post.id,nickname from post left join user on post.id = user.id) as post left join comment on post.post_id = comment.post_id GROUP BY post.post_id ORDER BY updated_date DESC",postCountRowMapper);
         return result;
     }
 
@@ -109,7 +109,7 @@ public class PostDaoImpl implements PostDao{
     @Override
     public List<PostDtoWithCommentCount> findById(int id) {
         List<PostDtoWithCommentCount> result = jdbcTemplate
-                .query("select post.post_id,title,genre,post_body,file_name,post.created_date,post.updated_date,post.id,nickname,count(comment.post_id) as comment_count from (select post_id,title,genre,post_body,file_name,created_date,updated_date,post.id,nickname from post left join user on post.id = user.id WHERE post.id ="+id+") as post left join comment on post.post_id = comment.post_id GROUP BY post.post_id",postCountRowMapper);
+                .query("select post.post_id,title,genre,post_body,file_name,post.created_date,post.updated_date,post.id,nickname,count(comment.post_id) as comment_count from (select post_id,title,genre,post_body,file_name,created_date,updated_date,post.id,nickname from post left join user on post.id = user.id WHERE post.id ="+id+") as post left join comment on post.post_id = comment.post_id GROUP BY post.post_id ORDER BY updated_date DESC",postCountRowMapper);
         return result;
     }
 
@@ -122,7 +122,7 @@ public class PostDaoImpl implements PostDao{
     @Override
     public List<PostDtoWithCommentCount> findFavoritePost(int id) {
         List<PostDtoWithCommentCount> result = jdbcTemplate
-                .query("select c.post_id,title,genre,post_body,file_name,c.created_date,c.updated_date,c.id,nickname,count(comment.post_id) as comment_count from (select post_id,title,genre,post_body,file_name,created_date,updated_date,b.id,nickname FROM user INNER JOIN(select post.post_id,title,genre,post_body,file_name,created_date,updated_date,id from post INNER JOIN (select post_id from favorite_post WHERE id = "+id+") as a on a.post_id = post.post_id) as b on b.id = user.id) as c LEFT JOIN comment on c.post_id = comment.post_id GROUP BY c.post_id",postCountRowMapper);
+                .query("select c.post_id,title,genre,post_body,file_name,c.created_date,c.updated_date,c.id,nickname,count(comment.post_id) as comment_count from (select post_id,title,genre,post_body,file_name,created_date,updated_date,b.id,nickname FROM user INNER JOIN(select post.post_id,title,genre,post_body,file_name,created_date,updated_date,id from post INNER JOIN (select post_id from favorite_post WHERE id = "+id+") as a on a.post_id = post.post_id) as b on b.id = user.id) as c LEFT JOIN comment on c.post_id = comment.post_id GROUP BY c.post_id ORDER BY updated_date DESC",postCountRowMapper);
         return result;
     }
 }

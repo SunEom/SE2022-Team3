@@ -56,17 +56,10 @@ public class ClothRecommendService {
     public CategoryCountDto recommendByCategory(String idToken) throws FirebaseAuthException {
         int id = authUtil.getUserid(idToken);
         List<CategoryCountDto> data = clothDao.countByCategory(id);
-        int avg = 0;
-        Iterator<CategoryCountDto> it = data.iterator();
-        while(it.hasNext()){
-            avg += it.next().getCount();
-        }
-        avg /= data.size();
         CategoryCountDto result = data.get(0);
-        while(it.hasNext()){
-            if(avg>=it.next().getCount()){
-                result = it.next();
-            }
+        for(int i=0; i<data.size(); i++){
+            if(result.getCount()>=data.get(i).getCount())
+                result = data.get(i);
         }
         return result;
     }
