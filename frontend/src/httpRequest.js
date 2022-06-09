@@ -444,7 +444,7 @@ export const fetchSomeClassificationList = async (data) => {
 
 //새로운 의상 추가 요청
 export const requestNewCloth = (clothData, img) => {
-  return axiosMultiPartRequeset("/cloth/crate", "createClothReq", clothData, img);
+  return axiosMultiPartRequeset("/cloth/create", "createClothReq", clothData, img);
 };
 
 //의상 정보 수정 요청
