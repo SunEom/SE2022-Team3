@@ -94,6 +94,21 @@ export const fetchSomeClassificationList = async (data) => {
   return axiosPostRequest("/cloth/folder/detail", data);
 };
 
+//의상을 해당 의상 목록에서 제거 요청
+export const requestClothFromClassificationList = async (data) => {
+  return axiosPostRequest("/cloth/folder/remove", data);
+};
+
+//의상 분류명 수정 요청
+export const requestUpdateFolderName = async (data) => {
+  return axiosPostRequest("/cloth/folder/update", data);
+};
+
+//특정 분류 삭제 요청
+export const requestDeleteClassification = async (data) => {
+  return axiosPostRequest("/cloth/folder/delete", data);
+};
+
 //새로운 의상 추가 요청
 export const requestNewCloth = (clothData, img) => {
   return axiosMultiPartRequeset("/cloth/create", "createClothReq", clothData, img);
