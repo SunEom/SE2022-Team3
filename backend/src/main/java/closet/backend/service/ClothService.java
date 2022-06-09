@@ -48,15 +48,19 @@ public class ClothService {
     public ClothDto updateCloth(UpdateClothReq updateClothReq, Optional<MultipartFile> img) throws FirebaseAuthException,IOException{
         int id = authUtil.getUserid(updateClothReq.getIdToken());
         String file_name;
-        if(img.isPresent()){
-            file_name = fileUtil.uploadFile(img.get());
-        }else{
-            file_name = "";
+        if(id == clothDao.findWriterId(updateClothReq.getCloth_id())){
+            if(img.isPresent()){
+                file_name = fileUtil.uploadFile(img.get());
+            }else{
+                file_name = "";
+            }
+            UpdateClothDto updateClothDto = new UpdateClothDto(id, updateClothReq.getCloth_id(), updateClothReq.getName(), updateClothReq.getSeason(),
+                    updateClothReq.getCategory(), updateClothReq.getBrand(), updateClothReq.getPlace(), updateClothReq.getSize(), updateClothReq.getCloth_body(), file_name);
+            ClothDto result = clothDao.update(updateClothDto);
+            return result;
+        } else{
+            throw new ClothException("의류 등록자가 아닙니다.",403);
         }
-        UpdateClothDto updateClothDto = new UpdateClothDto(id, updateClothReq.getCloth_id(), updateClothReq.getName(), updateClothReq.getSeason(),
-                updateClothReq.getCategory(), updateClothReq.getBrand(), updateClothReq.getPlace(), updateClothReq.getSize(), updateClothReq.getCloth_body(), file_name);
-        ClothDto result = clothDao.update(updateClothDto);
-        return result;
     }
 
     public String deleteCloth(DeleteClothReq deleteClothReq) throws FirebaseAuthException{
@@ -65,7 +69,7 @@ public class ClothService {
             String result = clothDao.delete(deleteClothReq.getCloth_id());
             return result;
         } else{
-            throw new ClothException("의류 등록자가 아닙니다.");
+            throw new ClothException("의류 등록자가 아닙니다.",403);
         }
     }
 

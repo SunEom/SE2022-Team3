@@ -1,11 +1,13 @@
 package closet.backend.dao.cloth;
 
 import closet.backend.dto.cloth.ClothDto;
+import closet.backend.exception.ClothException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Repository
@@ -32,7 +34,7 @@ public class ClothFolderDetailDaoImpl implements ClothFolderDetailDao{
                     .build();
 
     @Override
-    public ClothDto save(int folder_id, int cloth_id) {
+    public ClothDto save(int folder_id, int cloth_id) throws SQLIntegrityConstraintViolationException {
         jdbcTemplate.execute("INSERT INTO cloth_folder_detail(folder_id,cloth_id) VALUES ("
                 +folder_id+","+cloth_id+")");
         ClothDto result = jdbcTemplate.queryForObject("SELECT * FROM cloth WHERE cloth_id = "+cloth_id,clothRowMapper);

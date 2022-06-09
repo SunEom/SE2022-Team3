@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Service
@@ -52,7 +53,7 @@ public class ClothFolderService {
         return result;
     }
 
-    public ClothDto insertClothToFolder(ClothIntoFolderReq clothIntoFolderReq){
+    public ClothDto insertClothToFolder(ClothIntoFolderReq clothIntoFolderReq) throws SQLIntegrityConstraintViolationException {
         int folder_id = clothIntoFolderReq.getFolder_id();
         int cloth_id = clothIntoFolderReq.getCloth_id();
         ClothDto result = clothFolderDetailDao.save(folder_id,cloth_id);
