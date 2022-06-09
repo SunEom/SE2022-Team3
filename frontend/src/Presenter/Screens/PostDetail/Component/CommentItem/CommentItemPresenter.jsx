@@ -3,7 +3,7 @@ import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { IconButton, Button, TextField } from "@mui/material";
-import { dateFormatting } from "../../../../../util";
+import { dateFormatting, isMine } from "../../../../../util";
 
 const CommentBox = styled.div`
   border: solid #e9e9e9 2px;
@@ -29,13 +29,14 @@ const CommentDetail = styled.div`
 `;
 const CommentDate = styled.div`
   font-size: 12px;
-  margin-top: 20px;
   color: #b6b6b6;
 `;
 
 const CommentDetailIconBox = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
 `;
 
 const CommentIcons = styled.div`
@@ -62,6 +63,19 @@ const EditCommentDeleteBtn = styled.div`
   color: #b6b6b6;
 `;
 
+const CommentHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+`;
+
+const CommenterName = styled.div`
+  position: relative;
+  bottom: 5px;
+  font-size: 13px;
+  font-weight: 600;
+`;
 const CommentItemPresenter = ({ comment, mode, onModeToggleButtonClick, onChange, contents, onDeleteButtonClick, onEditButtonClick }) => {
   return (
     <CommentBox>
@@ -71,6 +85,9 @@ const CommentItemPresenter = ({ comment, mode, onModeToggleButtonClick, onChange
           //댓글 조회
           mode === "show" && (
             <UserCommentArea>
+              <CommentHeader>
+                <CommenterName>{comment.nickname}</CommenterName>
+              </CommentHeader>
               {comment.comment_body}
               <CommentDetailIconBox>
                 <CommentDetail>
@@ -80,18 +97,20 @@ const CommentItemPresenter = ({ comment, mode, onModeToggleButtonClick, onChange
                       : `${dateFormatting(comment.updated_date)} (수정됨)`}
                   </CommentDate>
                 </CommentDetail>
-                <CommentIcons>
-                  <CommentEditBtn>
-                    <IconButton aria-label="edit" size="large" color="primary" onClick={onModeToggleButtonClick}>
-                      <EditIcon />
-                    </IconButton>
-                  </CommentEditBtn>
-                  <CommentDeleteBtn>
-                    <IconButton aria-label="delete" size="large" color="error" onClick={onDeleteButtonClick}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </CommentDeleteBtn>
-                </CommentIcons>
+                {isMine(comment.id) && (
+                  <CommentIcons>
+                    <CommentEditBtn>
+                      <IconButton aria-label="edit" size="small" color="primary" onClick={onModeToggleButtonClick}>
+                        <EditIcon />
+                      </IconButton>
+                    </CommentEditBtn>
+                    <CommentDeleteBtn>
+                      <IconButton aria-label="delete" size="small" color="error" onClick={onDeleteButtonClick}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </CommentDeleteBtn>
+                  </CommentIcons>
+                )}
               </CommentDetailIconBox>
             </UserCommentArea>
           )
