@@ -1,6 +1,7 @@
 package closet.backend.service;
 
 
+import closet.backend.exception.ClothException;
 import closet.backend.util.AuthUtil;
 import closet.backend.dao.cloth.ClothDao;
 import closet.backend.dto.cloth.CategoryCountDto;
@@ -56,12 +57,16 @@ public class ClothRecommendService {
     public CategoryCountDto recommendByCategory(String idToken) throws FirebaseAuthException {
         int id = authUtil.getUserid(idToken);
         List<CategoryCountDto> data = clothDao.countByCategory(id);
-        CategoryCountDto result = data.get(0);
-        for(int i=0; i<data.size(); i++){
-            if(result.getCount()>=data.get(i).getCount())
-                result = data.get(i);
+        try {
+            CategoryCountDto result = data.get(0);
+            for (int i = 0; i < data.size(); i++) {
+                if (result.getCount() >= data.get(i).getCount())
+                    result = data.get(i);
+            }
+            return result;
+        } catch(IndexOutOfBoundsException e){
+            throw new ClothException("추가된 의상이 존재하지 않습니다.",400);
         }
-        return result;
     }
 
 }

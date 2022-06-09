@@ -1,6 +1,6 @@
 package closet.backend.exhandler;
 
-import closet.backend.exception.LoginException;
+import closet.backend.exception.*;
 import com.google.firebase.auth.AuthErrorCode;
 import com.google.firebase.auth.FirebaseAuthException;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,10 +25,55 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {IOException.class})
-    protected ResponseEntity handleFirebaseAuthException(IOException e){
+    protected ResponseEntity handleIOException(IOException e){
         Map<String, String> result = new HashMap<String, String>();
         result.put("message","FILE_UPLOAD_FAIL");
         return ResponseEntity.status(500).body(result);
     }
 
+    @ExceptionHandler(value = {UserException.class})
+    protected ResponseEntity handleUserExceptionException(UserException e){
+        Map<String, String> result = new HashMap<String, String>();
+        result.put("message",e.getMessage());
+        return ResponseEntity.status(e.getCode()).body(result);
+    }
+
+    @ExceptionHandler(value = {PostException.class})
+    protected ResponseEntity handlePostExceptionException(PostException e){
+        Map<String, String> result = new HashMap<String, String>();
+        result.put("message",e.getMessage());
+        return ResponseEntity.status(e.getCode()).body(result);
+    }
+
+    @ExceptionHandler(value = {LoginException.class})
+    protected ResponseEntity handleLoginExceptionException(LoginException e){
+        Map<String, String> result = new HashMap<String, String>();
+        result.put("message",e.getMessage());
+        return ResponseEntity.status(e.getCode()).body(result);
+    }
+
+    @ExceptionHandler(value = {CommentException.class})
+    protected ResponseEntity handleCommentExceptionException(CommentException e){
+        Map<String, String> result = new HashMap<String, String>();
+        result.put("message",e.getMessage());
+        return ResponseEntity.status(e.getCode()).body(result);
+    }
+
+    @ExceptionHandler(value = {ClothException.class})
+    protected ResponseEntity handleClothExceptionException(ClothException e){
+        Map<String, String> result = new HashMap<String, String>();
+        result.put("message",e.getMessage());
+        return ResponseEntity.status(e.getCode()).body(result);
+    }
+
+    @ExceptionHandler(value = {SQLIntegrityConstraintViolationException.class})
+    protected ResponseEntity handleFolderExceptionException(SQLIntegrityConstraintViolationException e){
+        Map<String, String> result = new HashMap<String, String>();
+        String message = "";
+        if(e.getErrorCode() == 1062){
+            message = "이미 분류에 추가 되어 있는 의상입니다!";
+        }
+        result.put("message",message);
+        return ResponseEntity.status(400).body(result);
+    }
 }

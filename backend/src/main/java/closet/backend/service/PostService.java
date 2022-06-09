@@ -53,21 +53,25 @@ public class PostService {
             String result = postDao.delete(deletePostReq.getPost_id());
             return result;
         } else{
-            throw new PostException("글 작성자가 아닙니다.");
+            throw new PostException("글 작성자가 아닙니다.",403);
         }
     }
 
     public PostDto updatePost(UpdatePostReq updatePostReq, Optional<MultipartFile> img) throws FirebaseAuthException, IOException {
         int id = authUtil.getUserid(updatePostReq.getIdToken());
         String file_name;
-        if(img.isPresent()){
-            file_name = fileUtil.uploadFile(img.get());
-        }else{
-            file_name = "";
+        if( id == postDao.findWriterId(updatePostReq.getPost_id())){
+            if(img.isPresent()){
+                file_name = fileUtil.uploadFile(img.get());
+            }else{
+                file_name = "";
+            }
+            UpdatePostDto updatePostDto = new UpdatePostDto(id, updatePostReq.getPost_id(), updatePostReq.getTitle(), updatePostReq.getGenre(), updatePostReq.getPost_body(), file_name);
+            PostDto result = postDao.update(updatePostDto);
+            return result;
+        } else{
+            throw new PostException("글 작성자가 아닙니다.",403);
         }
-        UpdatePostDto updatePostDto = new UpdatePostDto(id, updatePostReq.getPost_id(), updatePostReq.getTitle(), updatePostReq.getGenre(), updatePostReq.getPost_body(), file_name);
-        PostDto result = postDao.update(updatePostDto);
-        return result;
     }
 
     public PostDetailDto getPostDetail(int post_id, String idToken) throws FirebaseAuthException{

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +48,7 @@ public class ClothFolderController {
     }
 
     @PostMapping("/cloth/folder/insert")
-    public ResponseEntity insertClothInToFolder(@RequestBody ClothIntoFolderReq clothIntoFolderReq){
+    public ResponseEntity insertClothInToFolder(@RequestBody ClothIntoFolderReq clothIntoFolderReq) throws SQLIntegrityConstraintViolationException {
         ClothDto result = clothFolderService.insertClothToFolder(clothIntoFolderReq);
         return ResponseEntity.ok().body(result);
     }

@@ -41,7 +41,7 @@ public class CommentService {
             List<CommentDto> result = commentDao.update(updateCommentDto);
             return result;
         } else{
-            throw new CommentException("본인이 작성한 댓글이 아닙니다.");
+            throw new CommentException("본인이 작성한 댓글이 아닙니다.",403);
         }
     }
 
@@ -51,7 +51,7 @@ public class CommentService {
             List<CommentDto> result = commentDao.delete(deleteCommentReq.getComment_id(),deleteCommentReq.getPost_id());
             return result;
         } else{
-            throw new CommentException("본인이 작성한 댓글이 아닙니다.");
+            throw new CommentException("본인이 작성한 댓글이 아닙니다.",403);
         }
     }
 
