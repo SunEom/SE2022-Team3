@@ -39,15 +39,15 @@ const DetailButtonDiv = styled.div`
   justify-content: space-between;
 `;
 
-const ClothItemPresenter = ({ cloth }) => {
-  const { name, brand, file_name, favorite } = cloth;
+const ClothItemPresenter = ({ cloth, presentedData, configurePresentData }) => {
+  const { name, brand, fileName, favorite } = presentedData;
 
   return (
     <ClothItemCard>
       <CardMedia
         component="img"
         sx={{ width: 150 }}
-        image={file_name ? `${process.env.REACT_APP_SERVER_URL}/img/${file_name}` : DefaultImage}
+        image={fileName ? `${process.env.REACT_APP_SERVER_URL}/img/${fileName}` : DefaultImage}
         alt="cloth image"
       />
       <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -56,7 +56,7 @@ const ClothItemPresenter = ({ cloth }) => {
           <Brand>{brand}</Brand>
           <DetailButtonDiv>
             {favorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
-            <DetailButton cloth={cloth} />
+            <DetailButton cloth={cloth} configurePresentData={configurePresentData} />
           </DetailButtonDiv>
         </InfoContainer>
       </Box>

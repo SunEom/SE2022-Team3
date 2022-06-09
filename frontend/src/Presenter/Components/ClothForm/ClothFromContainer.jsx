@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { requestNewCloth, requestUpdateCloth } from "../../../httpRequest";
 import ClothFormPresenter from "./ClothFormPresenter";
 
-const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open, handleClose }) => {
+const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open, handleClose, refreshClothDetail }) => {
   const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState(); // new: 의상 추가 , edit : 의상 수정
   const [name, setName] = useState("");
@@ -76,7 +76,7 @@ const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open
       setSeason(cloth.season);
       setSize(cloth.size);
       setBrand(cloth.brand);
-      setFileName(cloth.file_name);
+      setFileName(`${process.env.REACT_APP_SERVER_URL}/img/${cloth.file_name}`);
       setCategory(cloth.genre);
       setPlace(cloth.place);
       setClothBody(cloth.cloth_body);
@@ -98,7 +98,7 @@ const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open
         cloth.category !== category ||
         cloth.season !== season ||
         cloth.cloth_body !== clothBody ||
-        cloth.file_name !== fileName
+        `${process.env.REACT_APP_SERVER_URL}/img/${cloth.file_name}` !== fileName
       );
     }
   };
@@ -173,7 +173,8 @@ const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open
         newImgFile
       ).then((response) => {
         window.alert("정상적으로 수정되었습니다.");
-        window.location.reload();
+        refreshClothDetail();
+        onModeToggleButtonClick();
       });
     }
   };
@@ -191,7 +192,7 @@ const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open
       setSeason(cloth.season);
       setSize(cloth.size);
       setBrand(cloth.brand);
-      setFileName(cloth.file_name);
+      setFileName(`${process.env.REACT_APP_SERVER_URL}/img/${cloth.file_name}`);
       setCategory(cloth.category);
       setPlace(cloth.place);
       setClothBody(cloth.cloth_body);

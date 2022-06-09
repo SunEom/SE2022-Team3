@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { fetchClothFolderList, requestChangeClothFavState, requestDeleteCloth, requestNewClothFolder } from "../../../../../httpRequest";
+import {
+  fetchClothDetail,
+  fetchClothFolderList,
+  requestChangeClothFavState,
+  requestDeleteCloth,
+  requestNewClothFolder,
+} from "../../../../../httpRequest";
 import DetailModalPresenter from "./DetailModalPresenter";
 
-const DetailModalContainer = ({ open, handleClose, cloth }) => {
+const DetailModalContainer = ({ open, handleClose, cloth, configurePresentData }) => {
   const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState("detail");
   const [name, setName] = useState(cloth.name);
@@ -14,6 +20,7 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
   const [place, setPlace] = useState(cloth.place);
   const [clothBody, setClothBody] = useState(cloth.cloth_body);
   const [favorite, setFavorite] = useState(cloth.favorite);
+  const [clothData, setClothData] = useState(cloth);
 
   const [classificationList, setClassificationList] = useState();
   const [newClassification, setNewClassification] = useState("");
@@ -54,9 +61,13 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
     setNewClassification(e.target.value);
   };
 
+  //좋아요버튼 클릭시
   const onLikeButtonClick = () => {
     requestChangeClothFavState({ cloth_id: cloth.cloth_id, favorite }).then((response) => {
       setFavorite(response.data.favorite);
+
+      //팝업 밖의 의상 목록에서도 좋아요가 반영되도록 설정
+      configurePresentData({ ...cloth, favorite: response.data.favorite });
     });
 
     setFavorite((current) => !current);
@@ -71,16 +82,24 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
     }
   };
 
-  const resetDetailContents = () => {
-    setName(cloth.name);
-    setSeason(cloth.season);
-    setSize(cloth.size);
-    setBrand(cloth.brand);
-    setFileName(cloth.file_name);
-    setType(cloth.type);
-    setPlace(cloth.place);
-    setClothBody(cloth.cloth_body);
-    setFavorite(cloth.favorite);
+  //의상 수정 이후 변경사항을 상세화면에 반영하기 위한 메서드
+  const refreshClothDetail = () => {
+    fetchClothDetail({ cloth_id: cloth.cloth_id }).then((response) => {
+      configureClothDetail(response.data);
+    });
+  };
+
+  const configureClothDetail = (clothData) => {
+    setName(clothData.name);
+    setSeason(clothData.season);
+    setSize(clothData.size);
+    setBrand(clothData.brand);
+    setFileName(clothData.file_name);
+    setType(clothData.type);
+    setPlace(clothData.place);
+    setClothBody(clothData.cloth_body);
+    setFavorite(clothData.favorite);
+    setClothData(clothData);
   };
 
   const onDeleteButtonClick = () => {
@@ -97,9 +116,9 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
 
   useEffect(() => {
     // 다음 페이지로 넘어갔을 때 Modal의 내용이 변경되지 않는 것을 방지하기 위한 코드
-    resetDetailContents();
     fetchClothFolderList().then((response) => {
       setClassificationList(response.data);
+      configureClothDetail(cloth);
       setLoading(false);
     });
   }, [cloth]);
@@ -108,7 +127,7 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
     <DetailModalPresenter
       open={open}
       handleClose={handleClose}
-      cloth={cloth}
+      cloth={clothData}
       name={name}
       season={season}
       brand={brand}
@@ -132,6 +151,7 @@ const DetailModalContainer = ({ open, handleClose, cloth }) => {
       classificationList={classificationList}
       setClassificationList={setClassificationList}
       loading={loading}
+      refreshClothDetail={refreshClothDetail}
     />
   );
 };
