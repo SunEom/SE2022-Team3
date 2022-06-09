@@ -249,13 +249,7 @@ const DetailModalPresenter = ({
                         sx={{ right: 100 }}
                       >
                         {classificationList.map((item) => (
-                          <ClassificationListitem
-                            cloth={cloth}
-                            onClose={handleMenuClose}
-                            onClick={handleMenuClose}
-                            classification={item}
-                            setClassificationList={setClassificationList}
-                          />
+                          <ClassificationListitem cloth={cloth} closeHandler={handleMenuClose} classification={item} />
                         ))}
                         <Divider />
 
