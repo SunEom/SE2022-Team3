@@ -61,6 +61,7 @@ const ImageContainer = styled.div`
 `;
 
 const ClothImage = styled.img`
+  max-width: 100%;
   max-height: 300px;
 `;
 
