@@ -12,6 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ClothForm from "../../../../Components/ClothForm";
 import ClassificationListitem from "../ClassificationListItem";
 import DefaultImage from "../../../../../images/DefaultImage.png";
+import { dateFormatting } from "../../../../../util";
 
 const StyledBox = styled(Box)`
   font-family: "Noto Sans KR", sans-serif;
@@ -33,7 +34,7 @@ const StyledBox = styled(Box)`
 // Detail Screen
 
 const SeasonBadgeContainer = styled.div`
-  position: absolute;
+  // position: absolute;
   display: flex;
   gap: 5px;
 `;
@@ -49,7 +50,7 @@ const SeasonBadge = styled.div`
 `;
 
 const RightTopButtonContainer = styled.div`
-  position: absolute;
+  // position: absolute;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -62,7 +63,7 @@ const ImageContainer = styled.div`
 
 const ClothImage = styled.img`
   max-width: 100%;
-  max-height: 300px;
+  max-height: 280px;
 `;
 
 const ClothTopStack = styled.div`
@@ -174,6 +175,7 @@ const DetailModalPresenter = ({
   setClassificationList,
   cloth,
   loading,
+  refreshClothDetail,
 }) => {
   return (
     <>
@@ -191,85 +193,89 @@ const DetailModalPresenter = ({
             <StyledBox>
               {mode === "detail" && (
                 <>
-                  <SeasonBadgeContainer>
-                    {season.includes("봄") && (
-                      <SeasonBadge style={{ borderColor: "green" }}>
-                        <FontAwesomeIcon icon={faEnvira} color="green" size="lg" />
-                      </SeasonBadge>
-                    )}
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 10, paddingBottom: 10 }}
+                  >
+                    <SeasonBadgeContainer>
+                      {season.includes("봄") && (
+                        <SeasonBadge style={{ borderColor: "green" }}>
+                          <FontAwesomeIcon icon={faEnvira} color="green" size="lg" />
+                        </SeasonBadge>
+                      )}
 
-                    {season.includes("여름") && (
-                      <SeasonBadge style={{ borderColor: "red" }}>
-                        <FontAwesomeIcon icon={faSun} color="red" />
-                      </SeasonBadge>
-                    )}
+                      {season.includes("여름") && (
+                        <SeasonBadge style={{ borderColor: "red" }}>
+                          <FontAwesomeIcon icon={faSun} color="red" />
+                        </SeasonBadge>
+                      )}
 
-                    {season.includes("가을") && (
-                      <SeasonBadge style={{ borderColor: "brown" }}>
-                        <FontAwesomeIcon icon={faCanadianMapleLeaf} color="brown" size="lg" />
-                      </SeasonBadge>
-                    )}
+                      {season.includes("가을") && (
+                        <SeasonBadge style={{ borderColor: "brown" }}>
+                          <FontAwesomeIcon icon={faCanadianMapleLeaf} color="brown" size="lg" />
+                        </SeasonBadge>
+                      )}
 
-                    {season.includes("겨울") && (
-                      <SeasonBadge style={{ borderColor: "gray" }}>
-                        <FontAwesomeIcon icon={faSnowflake} color="gray" size="lg" />
-                      </SeasonBadge>
-                    )}
-                  </SeasonBadgeContainer>
+                      {season.includes("겨울") && (
+                        <SeasonBadge style={{ borderColor: "gray" }}>
+                          <FontAwesomeIcon icon={faSnowflake} color="gray" size="lg" />
+                        </SeasonBadge>
+                      )}
+                    </SeasonBadgeContainer>
 
-                  <RightTopButtonContainer>
-                    <LikeButton aria-label="like" style={{ color: favorite ? "red" : "black" }} size="small" onClick={onLikeButtonClick}>
-                      <FavoriteIcon />
-                    </LikeButton>
-                    <ClassificationButton
-                      id="classification-button"
-                      aria-controls={openMenu ? "basic-menu" : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={openMenu ? "true" : undefined}
-                      onClick={handleClick}
-                      aria-label="classification"
-                      size="small"
-                    >
-                      <CreateNewFolderIcon />
-                    </ClassificationButton>
-                    <Menu
-                      id="basic-menu"
-                      disableAutoFocusItem={true}
-                      anchorEl={anchorEl}
-                      open={openMenu}
-                      onClose={handleMenuClose}
-                      MenuListProps={{
-                        "aria-labelledby": "classification-button",
-                      }}
-                      sx={{ right: 100 }}
-                    >
-                      {classificationList.map((item) => (
-                        <ClassificationListitem
-                          cloth={cloth}
-                          onClose={handleMenuClose}
-                          onClick={handleMenuClose}
-                          classification={item}
-                          setClassificationList={setClassificationList}
-                        />
-                      ))}
-                      <Divider />
+                    <RightTopButtonContainer>
+                      <LikeButton aria-label="like" style={{ color: favorite ? "red" : "black" }} size="small" onClick={onLikeButtonClick}>
+                        <FavoriteIcon />
+                      </LikeButton>
+                      <ClassificationButton
+                        id="classification-button"
+                        aria-controls={openMenu ? "basic-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={openMenu ? "true" : undefined}
+                        onClick={handleClick}
+                        aria-label="classification"
+                        size="small"
+                      >
+                        <CreateNewFolderIcon />
+                      </ClassificationButton>
+                      <Menu
+                        id="basic-menu"
+                        disableAutoFocusItem={true}
+                        anchorEl={anchorEl}
+                        open={openMenu}
+                        onClose={handleMenuClose}
+                        MenuListProps={{
+                          "aria-labelledby": "classification-button",
+                        }}
+                        sx={{ right: 100 }}
+                      >
+                        {classificationList.map((item) => (
+                          <ClassificationListitem
+                            cloth={cloth}
+                            onClose={handleMenuClose}
+                            onClick={handleMenuClose}
+                            classification={item}
+                            setClassificationList={setClassificationList}
+                          />
+                        ))}
+                        <Divider />
 
-                      <ClassificationMenuContainer>
-                        <TextField
-                          onKeyDown={(e) => e.stopPropagation()}
-                          size="small"
-                          sx={{ width: 200 }}
-                          label="새로운 분류 이름"
-                          value={newClassification}
-                          onChange={onNewClassificationInputChange}
-                          inputProps={{ maxLength: 10 }}
-                        />
-                        <Button variant="outlined" onClick={onClassificationAddButtonClick}>
-                          추가
-                        </Button>
-                      </ClassificationMenuContainer>
-                    </Menu>
-                  </RightTopButtonContainer>
+                        <ClassificationMenuContainer>
+                          <TextField
+                            onKeyDown={(e) => e.stopPropagation()}
+                            size="small"
+                            sx={{ width: 200 }}
+                            label="새로운 분류 이름"
+                            value={newClassification}
+                            onChange={onNewClassificationInputChange}
+                            inputProps={{ maxLength: 10 }}
+                          />
+                          <Button variant="outlined" onClick={onClassificationAddButtonClick}>
+                            추가
+                          </Button>
+                        </ClassificationMenuContainer>
+                      </Menu>
+                    </RightTopButtonContainer>
+                  </div>
 
                   <ImageContainer>
                     <ClothImage src={fileName ? `${process.env.REACT_APP_SERVER_URL}/img/${fileName}` : DefaultImage} />
@@ -293,7 +299,9 @@ const DetailModalPresenter = ({
                     <ClothDescriptionBody>{clothBody}</ClothDescriptionBody>
                   </ClothDescription>
                   <ClothDateContainer>
-                    {cloth.created_date === cloth.updated_date ? cloth.created_date : `${cloth.updated_date} (수정됨)`}
+                    {cloth.created_date === cloth.updated_date
+                      ? dateFormatting(cloth.created_date)
+                      : `${dateFormatting(cloth.updated_date)} (수정됨)`}
                   </ClothDateContainer>
 
                   <BottomButtonContainer>
@@ -308,7 +316,13 @@ const DetailModalPresenter = ({
               )}
 
               {mode === "edit" && (
-                <ClothForm cloth={cloth} onModeToggleButtonClick={onModeToggleButtonClick} open={open} handleClose={handleClose} />
+                <ClothForm
+                  cloth={cloth}
+                  onModeToggleButtonClick={onModeToggleButtonClick}
+                  open={open}
+                  handleClose={handleClose}
+                  refreshClothDetail={refreshClothDetail}
+                />
               )}
             </StyledBox>
           </Fade>
