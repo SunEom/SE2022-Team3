@@ -20,6 +20,7 @@ const DetailModalContainer = ({ open, handleClose, cloth, configurePresentData }
   const [place, setPlace] = useState(cloth.place);
   const [clothBody, setClothBody] = useState(cloth.cloth_body);
   const [favorite, setFavorite] = useState(cloth.favorite);
+  const [clothData, setClothData] = useState(cloth);
 
   const [classificationList, setClassificationList] = useState();
   const [newClassification, setNewClassification] = useState("");
@@ -98,6 +99,7 @@ const DetailModalContainer = ({ open, handleClose, cloth, configurePresentData }
     setPlace(clothData.place);
     setClothBody(clothData.cloth_body);
     setFavorite(clothData.favorite);
+    setClothData(clothData);
   };
 
   const onDeleteButtonClick = () => {
@@ -125,7 +127,7 @@ const DetailModalContainer = ({ open, handleClose, cloth, configurePresentData }
     <DetailModalPresenter
       open={open}
       handleClose={handleClose}
-      cloth={cloth}
+      cloth={clothData}
       name={name}
       season={season}
       brand={brand}
