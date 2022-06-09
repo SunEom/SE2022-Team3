@@ -13,3 +13,8 @@ export const accessControl = (allowFor) => {
 export const dateFormatting = (date) => {
   return new Date(+new Date(date) + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, "");
 };
+
+//내가 작성한 것인지 알려주는 함수
+export const isMine = (id) => {
+  return id === getUserState().id;
+};

@@ -7,7 +7,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import EditIcon from "@mui/icons-material/Edit";
 import CommentsList from "./Component/CommentsList";
 import EditPosting from "../Posting";
-import { dateFormatting } from "../../../util";
+import { dateFormatting, isMine } from "../../../util";
 
 const PostDetailBox = styled.div`
   min-width: 1000px;
@@ -158,24 +158,26 @@ const PostDetailPresenter = ({
                           </Button>
                         </LikeIconArea>
                       </PostIconArea>
-                      <EditDeletebtns>
-                        <PostEditBtn>
-                          <Button
-                            variant="outlined"
-                            startIcon={<EditIcon />}
-                            size="small"
-                            color="primary"
-                            onClick={onModeToggleButtonClick}
-                          >
-                            수정
-                          </Button>
-                        </PostEditBtn>
-                        <PostDeleteBtn>
-                          <Button variant="outlined" startIcon={<DeleteIcon />} size="small" color="error" onClick={onDeleteButtonClick}>
-                            삭제
-                          </Button>
-                        </PostDeleteBtn>
-                      </EditDeletebtns>
+                      {isMine(id) && (
+                        <EditDeletebtns>
+                          <PostEditBtn>
+                            <Button
+                              variant="outlined"
+                              startIcon={<EditIcon />}
+                              size="small"
+                              color="primary"
+                              onClick={onModeToggleButtonClick}
+                            >
+                              수정
+                            </Button>
+                          </PostEditBtn>
+                          <PostDeleteBtn>
+                            <Button variant="outlined" startIcon={<DeleteIcon />} size="small" color="error" onClick={onDeleteButtonClick}>
+                              삭제
+                            </Button>
+                          </PostDeleteBtn>
+                        </EditDeletebtns>
+                      )}
                     </ButtonContainer>
 
                     <CommentsList />
