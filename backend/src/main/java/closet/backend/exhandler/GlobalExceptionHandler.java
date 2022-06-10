@@ -32,42 +32,42 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {UserException.class})
-    protected ResponseEntity handleUserExceptionException(UserException e){
+    protected ResponseEntity handleUserException(UserException e){
         Map<String, String> result = new HashMap<String, String>();
         result.put("message",e.getMessage());
         return ResponseEntity.status(e.getCode()).body(result);
     }
 
     @ExceptionHandler(value = {PostException.class})
-    protected ResponseEntity handlePostExceptionException(PostException e){
+    protected ResponseEntity handlePostException(PostException e){
         Map<String, String> result = new HashMap<String, String>();
         result.put("message",e.getMessage());
         return ResponseEntity.status(e.getCode()).body(result);
     }
 
     @ExceptionHandler(value = {LoginException.class})
-    protected ResponseEntity handleLoginExceptionException(LoginException e){
+    protected ResponseEntity handleLoginException(LoginException e){
         Map<String, String> result = new HashMap<String, String>();
         result.put("message",e.getMessage());
         return ResponseEntity.status(e.getCode()).body(result);
     }
 
     @ExceptionHandler(value = {CommentException.class})
-    protected ResponseEntity handleCommentExceptionException(CommentException e){
+    protected ResponseEntity handleCommentException(CommentException e){
         Map<String, String> result = new HashMap<String, String>();
         result.put("message",e.getMessage());
         return ResponseEntity.status(e.getCode()).body(result);
     }
 
     @ExceptionHandler(value = {ClothException.class})
-    protected ResponseEntity handleClothExceptionException(ClothException e){
+    protected ResponseEntity handleClothException(ClothException e){
         Map<String, String> result = new HashMap<String, String>();
         result.put("message",e.getMessage());
         return ResponseEntity.status(e.getCode()).body(result);
     }
 
     @ExceptionHandler(value = {SQLIntegrityConstraintViolationException.class})
-    protected ResponseEntity handleFolderExceptionException(SQLIntegrityConstraintViolationException e){
+    protected ResponseEntity handleFolderException(SQLIntegrityConstraintViolationException e){
         Map<String, String> result = new HashMap<String, String>();
         String message = "";
         if(e.getErrorCode() == 1062){

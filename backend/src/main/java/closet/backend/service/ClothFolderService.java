@@ -22,7 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ClothFolderService {
     private final AuthUtil authUtil;
-    private final ClothDao clothdao;
     private final ClothFolderDao clothFolderDao;
     private final ClothFolderDetailDao clothFolderDetailDao;
 

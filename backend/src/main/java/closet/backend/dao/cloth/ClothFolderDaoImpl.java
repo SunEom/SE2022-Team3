@@ -36,7 +36,7 @@ public class ClothFolderDaoImpl implements ClothFolderDao{
     public ClothFolderDto update(UpdateFolderDto updateFolderDto) {
         int id = updateFolderDto.getId();
         int folder_id = updateFolderDto.getFolder_id();
-        String folder_name = updateFolderDto.getFolderName();
+        String folder_name = updateFolderDto.getFolder_name();
         jdbcTemplate.execute("UPDATE cloth_folder SET folder_name = '"+folder_name+"' WHERE folder_id = "+folder_id);
         ClothFolderDto result = jdbcTemplate.queryForObject("SELECT * FROM cloth_folder WHERE folder_id = "+folder_id,folderRowMapper);
         return result;

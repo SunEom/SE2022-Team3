@@ -27,17 +27,4 @@ public class  AuthUtil {
         }
         return id;
     }
-
-    public boolean isUser(String token) throws FirebaseAuthException{
-        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
-        String uid = decodedToken.getUid();
-        int id = -1;
-        try{
-            id = jdbcTemplate.queryForObject("select id from user where uid = '"+uid+"'",Integer.class);
-            return true;
-        }
-        catch (IncorrectResultSizeDataAccessException e){
-            return false;
-        }
-    }
 }

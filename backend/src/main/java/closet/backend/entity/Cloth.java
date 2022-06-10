@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Builder
 @Getter
-public class Cloth {
+public class Cloth extends BaseEntity{
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -21,6 +21,7 @@ public class Cloth {
 
     private String name;
     private String season;
+    private String category;
     private String brand;
     private String place;
     private String size;
