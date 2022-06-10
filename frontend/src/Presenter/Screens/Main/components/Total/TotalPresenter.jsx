@@ -1,11 +1,11 @@
 import React from "react";
 import ClothItem from "../ClothItem";
 
-const TotalPresenter = ({ clothList }) => {
+const TotalPresenter = ({ clothList, refreshClothList }) => {
   return (
     <>
       {clothList.map((cloth, index) => (
-        <ClothItem cloth={cloth} key={index} />
+        <ClothItem cloth={cloth} key={index} refreshClothList={refreshClothList} />
       ))}
     </>
   );
