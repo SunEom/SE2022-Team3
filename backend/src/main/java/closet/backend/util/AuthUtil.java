@@ -16,7 +16,7 @@ public class  AuthUtil {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public int getUserid(String token) throws FirebaseAuthException{
+    public int getUserId(String token) throws FirebaseAuthException{
         FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
         String uid = decodedToken.getUid();
         int id = -1;

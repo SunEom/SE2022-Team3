@@ -28,14 +28,14 @@ public class CommentService {
     private final CommentDao commentDao;
 
     public List<CommentDto> createComment(CreateCommentReq createCommentReq) throws FirebaseAuthException {
-        int id = authUtil.getUserid(createCommentReq.getIdToken());
+        int id = authUtil.getUserId(createCommentReq.getIdToken());
         CreateCommentDto createCommentDto = new CreateCommentDto(id, createCommentReq.getComment_body(), createCommentReq.getPost_id());
         List<CommentDto> result =commentDao.save(createCommentDto);
         return result;
     }
 
     public List<CommentDto> updateComment(UpdateCommentReq updateCommentReq) throws FirebaseAuthException{
-        int id = authUtil.getUserid(updateCommentReq.getIdToken());
+        int id = authUtil.getUserId(updateCommentReq.getIdToken());
         UpdateCommentDto updateCommentDto = new UpdateCommentDto(id, updateCommentReq.getComment_id(), updateCommentReq.getComment_body(), updateCommentReq.getPost_id());
         if(id == commentDao.findWriterId(updateCommentReq.getComment_id())){
             List<CommentDto> result = commentDao.update(updateCommentDto);
@@ -46,7 +46,7 @@ public class CommentService {
     }
 
     public List<CommentDto> deleteComment(DeleteCommentReq deleteCommentReq) throws FirebaseAuthException{
-        int id = authUtil.getUserid(deleteCommentReq.getIdToken());
+        int id = authUtil.getUserId(deleteCommentReq.getIdToken());
         if(id == commentDao.findWriterId(deleteCommentReq.getComment_id())){
             List<CommentDto> result = commentDao.delete(deleteCommentReq.getComment_id(),deleteCommentReq.getPost_id());
             return result;

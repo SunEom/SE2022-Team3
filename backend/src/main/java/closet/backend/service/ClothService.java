@@ -32,7 +32,7 @@ public class ClothService {
     private final FileUtil fileUtil;
 
     public ClothDto createCloth(CreateClothReq createClothReq, Optional<MultipartFile> img) throws FirebaseAuthException, IOException {
-        int id = authUtil.getUserid(createClothReq.getIdToken());
+        int id = authUtil.getUserId(createClothReq.getIdToken());
         String file_name;
         if(img.isPresent()){
             file_name = fileUtil.uploadFile(img.get());
@@ -46,7 +46,7 @@ public class ClothService {
     }
 
     public ClothDto updateCloth(UpdateClothReq updateClothReq, Optional<MultipartFile> img) throws FirebaseAuthException,IOException{
-        int id = authUtil.getUserid(updateClothReq.getIdToken());
+        int id = authUtil.getUserId(updateClothReq.getIdToken());
         String file_name;
         if(id == clothDao.findWriterId(updateClothReq.getCloth_id())){
             if(img.isPresent()){
@@ -64,7 +64,7 @@ public class ClothService {
     }
 
     public String deleteCloth(DeleteClothReq deleteClothReq) throws FirebaseAuthException{
-        int id = authUtil.getUserid(deleteClothReq.getIdToken());
+        int id = authUtil.getUserId(deleteClothReq.getIdToken());
         if( id == clothDao.findWriterId(deleteClothReq.getCloth_id())) {
             String result = clothDao.delete(deleteClothReq.getCloth_id());
             return result;
@@ -74,13 +74,13 @@ public class ClothService {
     }
 
     public List<ClothDto> getCloth(String idToken) throws FirebaseAuthException {
-        int id = authUtil.getUserid(idToken);
+        int id = authUtil.getUserId(idToken);
         List<ClothDto> result = clothDao.findById(id);
         return result;
     }
 
     public ClothDto changeFavorite(ChangeFavoriteReq changeFavoriteReq) throws FirebaseAuthException{
-        int id = authUtil.getUserid(changeFavoriteReq.getIdToken());
+        int id = authUtil.getUserId(changeFavoriteReq.getIdToken());
         ChangeFavoriteDto changeFavoriteDto = new ChangeFavoriteDto(id, changeFavoriteReq.getCloth_id(), changeFavoriteReq.getFavorite());
         ClothDto result;
         if(changeFavoriteDto.getFavorite() == 1){
@@ -97,19 +97,19 @@ public class ClothService {
     }
 
     public List<ClothDto> getClothBySeason(GetClothBySeasonReq getClothBySeasonReq) throws FirebaseAuthException{
-        int id = authUtil.getUserid(getClothBySeasonReq.getIdToken());
+        int id = authUtil.getUserId(getClothBySeasonReq.getIdToken());
         List<ClothDto> result = clothDao.findBySeason(id, getClothBySeasonReq.getSeason());
         return result;
     }
 
     public List<ClothDto> getClothByCategory(GetClothByCategoryReq getClothByCategoryReq) throws FirebaseAuthException{
-        int id = authUtil.getUserid(getClothByCategoryReq.getIdToken());
+        int id = authUtil.getUserId(getClothByCategoryReq.getIdToken());
         List<ClothDto> result = clothDao.findByCategory(id, getClothByCategoryReq.getCategory());
         return result;
     }
 
     public List<ClothDto> getFavoriteCloth(String idToken) throws FirebaseAuthException{
-        int id = authUtil.getUserid(idToken);
+        int id = authUtil.getUserId(idToken);
         List<ClothDto> result = clothDao.findByFavorite(id);
         return result;
     }

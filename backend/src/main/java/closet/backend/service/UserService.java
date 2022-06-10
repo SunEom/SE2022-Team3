@@ -33,13 +33,13 @@ public class UserService {
     }
 
     public String deleteUser(String idToken) throws FirebaseAuthException{
-        int id = authUtil.getUserid(idToken);
+        int id = authUtil.getUserId(idToken);
         String result = userdao.deleteUser(id);
         return result;
     }
 
     public UserDto updateUser(UserUpdateReq userUpdateReq) throws FirebaseAuthException{
-        int id = authUtil.getUserid(userUpdateReq.getIdToken());
+        int id = authUtil.getUserId(userUpdateReq.getIdToken());
         UserUpdateDto userUpdateDto = new UserUpdateDto(id,userUpdateReq.getNickname(),userUpdateReq.getAge(), userUpdateReq.getGender());
         UserDto userDto = userdao.update(userUpdateDto);
         return userDto;
@@ -56,7 +56,7 @@ public class UserService {
     }
 
     public UserDto getUserInfo(String idToken) throws FirebaseAuthException {
-        int id = authUtil.getUserid(idToken);
+        int id = authUtil.getUserId(idToken);
         UserDto userDto = userdao.findById(id);
         return userDto;
     }

@@ -35,7 +35,7 @@ public class PostService {
     private final FileUtil fileUtil;
 
     public PostDto createPost(CreatePostReq createPostReq, Optional<MultipartFile> img) throws FirebaseAuthException, IOException {
-        int id = authUtil.getUserid(createPostReq.getIdToken());
+        int id = authUtil.getUserId(createPostReq.getIdToken());
         String file_name;
         if(img.isPresent()){
             file_name = fileUtil.uploadFile(img.get());
@@ -48,7 +48,7 @@ public class PostService {
     }
 
     public String deletePost(DeletePostReq deletePostReq) throws FirebaseAuthException{
-        int id = authUtil.getUserid(deletePostReq.getIdToken());
+        int id = authUtil.getUserId(deletePostReq.getIdToken());
         if(id == postDao.findWriterId(deletePostReq.getPost_id())){
             String result = postDao.delete(deletePostReq.getPost_id());
             return result;
@@ -58,7 +58,7 @@ public class PostService {
     }
 
     public PostDto updatePost(UpdatePostReq updatePostReq, Optional<MultipartFile> img) throws FirebaseAuthException, IOException {
-        int id = authUtil.getUserid(updatePostReq.getIdToken());
+        int id = authUtil.getUserId(updatePostReq.getIdToken());
         String file_name;
         if( id == postDao.findWriterId(updatePostReq.getPost_id())){
             if(img.isPresent()){
@@ -75,7 +75,7 @@ public class PostService {
     }
 
     public PostDetailDto getPostDetail(int post_id, String idToken) throws FirebaseAuthException{
-        int id = authUtil.getUserid(idToken);
+        int id = authUtil.getUserId(idToken);
         PostDetailDto result = postDao.findByPostId(post_id, id);
         return result;
     }
@@ -91,7 +91,7 @@ public class PostService {
     }
 
     public PostDetailDto changeFavorite(ChangePostFavoriteReq changePostFavoriteReq) throws FirebaseAuthException{
-        int id = authUtil.getUserid(changePostFavoriteReq.getIdToken());
+        int id = authUtil.getUserId(changePostFavoriteReq.getIdToken());
         ChangePostFavoriteDto changePostFavoriteDto = new ChangePostFavoriteDto(id, changePostFavoriteReq.getPost_id(), changePostFavoriteReq.getFavorite());
         PostDetailDto result;
         if(changePostFavoriteDto.getFavorite() == 1){
