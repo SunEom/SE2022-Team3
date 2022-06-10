@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -55,7 +54,7 @@ public class ClothRecommendService {
     }
 
     public CategoryCountDto recommendByCategory(String idToken) throws FirebaseAuthException {
-        int id = authUtil.getUserid(idToken);
+        int id = authUtil.getUserId(idToken);
         List<CategoryCountDto> data = clothDao.countByCategory(id);
         try {
             CategoryCountDto result = data.get(0);

@@ -22,13 +22,13 @@ public class MyPageService {
     private final AuthUtil authUtil;
 
     public List<PostDtoWithCommentCount> getPosts(String idToken) throws FirebaseAuthException {
-        int id = authUtil.getUserid(idToken);
+        int id = authUtil.getUserId(idToken);
         List<PostDtoWithCommentCount> result = postDao.findById(id);
         return result;
     }
 
     public List<PostDtoWithCommentCount> getFavoritePost(String idToken) throws FirebaseAuthException {
-        int id = authUtil.getUserid(idToken);
+        int id = authUtil.getUserId(idToken);
         List<PostDtoWithCommentCount> result = postDao.findFavoritePost(id);
         return result;
     }

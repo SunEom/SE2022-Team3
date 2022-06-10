@@ -6,7 +6,6 @@ import closet.backend.dto.cloth.CreateFolderDto;
 import closet.backend.dto.cloth.UpdateFolderDto;
 import closet.backend.req.cloth.*;
 import closet.backend.util.AuthUtil;
-import closet.backend.dao.cloth.ClothDao;
 import closet.backend.dao.cloth.ClothFolderDao;
 import closet.backend.dao.cloth.ClothFolderDetailDao;
 import com.google.firebase.auth.FirebaseAuthException;
@@ -27,27 +26,27 @@ public class ClothFolderService {
 
 
     public ClothFolderDto createFolder(CreateFolderReq createFolderReq) throws FirebaseAuthException {
-        int id = authUtil.getUserid(createFolderReq.getIdToken());
+        int id = authUtil.getUserId(createFolderReq.getIdToken());
         CreateFolderDto createFolderDto = new CreateFolderDto(id,createFolderReq.getFolder_name());
         ClothFolderDto result = clothFolderDao.save(createFolderDto);
         return result;
     }
 
     public ClothFolderDto updateFolder(UpdateFolderReq updateFolderReq) throws FirebaseAuthException{
-        int id = authUtil.getUserid(updateFolderReq.getIdToken());
+        int id = authUtil.getUserId(updateFolderReq.getIdToken());
         UpdateFolderDto updateFolderDto = new UpdateFolderDto(id, updateFolderReq.getFolder_id(), updateFolderReq.getFolder_name());
         ClothFolderDto result = clothFolderDao.update(updateFolderDto);
         return result;
     }
 
     public String deleteFolder(DeleteFolderReq deleteFolderReq) throws FirebaseAuthException{
-        int id = authUtil.getUserid(deleteFolderReq.getIdToken());
+        int id = authUtil.getUserId(deleteFolderReq.getIdToken());
         String result = clothFolderDao.delete(deleteFolderReq.getFolder_id());
         return result;
     }
 
     public List<ClothFolderDto> getFolder(String idToken) throws FirebaseAuthException{
-        int id = authUtil.getUserid(idToken);
+        int id = authUtil.getUserId(idToken);
         List<ClothFolderDto> result = clothFolderDao.getFolder(id);
         return result;
     }
