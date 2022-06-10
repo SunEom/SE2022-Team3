@@ -13,5 +13,5 @@ public class UpdateFolderDto {
 
 	private int id;
 	private int folder_id;
-	private String folderName;
+	private String folder_name;
 }
