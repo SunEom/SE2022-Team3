@@ -5,8 +5,7 @@ import SeasonPresenter from "./SeasonPresenter";
 const SeasonContainer = ({ secondFilter, page, setMaxPage }) => {
   const [seasonClothList, setSeasonClothList] = useState([]);
   const [nowPageList, setNowPageList] = useState([]);
-
-  useEffect(() => {
+  const refreshClothList = () => {
     fetchSeasonList({ season: secondFilter }).then((response) => {
       setSeasonClothList(response.data);
       setNowPageList(response.data.slice((page - 1) * 10, page * 10));
@@ -14,9 +13,12 @@ const SeasonContainer = ({ secondFilter, page, setMaxPage }) => {
       // 마지막 페이지 번호 설정
       setMaxPage(Math.ceil(response.data.length / 10));
     });
+  };
+  useEffect(() => {
+    refreshClothList();
   }, [page, secondFilter]);
 
-  return <SeasonPresenter clothList={nowPageList} />;
+  return <SeasonPresenter clothList={nowPageList} refreshClothList={refreshClothList} />;
 };
 
 export default SeasonContainer;

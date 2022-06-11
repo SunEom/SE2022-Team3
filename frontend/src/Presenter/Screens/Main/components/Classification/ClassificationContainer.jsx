@@ -6,7 +6,7 @@ const ClassficationContainer = ({ secondFilter, page, setMaxPage }) => {
   const [classficationClothList, setClassficationClothList] = useState([]);
   const [nowPageList, setNowPageList] = useState([]);
 
-  useEffect(() => {
+  const refreshClothList = () => {
     fetchSomeClassificationList({ folder_id: secondFilter }).then((response) => {
       setClassficationClothList(response.data);
       setNowPageList(response.data.slice((page - 1) * 10, page * 10));
@@ -14,8 +14,12 @@ const ClassficationContainer = ({ secondFilter, page, setMaxPage }) => {
       // 마지막 페이지 번호 설정
       setMaxPage(Math.ceil(response.data.length / 10));
     });
+  };
+
+  useEffect(() => {
+    refreshClothList();
   }, [page, secondFilter]);
-  return <ClassficationPresenter clothList={nowPageList} />;
+  return <ClassficationPresenter clothList={nowPageList} refreshClothList={refreshClothList} />;
 };
 
 export default ClassficationContainer;

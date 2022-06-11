@@ -8,7 +8,7 @@ import {
 } from "../../../../../httpRequest";
 import DetailModalPresenter from "./DetailModalPresenter";
 
-const DetailModalContainer = ({ open, handleClose, cloth, configurePresentData }) => {
+const DetailModalContainer = ({ open, handleClose, cloth, configurePresentData, refreshClothList }) => {
   const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState("detail");
   const [name, setName] = useState(cloth.name);
@@ -28,6 +28,7 @@ const DetailModalContainer = ({ open, handleClose, cloth, configurePresentData }
   //분류 버튼을 위한 Property
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openMenu = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
     fetchClothFolderList().then((response) => {
@@ -35,6 +36,7 @@ const DetailModalContainer = ({ open, handleClose, cloth, configurePresentData }
       setLoading(false);
     });
   };
+
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
@@ -87,6 +89,7 @@ const DetailModalContainer = ({ open, handleClose, cloth, configurePresentData }
     fetchClothDetail({ cloth_id: cloth.cloth_id }).then((response) => {
       configureClothDetail(response.data);
     });
+    refreshClothList();
   };
 
   const configureClothDetail = (clothData) => {

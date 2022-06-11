@@ -1,7 +1,7 @@
 import React from "react";
 import DetailButtonPresenter from "./DetailButtonPresenter";
 
-const DetailButtonContainer = ({ cloth, configurePresentData }) => {
+const DetailButtonContainer = ({ cloth, configurePresentData, refreshClothList }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -13,6 +13,7 @@ const DetailButtonContainer = ({ cloth, configurePresentData }) => {
       handleClose={handleClose}
       cloth={cloth}
       configurePresentData={configurePresentData}
+      refreshClothList={refreshClothList}
     />
   );
 };

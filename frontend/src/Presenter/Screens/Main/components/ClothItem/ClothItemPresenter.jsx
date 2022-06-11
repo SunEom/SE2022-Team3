@@ -39,7 +39,7 @@ const DetailButtonDiv = styled.div`
   justify-content: space-between;
 `;
 
-const ClothItemPresenter = ({ cloth, presentedData, configurePresentData }) => {
+const ClothItemPresenter = ({ cloth, presentedData, configurePresentData, refreshClothList }) => {
   const { name, brand, fileName, favorite } = presentedData;
 
   return (
@@ -56,7 +56,7 @@ const ClothItemPresenter = ({ cloth, presentedData, configurePresentData }) => {
           <Brand>{brand}</Brand>
           <DetailButtonDiv>
             {favorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
-            <DetailButton cloth={cloth} configurePresentData={configurePresentData} />
+            <DetailButton cloth={cloth} configurePresentData={configurePresentData} refreshClothList={refreshClothList} />
           </DetailButtonDiv>
         </InfoContainer>
       </Box>

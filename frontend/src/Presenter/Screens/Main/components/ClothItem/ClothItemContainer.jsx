@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ClothItemPresenter from "./ClothItemPresenter";
 
-const ClothItemContainer = ({ cloth }) => {
+const ClothItemContainer = ({ cloth, refreshClothList }) => {
   const [name, setName] = useState(cloth.name);
   const [brand, setBrand] = useState(cloth.brand);
   const [fileName, setFileName] = useState(cloth.file_name);
@@ -19,7 +19,14 @@ const ClothItemContainer = ({ cloth }) => {
     configurePresentData(cloth);
   }, [cloth]);
 
-  return <ClothItemPresenter cloth={cloth} presentedData={clothProps} configurePresentData={configurePresentData} />;
+  return (
+    <ClothItemPresenter
+      cloth={cloth}
+      presentedData={clothProps}
+      configurePresentData={configurePresentData}
+      refreshClothList={refreshClothList}
+    />
+  );
 };
 
 export default ClothItemContainer;

@@ -2,7 +2,7 @@ import { getIdToken, removeIdToken } from "./localStorageAccess";
 import axios from "axios";
 import { logoutDispatch } from "./reduxAccess";
 
-const axiosPostRequest = async (url, data = {}, headerOption = null) => {
+const axiosPostRequest = async (url, data = {}, headerOption = null, errorHandler = null) => {
   let idToken = getIdToken();
 
   return await axios.post(`${process.env.REACT_APP_SERVER_URL}${url}`, { ...data, idToken }, { headers: headerOption }).catch((err) => {
@@ -17,6 +17,8 @@ const axiosPostRequest = async (url, data = {}, headerOption = null) => {
       removeIdToken();
       window.location.replace("/login");
     }
+    errorHandler(err);
+    return err;
   });
 };
 
@@ -155,8 +157,8 @@ export const requestDeleteClothFolder = (folderData) => {
 };
 
 // 특정 분류 폴더에 의상 추가
-export const requestAddClothToFolder = (clothFolderData) => {
-  return axiosPostRequest("/cloth/folder/insert", clothFolderData);
+export const requestAddClothToFolder = (clothFolderData, errorHandler) => {
+  return axiosPostRequest("/cloth/folder/insert", clothFolderData, null, errorHandler).then((response) => response);
 };
 
 // 특정 의상 분류 폴더의 의상 조회

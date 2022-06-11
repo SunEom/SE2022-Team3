@@ -1,12 +1,19 @@
 import React from "react";
 import ClothItem from "../ClothItem";
+import NoClothAlert from "../NoClothAlert";
 
-const CategoryPresenter = ({ clothList }) => {
+const CategoryPresenter = ({ clothList, refreshClothList }) => {
   return (
     <>
-      {clothList.map((cloth, index) => (
-        <ClothItem cloth={cloth} key={index} />
-      ))}
+      {clothList.length === 0 ? (
+        <NoClothAlert />
+      ) : (
+        <>
+          {clothList.map((cloth, index) => (
+            <ClothItem cloth={cloth} key={index} refreshClothList={refreshClothList} />
+          ))}
+        </>
+      )}
     </>
   );
 };
