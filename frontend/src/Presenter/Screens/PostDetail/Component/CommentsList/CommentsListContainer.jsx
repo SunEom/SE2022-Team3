@@ -48,7 +48,8 @@ const CommentsListContainer = (comment) => {
 
   return (
     <CommentsListPresenter
-      commentList={nowCommentList}
+      commentList={commentList}
+      nowCommentList={nowCommentList}
       comment={comment}
       loading={loading}
       commentBody={commentBody}

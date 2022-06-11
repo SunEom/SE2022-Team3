@@ -40,6 +40,7 @@ const CommentNumCount = styled.div`
 
 const CommentsListPresenter = ({
   commentList,
+  nowCommentList,
   page,
   setMaxPage,
   maxPage,
@@ -61,10 +62,10 @@ const CommentsListPresenter = ({
 
               <CommentNumCount>{commentList.length}</CommentNumCount>
             </CommentIconArea>
-            {commentList.map((comment, index) => (
+            {nowCommentList.map((comment, index) => (
               <CommentItem comment={comment} key={index} refreshCommentList={refreshCommentList} />
             ))}
-            {!commentList.length === 0 && (
+            {maxPage !== 0 && (
               <PiginationArea>
                 <Pagination color="primary" page={page} count={maxPage} onChange={onPageChage} />
               </PiginationArea>
