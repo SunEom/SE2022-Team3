@@ -24,11 +24,17 @@ const JoinContainer = () => {
     e.preventDefault();
     switch (e.target.name) {
       case "nickname":
-        setNickname(e.target.value);
+        setNickname(`${e.target.value}`.trim());
         setIsNicknamePassed(false);
         break;
       case "age":
-        setAge(e.target.value);
+        if (+e.target.value > 100) {
+          setAge(100);
+        } else if (+e.target.value < 0) {
+          setAge(0);
+        } else {
+          setAge(+e.target.value);
+        }
         break;
       case "gender":
         setGender(e.target.value);
@@ -39,9 +45,10 @@ const JoinContainer = () => {
   };
 
   const onSubmitNicknameCheck = () => {
-    if (nickname === "") {
+    if (!nickname) {
       return window.alert("닉네임을 입력해주세요");
     }
+    console.log(nickname);
 
     requestCheckNickname({ nickname }).then((response) => {
       let isAlreadyUsed = response.data;
