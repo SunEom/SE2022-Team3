@@ -42,7 +42,7 @@ const DetailModalContainer = ({ open, handleClose, cloth, configurePresentData, 
   };
 
   const onClassificationAddButtonClick = () => {
-    if (newClassification === "") {
+    if (!newClassification.trim()) {
       return window.alert("분류명을 입력해주세요");
     }
 
@@ -52,7 +52,7 @@ const DetailModalContainer = ({ open, handleClose, cloth, configurePresentData, 
       }
     }
 
-    requestNewClothFolder({ folder_name: newClassification }).then((response) => {
+    requestNewClothFolder({ folder_name: newClassification.trim() }).then((response) => {
       setClassificationList((current) => [...current, response.data]);
     });
 

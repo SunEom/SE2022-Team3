@@ -16,7 +16,7 @@ const InfoEditContainer = () => {
     let id = e.target.id;
     var value = e.target.value;
     if (id === "nickname") {
-      setNickname(value);
+      setNickname(value.trim());
       setIsNickChecked(false);
     } else if (id === "age") {
       if (+value > 100) {
@@ -31,6 +31,10 @@ const InfoEditContainer = () => {
 
   // 닉네임 중복확인 버튼 클릭시 작동하는 함수
   const onNicknameCheckButtonClick = () => {
+    if (!nickname) {
+      return window.alert("닉네임을 입력해주세요");
+    }
+
     requestCheckNickname({ nickname }).then((response) => {
       let isAlreadyUsed = response.data;
 

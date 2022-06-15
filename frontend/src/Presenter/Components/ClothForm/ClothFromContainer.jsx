@@ -123,19 +123,19 @@ const ClothFormContainer = ({ cloth = null, onModeToggleButtonClick = null, open
   };
 
   const onSaveButtonClick = () => {
-    if (!name) {
+    if (!name.trim()) {
       return window.alert("제품명을 입력해주세요!");
     }
-    if (!category) {
+    if (!category.trim()) {
       return window.alert("카테고리를 선택해주세요!");
     }
-    if (!brand) {
+    if (!brand.trim()) {
       return window.alert("브랜드명을 입력해주세요!");
     }
-    if (!size) {
+    if (!size.trim()) {
       return window.alert("사이즈를 입력해주세요!");
     }
-    if (!place) {
+    if (!place.trim()) {
       return window.alert("보관위치를 입력해주세요!");
     }
     if (!season) {
