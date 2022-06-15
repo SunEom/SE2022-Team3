@@ -20,7 +20,10 @@ const ClassListItemContainer = ({ classification, idx, refreshClassList }) => {
   };
 
   const onSaveButtonClick = () => {
-    requestUpdateFolderName({ folder_id: classification.folder_id, folder_name: classificationName }).then((response) => {
+    if (!classificationName.trim()) {
+      return window.alert("분류명을 입력해주세요");
+    }
+    requestUpdateFolderName({ folder_id: classification.folder_id, folder_name: classificationName.trim() }).then((response) => {
       console.log(response.data);
       refreshClassList();
       onModeToggleButtonClick();
