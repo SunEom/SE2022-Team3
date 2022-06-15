@@ -31,6 +31,9 @@ const CommentItemContainer = ({ comment, refreshCommentList }) => {
   };
 
   const onEditButtonClick = () => {
+    if (!contents.trim()) {
+      return window.alert("댓글의 내용을 입력해주세요!");
+    }
     requestUpdateComment({ comment_id: comment.comment_id, comment_body: contents }).then((response) => {
       setMode("show");
       refreshCommentList();

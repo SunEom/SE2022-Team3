@@ -31,10 +31,10 @@ const CommentsListContainer = (comment) => {
   };
 
   const onNewCommentButtonClick = () => {
-    if (!commentBody) {
+    if (!commentBody.trim()) {
       return window.alert("댓글의 내용을 입력해주세요!");
     }
-    requestNewComment({ post_id: params.post_id, comment_body: commentBody }).then((response) => {
+    requestNewComment({ post_id: params.post_id, comment_body: commentBody.trim() }).then((response) => {
       setCommentList(response.data);
       setNowCommentList(response.data.slice((page - 1) * 5, page * 5));
       setMaxPage(Math.ceil(response.data.length / 5));
