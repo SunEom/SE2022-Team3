@@ -60,14 +60,14 @@ const PostingContainer = ({ post, onModeToggleButtonClick }) => {
   };
 
   const onSaveButtonClick = async () => {
-    if (!title) {
-      window.alert("제목을 입력해주세요");
+    if (!title.trim()) {
+      return window.alert("제목을 입력해주세요");
     }
-    if (!genre) {
-      window.alert("게시판을 선택해주세요");
+    if (!genre.trim()) {
+      return window.alert("게시판을 선택해주세요");
     }
-    if (!postBody) {
-      window.alert("내용을 입력해주세요");
+    if (!postBody.trim()) {
+      return window.alert("내용을 입력해주세요");
     }
 
     const formData = new FormData();
@@ -77,9 +77,9 @@ const PostingContainer = ({ post, onModeToggleButtonClick }) => {
       requestUpdatePosting(
         {
           post_id: post.post_id,
-          title,
+          title: title.trim(),
           genre,
-          post_body: postBody,
+          post_body: postBody.trim(),
         },
         imgfile
       ).then((response) => {
@@ -90,9 +90,9 @@ const PostingContainer = ({ post, onModeToggleButtonClick }) => {
     } else {
       requestNewPosting(
         {
-          title,
+          title: title.trim(),
           genre,
-          post_body: postBody,
+          post_body: postBody.tirm(),
         },
         imgfile
       ).then((response) => {
